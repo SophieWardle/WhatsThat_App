@@ -38,8 +38,8 @@ class SignUpScreen extends Component {
 
         //SEND TO SERVER
         let to_send = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
+            first_name: this.state.firstname,
+            last_name: this.state.lastname,
             email: this.state.email,
             password: this.state.password
         };
@@ -114,6 +114,13 @@ class SignUpScreen extends Component {
                     <TouchableOpacity onPress={this._onPressSignup}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>Signup</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.backBtn}>
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>Back</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
