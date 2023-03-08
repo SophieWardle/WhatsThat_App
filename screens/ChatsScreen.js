@@ -1,27 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, Text } from "react-native";
+import { ActivityIndicator, FlatList, View, TextInput, StyleSheet, Button } from "react-native";
 
 
 export default class ChatsScreen extends Component {
-    static navigationOptions = ({ navigation }) => {
-        console.log('called');
-        return {
-            title: 'Chats',
-            headerRight: (
-                <TouchableOpacity onPress={() => navigation.navigate('NewChat')}>
-                    <Text style={{ marginRight: 10 }}>New Chat</Text>
-                </TouchableOpacity>
-            ),
-        };
-    };
-
     constructor(props) {
         super(props);
 
         this.state = {
             isLoading: true,
-            chatData: []
+            messages: []
         };
     }
 
@@ -31,7 +19,8 @@ export default class ChatsScreen extends Component {
 
     async getData() {
         const token = await AsyncStorage.getItem('whatsthat_session_token');
-        return fetch("http://localhost:3333/api/1.0.0/chat", {
+        const url = 'http://localhost:3333/api/1.0.0/chat'
+        return fetch(url, {
             method: 'GET',
             headers: {
                 'X-Authorization': token
@@ -49,7 +38,6 @@ export default class ChatsScreen extends Component {
             });
     }
 
-
     render() {
         if (this.state.isLoading) {
             return (
@@ -59,10 +47,29 @@ export default class ChatsScreen extends Component {
             );
         } else {
             return (
-                <View>
-                    <Text>Reached Chats</Text>
-                </View>
+                <View style={styles.container}>
+                    <View style={styles.container}>
+                        <FlatList
+                            data={this.state.chatData.messages}
+                            renderItem={({ item }) =>
+                                <MessageItem message={item} />
+                            }
+                            keyExtractor={item => item.message_id.toString()}
+                            contentContainerStyle={styles.messagesList}
+                        />
+                        <View style={styles.userInput}>
+                            <TextInput style={styles.sendMessage} placeholder={'Type your message...'}></TextInput>
+                            <Button
+                                title="SEND"
+                            />
+                        </View>
+                    </View >
+                </View >
             );
         }
     }
 }
+
+const styles = StyleSheet.create({
+
+})

@@ -24,18 +24,17 @@ export default class ContactsScreen extends Component {
                 'X-Authorization': token
             }
         })
-        .then((response) => response.json())
-        .then((responseJson) => {
-            this.setState({
-                isLoading: false,
-                contactData: responseJson
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    contactData: responseJson
+                })
             })
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+            .catch((error) => {
+                console.log(error);
+            });
     }
-    
 
     render() {
         if (this.state.isLoading) {
@@ -49,7 +48,7 @@ export default class ContactsScreen extends Component {
                 <View>
                     <FlatList
                         data={this.state.contactData}
-                        renderItem={({item}) => (
+                        renderItem={({ item }) => (
                             <View>
                                 <Text>{item.first_name}</Text>
                             </View>

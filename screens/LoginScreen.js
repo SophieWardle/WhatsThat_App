@@ -68,6 +68,10 @@ class LoginScreen extends Component {
     })
       .then((response) => {
         if (response.status === 200) {
+          this.props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'MainNav' }]
+          });
           return response.json();
         } else if (response.status === 400) {
           throw "Incorrect"
