@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, Button, View } from "react-native";
-import { FlatList } from "react-native-web";
+import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default class ChatsScreen extends Component {
+
+export default class ProfileScreen extends Component {
     constructor(props) {
         super(props);
 
@@ -18,25 +18,27 @@ export default class ChatsScreen extends Component {
     }
 
     async getData() {
+        const id = await AsyncStorage.getItem('id');
         const token = await AsyncStorage.getItem('whatsthat_session_token');
-        return fetch("http://localhost:3333/api/1.0.0/chat", {
+        const url = `http://localhost:3333/api/1.0.0/user/${id}`
+        console.log(token);
+        return fetch(url, {
             method: 'GET',
             headers: {
                 'X-Authorization': token
             }
         })
-        .then((response) => response.json())
-        .then((responseJson) => {
-            this.setState({
-                isLoading: false,
-                contactData: responseJson
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    profileData: responseJson
+                })
             })
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+            .catch((error) => {
+                console.log(error);
+            });
     }
-    
 
     render() {
         if (this.state.isLoading) {
@@ -46,11 +48,26 @@ export default class ChatsScreen extends Component {
                 </View>
             );
         } else {
+            const { first_name, last_name, email } = this.state.profileData;
             return (
-                <View>
-                    <Text>Reached Chats</Text>
-                </View>
+                <ScrollView>
+                    <View>
+                        <Text>{first_name} {last_name}</Text>
+                        <Text>{email}</Text>
+                    </View>
+                    <View style={styles.logoutBtn}>
+                        <TouchableOpacity onPress={this._onPressLogout}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Logout</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
             );
         }
     }
 }
+
+const styles = StyleSheet.create({
+    
+  });

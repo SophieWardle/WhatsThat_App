@@ -1,9 +1,21 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, Button, View } from "react-native";
-import { FlatList } from "react-native-web";
+import { ActivityIndicator, FlatList, View, Text } from "react-native";
+
 
 export default class ChatsScreen extends Component {
+    static navigationOptions = ({ navigation }) => {
+        console.log('called');
+        return {
+            title: 'Chats',
+            headerRight: (
+                <TouchableOpacity onPress={() => navigation.navigate('NewChat')}>
+                    <Text style={{ marginRight: 10 }}>New Chat</Text>
+                </TouchableOpacity>
+            ),
+        };
+    };
+
     constructor(props) {
         super(props);
 
@@ -25,18 +37,18 @@ export default class ChatsScreen extends Component {
                 'X-Authorization': token
             }
         })
-        .then((response) => response.json())
-        .then((responseJson) => {
-            this.setState({
-                isLoading: false,
-                contactData: responseJson
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    chatData: responseJson
+                })
             })
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+            .catch((error) => {
+                console.log(error);
+            });
     }
-    
+
 
     render() {
         if (this.state.isLoading) {

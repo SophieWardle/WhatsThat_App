@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, Button, View } from "react-native";
-import { FlatList } from "react-native-web";
+import { ActivityIndicator, FlatList, View, Text } from "react-native";
 
 export default class ContactsScreen extends Component {
     constructor(props) {

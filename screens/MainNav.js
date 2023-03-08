@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 //Screens
 import ContactsScreen from "./ContactsScreen";
 import ChatsScreen from "./ChatsScreen";
+import ProfileScreen from "./ProfileScreen";
 const Tab = createMaterialTopTabNavigator();
 
 export default class MainNav extends Component {
@@ -28,9 +29,10 @@ export default class MainNav extends Component {
 
     render() {
         return (
-            <Tab.Navigator initialRouteName="Contacts">
+            <Tab.Navigator initialRouteName="Chats">
                 <Tab.Screen name="Contacts" component={ContactsScreen} />
                 <Tab.Screen name="Chats" component={ChatsScreen} />
+                <Tab.Screen name="Profile" component={ProfileScreen} />
             </Tab.Navigator>
         )
     }
