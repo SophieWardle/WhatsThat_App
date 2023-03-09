@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 class SignUpScreen extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -17,24 +17,29 @@ class SignUpScreen extends Component {
     }
     _onPressSignup = () => {
         var validator = require("email-validator");
-        this.setState({error: ""})
+        this.setState({ error: "" })
 
-        if(!(this.state.email || this.state.password || this.state.firstname || this.state.lastname || this.state.confirmPassword)){
-            this.setState({error: "Must fill in all fields"})
+        if (!(this.state.email && this.state.password && this.state.firstname && this.state.lastname && this.state.confirmPassword)) {
+            this.setState({ error: "Must fill in all fields" })
             return;
         }
 
-        if(!validator.validate(this.state.email)){
-            this.setState({error: "Must enter valid email"})
+        if (!validator.validate(this.state.email)) {
+            this.setState({ error: "Must enter valid email" })
             return;
         }
 
         const REGEX_PASS = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
-        if(!REGEX_PASS.test(this.state.password)){
-            this.setState({error: "Password isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long"})
+        if (!REGEX_PASS.test(this.state.password)) {
+            this.setState({ error: "Password isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long" })
             return;
         }
-        this.setState({submitted: true})
+
+        if(this.state.password != this.state.confirmPassword) {
+            this.setState({error: "Passwords must match!"})
+            return;
+        }
+        this.setState({ submitted: true })
 
         //SEND TO SERVER
         let to_send = {
@@ -51,63 +56,63 @@ class SignUpScreen extends Component {
             },
             body: JSON.stringify(to_send)
         })
-        .then((response) => {
-            if(response.status === 201){
-                return response.json;
-            }else if(response.status === 400){
-                throw "Email exists or password isn't strong enough"
-            }else{
-                throw "Something went wrong"
-            }
-        })
-        .then((rJson) => {
-            console.log(rJson)
-            this.setState({"error": "User added successfully"})
-            this.setState({"submitted": false})
-            this.props.navigation.navigate("Login")
-        })
-        .catch((error) => {
-            this.setState({"error": error})
-            this.setState({"submitted": false});
-        })
-        }
-        
-    
+            .then((response) => {
+                if (response.status === 201) {
+                    return response.json;
+                } else if (response.status === 400) {
+                    throw "Email exists or password isn't strong enough"
+                } else {
+                    throw "Something went wrong"
+                }
+            })
+            .then((rJson) => {
+                console.log(rJson)
+                this.setState({ "error": "User added successfully" })
+                this.setState({ "submitted": false })
+                this.props.navigation.navigate("Login")
+            })
+            .catch((error) => {
+                this.setState({ "error": error })
+                this.setState({ "submitted": false });
+            })
+    }
 
-    render(){
+
+
+    render() {
         return (
             <View style={styles.signup}>
-                <Text>First name:</Text>
-                <TextInput 
-                    style={styles.input} 
-                    value={this.state.firstname} 
-                    onChangeText={(firstname) => this.setState({ firstname })} 
+                <Text style={styles.header}>First name:</Text>
+                <TextInput
+                    style={styles.input}
+                    value={this.state.firstname}
+                    onChangeText={(firstname) => this.setState({ firstname })}
                 />
-                <Text>Last name:</Text>
-                <TextInput 
-                    style={styles.input} 
-                    value={this.state.lastname} 
-                    onChangeText={(lastname) => this.setState({ lastname })} 
+                <Text style={styles.header}>Last name:</Text>
+                <TextInput
+                    style={styles.input}
+                    value={this.state.lastname}
+                    onChangeText={(lastname) => this.setState({ lastname })}
                 />
-                <Text>Email:</Text>
-                <TextInput 
-                    style={styles.input} 
-                    value={this.state.email} 
-                    onChangeText={(email) => this.setState({ email })} 
+                <Text style={styles.header}>Email:</Text>
+                <TextInput
+                    style={styles.input}
+                    value={this.state.email}
+                    onChangeText={(email) => this.setState({ email })}
                 />
-                <Text>Password:</Text>
-                <TextInput 
-                    style={styles.input} 
-                    secureTextEntry={true} 
-                    value={this.state.password} 
-                    onChangeText={(password) => this.setState({ password })} 
+                <Text style={styles.header}>Password:</Text>
+                <TextInput
+                    style={styles.input}
+                    secureTextEntry={true}
+                    value={this.state.password}
+                    onChangeText={(password) => this.setState({ password })}
                 />
-                <Text>Confirm Password:</Text>
-                <TextInput 
-                    style={styles.input} 
-                    secureTextEntry={true} 
-                    value={this.state.confirmPassword} 
-                    onChangeText={(confirmPassword) => this.setState({ confirmPassword })} 
+                <Text style={styles.header}>Confirm Password:</Text>
+                <TextInput
+                    style={styles.input}
+                    secureTextEntry={true}
+                    value={this.state.confirmPassword}
+                    onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
                 />
                 <Text style={styles.errorMessage}>{this.state.error}</Text>
                 <View style={styles.signupbtn}>
@@ -131,17 +136,40 @@ class SignUpScreen extends Component {
 
 const styles = StyleSheet.create({
     signup: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#D2B4DE'
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F7D6E0'
     },
     input: {
-      height: 40,
-      width: 200,
-      borderWidth: 2,
-      borderColor: 'black'
+        height: 40,
+        width: 200,
+        borderWidth: 2,
+        borderColor: 'black'
     },
+    header: {
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold'
+    }, 
+    errorMessage: {
+        color: 'red'
+    },
+    signupbtn: {
+        marginTop: 10,
+        backgroundColor: 'green',
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold'
+        
+    },
+    backBtn: {
+        marginTop: 10,
+        backgroundColor: 'red',
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold'
+    }
 });
 
 export default SignUpScreen;

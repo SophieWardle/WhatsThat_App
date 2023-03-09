@@ -111,7 +111,7 @@ class LoginScreen extends Component {
           value={this.state.password}
           onChangeText={(password) => this.setState({ password })}
         />
-        <Text style={styles.errorMessage}>{this.state.error}</Text>
+        <Text style={styles.error}>{this.state.error}</Text>
         <View style={styles.loginbtn}>
           <TouchableOpacity onPress={this._onPressButton}>
             <View style={styles.button}>
@@ -136,22 +136,43 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#D2B4DE'
+    backgroundColor: '#F7D6E0'
   },
   input: {
     height: 40,
-    width: 200,
+    width: '70%',
     borderWidth: 2,
-    borderColor: 'black'
+    borderColor: 'black',
+    
   },
-  successMessage: {
-    color: 'green'
-  },
-  errorMessage: {
+  error: {
     color: 'red'
   },
   header: {
-
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  loginbtn: {
+    marginTop: 10,
+  },
+  signupbtn: {
+    marginTop: 10,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    paddingHorizontal: 20,
+    backgroundColor: 'linear-gradient(to right, #C56CD6, #342E37)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    elevation: 3,
+  },
+  buttonText: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold'
   }
 });
 
