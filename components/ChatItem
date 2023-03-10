@@ -1,18 +1,21 @@
 import React from "react";
 import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 
-const MessageItem = (props) => {
+const ChatItem = (props) => {
     return (
-        <View style={styles.messageContainer}>
-            <View style={styles.messageContent}>
-                <Text style={styles.name}>{props.message.author.first_name}</Text>
-                <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.message}>{props.message.message}</Text>
+        <View style={styles.chatContainer}>
+            <View style={styles.chatContent}>
+                <Text style={styles.name}>{props.chats.last_message.author.first_name} {props.chats.last_message.author.last_name}</Text>
+                <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.message}>{props.chats.last_message.message}</Text>
             </View>
-            <Text style={styles.time}>{props.message.timestamp}</Text>
+            <Text style={styles.time}>{props.chats.last_message.timestamp}</Text>
         </View>
     );
 };
 
+
 const styles = StyleSheet.create({
 
 })
+
+export default ChatItem;

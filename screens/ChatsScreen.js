@@ -1,15 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, TextInput, StyleSheet, Button } from "react-native";
-
-
+import { View, ActivityIndicator, FlatList, StyleSheet, Text } from "react-native";
+import moment from "moment/moment";
+import ChatItem from "../components/ChatItem";
 export default class ChatsScreen extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isLoading: true,
-            messages: []
+            chats: []
         };
     }
 
@@ -30,7 +30,7 @@ export default class ChatsScreen extends Component {
             .then((responseJson) => {
                 this.setState({
                     isLoading: false,
-                    chatData: responseJson
+                    chats: responseJson
                 })
             })
             .catch((error) => {
@@ -48,22 +48,20 @@ export default class ChatsScreen extends Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <View style={styles.container}>
-                        <FlatList
-                            data={this.state.chatData.messages}
-                            renderItem={({ item }) =>
-                                <MessageItem message={item} />
-                            }
-                            keyExtractor={item => item.message_id.toString()}
-                            contentContainerStyle={styles.messagesList}
-                        />
-                        <View style={styles.userInput}>
-                            <TextInput style={styles.sendMessage} placeholder={'Type your message...'}></TextInput>
-                            <Button
-                                title="SEND"
-                            />
-                        </View>
-                    </View >
+                    <FlatList
+                        data={this.state.chats}
+                        renderItem={({ item }) => (
+                            <View style={styles.chatContainer}>
+                                <View style={styles.chatContent}>
+                                    <Text style={styles.chatName}>{item.name}</Text>
+                                    <Text style={styles.name}>{item.last_message.author.first_name} {item.last_message.author.last_name}</Text>
+                                    <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.message}>{item.last_message.message}</Text>
+                                </View>
+                                <Text style={styles.time}>{moment(item.last_message.timestamp * 1000).format('DD/MM/YYYY, h:mm a')}</Text>
+                            </View>
+                        )}
+                        keyExtractor={({ id }, index) => id}
+                    />
                 </View >
             );
         }

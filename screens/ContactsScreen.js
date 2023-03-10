@@ -15,6 +15,7 @@ export default class ContactsScreen extends Component {
             q: "",
             search_in: "all",
             showSearchForm: false,
+            addError: "",
             error: "",
             showResults: false
         };
@@ -99,6 +100,76 @@ export default class ContactsScreen extends Component {
             });
     }
 
+    async addContact(user_id) {
+        const queryId = user_id;
+        const token = await AsyncStorage.getItem('whatsthat_session_token');
+        return fetch(`http://localhost:3333/api/1.0.0/user/${queryId}/contact`, {
+            method: 'POST',
+            headers: {
+                'X-Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(async (response) => {
+                if (response.status === 200) {
+                    this.setState({
+                        isLoading: false,
+                        showResults: false,
+                        showSearchForm: false
+                    })
+                    this.getContactData();
+                } else if (response.status === 400) {
+                    throw "You can't add yourself"
+                } else if (response.status === 304) {
+                    throw "Already a contact"
+                }
+                else if (response.status === 401) {
+                    throw "Unauthorized"
+                }
+                else if (response.status === 404) {
+                    throw "Not Found"
+                } else {
+                    throw "Server error"
+                }
+            })
+            .catch((error) => {
+                this.setState({ addError: error});
+            });
+    }
+
+    async deleteContact(user_id) {
+        const queryId = user_id;
+        const token = await AsyncStorage.getItem('whatsthat_session_token');
+        return fetch(`http://localhost:3333/api/1.0.0/user/${queryId}/contact`, {
+            method: 'DELETE',
+            headers: {
+                'X-Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(async (response) => {
+                if (response.status === 200) {
+                    this.setState({
+                        isLoading: false,
+                    })
+                    this.getContactData();
+                } else if (response.status === 400) {
+                    throw "You can't remove yourself"
+                }
+                else if (response.status === 401) {
+                    throw "Unauthorized"
+                }
+                else if (response.status === 404) {
+                    throw "Not Found"
+                } else {
+                    throw "Server error"
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     render() {
         if (this.state.isLoading) {
             return (
@@ -120,7 +191,7 @@ export default class ContactsScreen extends Component {
                             <View style={styles.contactsRow}>
                                 <Text>{item.first_name} {item.last_name}</Text>
                                 <View style={styles.deleteBtn}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.deleteContact(item.user_id)}>
                                         <View style={styles.button}>
                                             <Text style={styles.buttonText}>Delete</Text>
                                         </View>
@@ -135,6 +206,7 @@ export default class ContactsScreen extends Component {
         } else if (this.state.showResults) {
             return (
                 <View style={styles.resultsContainer}>
+                    <Text style={styles.errorMessage}>{this.state.addError}</Text>
                     <View style={styles.closeBtn}>
                         <TouchableOpacity onPress={() => this.hideResults()}>
                             <Text style={styles.searchBtn}>Close</Text>
@@ -146,7 +218,7 @@ export default class ContactsScreen extends Component {
                             <View style={styles.contactsRow}>
                                 <Text>{item.given_name} {item.family_name}</Text>
                                 <View style={styles.addBtn}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.addContact(item.user_id)}>
                                         <View style={styles.button}>
                                             <Text style={styles.buttonText}>Add</Text>
                                         </View>
@@ -210,5 +282,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginVertical: 8,
     },
+    searchFormBtn: {
+        textAlign: "center"
+    }
 
 })
