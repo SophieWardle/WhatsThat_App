@@ -7,15 +7,20 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ContactsScreen from "./ContactsScreen";
 import ChatsScreen from "./ChatsScreen";
 import ProfileScreen from "./ProfileScreen";
-import Logout from "./Logout";
+import Logout from "./ProfileLogoutScreen";
 
 //Contacts Nav
-import ContactsDelete from "./ContactsDelete";
+import ContactsDeleteScreen from "./ContactsDeleteScreen";
 import ContactsSearch from "./ContactsSearch";
+
+//Profile Nav
+import ProfileUpdateScreen from "./ProfileUpdateScreen";
+import ProfileLogoutScreen from "./ProfileLogoutScreen";
 
 
 const Tab = createMaterialTopTabNavigator();
 const ContactStack = createNativeStackNavigator();
+const ProfileStack = createNativeStackNavigator();
 
 function  ContactStackNavigator() {
     return (
@@ -23,10 +28,21 @@ function  ContactStackNavigator() {
             initialRouteName="Contacts"
             screenOptions={{ headerShown: false}}>
             <ContactStack.Screen name="ContactsScreen" component={ContactsScreen} />
-            <ContactStack.Screen name="Delete" component={ContactsDelete} />
+            <ContactStack.Screen name="Delete" component={ContactsDeleteScreen} />
             <ContactStack.Screen name="Search" component={ContactsSearch} />
 
         </ContactStack.Navigator>
+    )
+}
+
+function  ProfileStackNavigator() {
+    return (
+        <ProfileStack.Navigator
+            initialRouteName="Profile"
+            screenOptions={{ headerShown: false}}>
+            <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <ProfileStack.Screen name="ProfileLogoutScreen" component={ProfileLogoutScreen} />
+        </ProfileStack.Navigator>
     )
 }
 export default class MainNav extends Component {
@@ -53,7 +69,7 @@ export default class MainNav extends Component {
             <Tab.Navigator initialRouteName="Chats">
                 <Tab.Screen name="Contacts" component={ContactStackNavigator} />
                 <Tab.Screen name="Chats" component={ChatsScreen} />
-                <Tab.Screen name="Profile" component={ProfileScreen} />
+                <Tab.Screen name="Profile" component={ProfileStackNavigator} />
 
             </Tab.Navigator>
         )
