@@ -41,7 +41,7 @@ class ChatsNewScreen extends Component {
         })
             .then((response) => {
                 if (response.status === 201) {
-                    return response.json;
+                    return response.json();
                 } else if (response.status === 400) {
                     throw "Bad Request"
                 } else {
@@ -52,7 +52,7 @@ class ChatsNewScreen extends Component {
                 console.log(rJson)
                 this.setState({ "error": "Chat added successfully" })
                 this.setState({ "submitted": false })
-                this.props.navigation.navigate("Chats")
+                this.props.navigation.navigate("ChatsScreen")
             })
             .catch((error) => {
                 this.setState({ "error": error })

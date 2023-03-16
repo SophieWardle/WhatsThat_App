@@ -68,7 +68,6 @@ export default class ProfileScreen extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-
                 </ScrollView>
 
             );
