@@ -17,10 +17,14 @@ import ContactsSearch from "./ContactsSearch";
 import ProfileUpdateScreen from "./ProfileUpdateScreen";
 import ProfileLogoutScreen from "./ProfileLogoutScreen";
 
+//Chats nav
+import ChatsNewScreen from "./ChatsNewScreen";
+
 
 const Tab = createMaterialTopTabNavigator();
 const ContactStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
+const ChatStack = createNativeStackNavigator();
 
 function  ContactStackNavigator() {
     return (
@@ -35,6 +39,19 @@ function  ContactStackNavigator() {
     )
 }
 
+function  ChatStackNavigator() {
+    return (
+        <ChatStack.Navigator
+            initialRouteName="Chats"
+            screenOptions={{ headerShown: false}}>
+            <ContactStack.Screen name="ChatsScreen" component={ChatsScreen} />
+            <ContactStack.Screen name="NewChat" component={ChatsNewScreen} />
+
+        </ChatStack.Navigator>
+    )
+}
+
+
 function  ProfileStackNavigator() {
     return (
         <ProfileStack.Navigator
@@ -42,6 +59,7 @@ function  ProfileStackNavigator() {
             screenOptions={{ headerShown: false}}>
             <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
             <ProfileStack.Screen name="ProfileLogoutScreen" component={ProfileLogoutScreen} />
+            <ProfileStack.Screen name="ProfileUpdateScreen" component={ProfileUpdateScreen} />
         </ProfileStack.Navigator>
     )
 }
@@ -68,7 +86,7 @@ export default class MainNav extends Component {
         return (
             <Tab.Navigator initialRouteName="Chats">
                 <Tab.Screen name="Contacts" component={ContactStackNavigator} />
-                <Tab.Screen name="Chats" component={ChatsScreen} />
+                <Tab.Screen name="Chats" component={ChatStackNavigator} />
                 <Tab.Screen name="Profile" component={ProfileStackNavigator} />
 
             </Tab.Navigator>

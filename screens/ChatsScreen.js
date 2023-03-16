@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { View, ActivityIndicator, FlatList, StyleSheet, Text } from "react-native";
+import { View, ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
 import moment from "moment/moment";
 import ChatItem from "../components/ChatItem";
 export default class ChatsScreen extends Component {
@@ -32,6 +32,7 @@ export default class ChatsScreen extends Component {
                     isLoading: false,
                     chats: responseJson
                 })
+                console.log(chats);
             })
             .catch((error) => {
                 console.log(error);
@@ -48,6 +49,11 @@ export default class ChatsScreen extends Component {
         } else {
             return (
                 <View style={styles.container}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('NewChat')}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>New Chat</Text>
+                            </View>
+                    </TouchableOpacity>
                     <FlatList
                         data={this.state.chats}
                         renderItem={({ item }) => (
@@ -60,7 +66,7 @@ export default class ChatsScreen extends Component {
                                 <Text style={styles.time}>{moment(item.last_message.timestamp * 1000).format('DD/MM/YYYY, h:mm a')}</Text>
                             </View>
                         )}
-                        keyExtractor={({ id }, index) => id}
+                        keyExtractor={({ chat_id }, index) => chat_id}
                     />
                 </View >
             );
