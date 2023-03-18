@@ -44,8 +44,8 @@ function  ChatStackNavigator() {
         <ChatStack.Navigator
             initialRouteName="Chats"
             screenOptions={{ headerShown: false}}>
-            <ContactStack.Screen name="ChatsScreen" component={ChatsScreen} />
-            <ContactStack.Screen name="NewChat" component={ChatsNewScreen} />
+            <ChatStack.Screen name="ChatsScreen" component={ChatsScreen} />
+            <ChatStack.Screen name="NewChat" component={ChatsNewScreen} />
 
         </ChatStack.Navigator>
     )

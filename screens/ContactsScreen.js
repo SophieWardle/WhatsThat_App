@@ -8,9 +8,10 @@ export default class ContactsScreen extends Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
             isLoading: true,
-            contactData: [],
+            contactData: [] || props.route.params.contactData,
             prevData: [],
             searchData: [],
             q: "",
@@ -22,28 +23,11 @@ export default class ContactsScreen extends Component {
         };
     }
 
-    showSearchForm() {
-        this.setState({ showSearchForm: true });
-    }
-
-    hideSearchForm() {
-        this.setState({ showSearchForm: false });
-    }
-
-    hideResults() {
-        this.setState({ showResults: false })
-        this.setState({ showSearchForm: false })
-        this.getContactData;
-    }
-
-
     componentDidMount() {
         this.getContactData();
     }
 
-    componentDidUpdate(contactData){
-        console.log("changed");
-    }
+    
 
     async getContactData() {
         const token = await AsyncStorage.getItem('whatsthat_session_token');
@@ -77,7 +61,7 @@ export default class ContactsScreen extends Component {
             return (
                 <View style={styles.contactsContainer}>
                     <View style={styles.searchFormBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Search')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Search', { getContactData: this.getContactData })}>
                             <Text style={styles.searchBtn}>Search</Text>
                         </TouchableOpacity>
                     </View>
@@ -95,11 +79,10 @@ export default class ContactsScreen extends Component {
                                 </View>
                             </View>
                         )}
-                        keyExtractor={({ id }, index) => id}
-                    />
+                        keyExtractor={({ id }, index) => id ? id.toString() : index.toString()} />
                 </View>
             );
-        } 
+        }
     }
 }
 

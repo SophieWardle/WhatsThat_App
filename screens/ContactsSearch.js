@@ -4,9 +4,11 @@ import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "
 import { TouchableOpacity } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 
-export default class ContactsScreen extends Component {
+export default class ContactsSearch extends Component {
     constructor(props) {
         super(props);
+        this.handleContactData.bind(this);
+        const { getContactData } = this.props.route.params;
 
         this.state = {
             isLoading: false,
@@ -16,7 +18,9 @@ export default class ContactsScreen extends Component {
             showSearchForm: true,
             addError: "",
             error: "",
-            showResults: false
+            showResults: false,
+            contactData: []
+
         };
     }
 
@@ -37,6 +41,11 @@ export default class ContactsScreen extends Component {
 
     componentDidMount() {
         console.log("mounted");
+    }
+
+    handleContactData = (contactData) => {
+        this.props.setStateOfParent(contactData);
+        this.props.navigation.navigate("ContactsScreen");
     }
 
 
@@ -80,6 +89,7 @@ export default class ContactsScreen extends Component {
             });
     }
 
+
     async addContact(user_id) {
         const queryId = user_id;
         const token = await AsyncStorage.getItem('whatsthat_session_token');
@@ -97,7 +107,7 @@ export default class ContactsScreen extends Component {
                         showResults: false,
                         showSearchForm: false
                     })
-                    this.props.navigation.navigate("ContactsScreen");
+                    this.props.navigation.navigate('ContactsScreen');
                 } else if (response.status === 400) {
                     throw "You can't add yourself"
                 } else if (response.status === 304) {
@@ -113,7 +123,7 @@ export default class ContactsScreen extends Component {
                 }
             })
             .catch((error) => {
-                this.setState({ addError: error});
+                this.setState({ addError: error });
             });
     }
 
