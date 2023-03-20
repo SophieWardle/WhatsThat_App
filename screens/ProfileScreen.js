@@ -49,10 +49,10 @@ export default class ProfileScreen extends Component {
         } else {
             const { first_name, last_name, email } = this.state.profileData;
             return (
-                <ScrollView>
+                <ScrollView style={styles.profileContainer}>
                     <View>
-                        <Text>{first_name} {last_name}</Text>
-                        <Text>{email}</Text>
+                        <Text style={styles.name}>{first_name} {last_name}</Text>
+                        <Text style={styles.email}>{email}</Text>
                     </View>
                     <View style={styles.editBtn}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileUpdateScreen')}>
@@ -76,5 +76,42 @@ export default class ProfileScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+      },
+      profileInfo: {
+        paddingVertical: 20,
+        paddingHorizontal: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+      },
+      name: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 5,
+      },
+      email: {
+        fontSize: 16,
+        color: '#666',
+      },
+      editBtn: {
+        marginHorizontal: 10,
+        marginVertical: 20,
+      },
+      logoutBtn: {
+        marginHorizontal: 10,
+        marginBottom: 20,
+      },
+      button: {
+        backgroundColor: '#428bca',
+        borderRadius: 5,
+        padding: 10,
+      },
+      buttonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
 });

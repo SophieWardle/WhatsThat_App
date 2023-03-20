@@ -1,8 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { View, ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
-import moment from "moment/moment";
-import ChatItem from "../components/ChatItem";
+import { View, ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
+
+import ChatList from "../components/ChatList";
+import { getChatListData } from "../api/api";
+
 export default class ChatsScreen extends Component {
     constructor(props) {
         super(props);
@@ -14,30 +16,20 @@ export default class ChatsScreen extends Component {
     }
 
     componentDidMount() {
-        this.getData();
-    }
-
-    async getData() {
-        const token = await AsyncStorage.getItem('whatsthat_session_token');
-        const url = 'http://localhost:3333/api/1.0.0/chat'
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                'X-Authorization': token
-            }
-        })
-            .then((response) => response.json())
+        getChatListData()
             .then((responseJson) => {
+                console.log(responseJson);
                 this.setState({
                     isLoading: false,
                     chats: responseJson
-                })
-                console.log(chats);
+                });
             })
             .catch((error) => {
                 console.log(error);
             });
     }
+
+
 
     render() {
         if (this.state.isLoading) {
@@ -48,27 +40,14 @@ export default class ChatsScreen extends Component {
             );
         } else {
             return (
-                <View style={styles.container}>
+                <ScrollView style={styles.container}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('NewChat')}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>Create A New Chat</Text>
-                            </View>
-                        </TouchableOpacity>
-                    <FlatList
-                        data={this.state.chats}
-                        renderItem={({ item }) => (
-                            <View style={styles.chatContainer}>
-                                <View style={styles.chatContent}>
-                                    <Text style={styles.chatName}>{item.name}</Text>
-                                    <Text style={styles.name}>{item.last_message.author.first_name} {item.last_message.author.last_name}</Text>
-                                    <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.message}>{item.last_message.message}</Text>
-                                </View>
-                                <Text style={styles.time}>{moment(item.last_message.timestamp * 1000).format('DD/MM/YYYY, h:mm a')}</Text>
-                            </View>
-                        )}
-                        keyExtractor={({ chat_id }, index) => chat_id}
-                    />
-                </View >
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>Create A New Chat</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <ChatList chats={this.state.chats} />
+                </ScrollView >
             );
         }
     }

@@ -4,6 +4,10 @@ import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "
 import { TouchableOpacity } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 
+import ContactList from "../components/ContactList";
+//API
+import { getContactData } from "../api/api";
+
 export default class ContactsScreen extends Component {
     constructor(props) {
         super(props);
@@ -24,31 +28,18 @@ export default class ContactsScreen extends Component {
     }
 
     componentDidMount() {
-        this.getContactData();
-    }
-
-    
-
-    async getContactData() {
-        const token = await AsyncStorage.getItem('whatsthat_session_token');
-        return fetch("http://localhost:3333/api/1.0.0/contacts", {
-            method: 'GET',
-            headers: {
-                'X-Authorization': token
-            }
-        })
-            .then((response) => response.json())
+        getContactData()
             .then((responseJson) => {
+                console.log(responseJson);
                 this.setState({
                     isLoading: false,
                     contactData: responseJson
-                })
+                });
             })
             .catch((error) => {
                 console.log(error);
             });
     }
-
 
     render() {
         if (this.state.isLoading) {
@@ -64,22 +55,8 @@ export default class ContactsScreen extends Component {
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Search', { getContactData: this.getContactData })}>
                             <Text style={styles.searchBtn}>Search</Text>
                         </TouchableOpacity>
-                    </View>
-                    <FlatList
-                        data={this.state.contactData}
-                        renderItem={({ item }) => (
-                            <View style={styles.contactsRow}>
-                                <Text>{item.first_name} {item.last_name}</Text>
-                                <View style={styles.deleteBtn}>
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Delete', { item: item })}>
-                                        <View style={styles.button}>
-                                            <Text style={styles.buttonText}>Delete</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        )}
-                        keyExtractor={({ id }, index) => id ? id.toString() : index.toString()} />
+                    </View>                        
+                    <ContactList contacts={this.state.contactData} navigation={navigation}/>
                 </View>
             );
         }

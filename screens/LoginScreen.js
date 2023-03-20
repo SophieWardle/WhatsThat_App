@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
+//API
+import { loginUser } from '../api/api';
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
@@ -32,26 +34,32 @@ class LoginScreen extends Component {
     }
   };
 
-  _onPressButton = () => {
+  _validateInputs = () => {
     var validator = require("email-validator");
-    this.setState({ submitted: true })
-    this.setState({ error: "" })
+    const REGEX_PASS = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
 
-    if (!(this.state.email || this.state.password)) {
-      this.setState({ error: "Email and password required" })
-      return;
+    if (!(this.state.email && this.state.password)) {
+      return "Email and password required";
     }
 
     if (!validator.validate(this.state.email)) {
-      this.setState({ error: "Must enter valid email" })
-      return;
+      return "Must enter valid email";
     }
 
-    const REGEX_PASS = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
     if (!REGEX_PASS.test(this.state.password)) {
-      this.setState({ error: "Password isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long" })
+      return "Password incorrect: isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long";
+    }
+
+  }
+
+  _onPressButton = () => {
+    
+    const error = this._validateInputs();
+    if (error) {
+      this.setState({error});
       return;
     }
+    this.setState({ submitted: true })
 
     //SEND TO SERVER
     let to_send = {
@@ -59,32 +67,14 @@ class LoginScreen extends Component {
       password: this.state.password
     };
 
-    return fetch("http://localhost:3333/api/1.0.0/login", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(to_send)
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          this.props.navigation.reset({
-            index: 0,
-            routes: [{ name: 'MainNav' }]
-          });
-          return response.json();
-        } else if (response.status === 400) {
-          throw "Incorrect"
-        } else {
-          throw "Something went wrong"
-        }
-      })
-      .then((rJson) => {
-        console.log(rJson)
-        const { token, id } = rJson;
-        AsyncStorage.setItem('whatsthat_session_token', token);
-        AsyncStorage.setItem('id', id.toString());
-        this.setState({ "error": "Signed in successfully" })
+
+    loginUser(to_send)
+      .then(() => {
+        this.props.navigation.reset({
+          index: 0,
+          routes: [{ name: 'MainNav' }]
+        })
+        this.setState({ "error": "" })
         this.setState({ "submitted": false })
         this.props.navigation.navigate("MainNav")
       })
@@ -92,7 +82,7 @@ class LoginScreen extends Component {
         console.log(error);
         this.setState({ "error": error })
         this.setState({ "submitted": false });
-      })
+      });
   }
 
   render() {
@@ -143,7 +133,7 @@ const styles = StyleSheet.create({
     width: '70%',
     borderWidth: 2,
     borderColor: 'black',
-    
+
   },
   error: {
     color: 'red'

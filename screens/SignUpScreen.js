@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
+//API
+import { signupUser } from '../api/api';
+
 class SignUpScreen extends Component {
     constructor(props) {
         super(props);
@@ -12,33 +15,40 @@ class SignUpScreen extends Component {
             email: "",
             password: "",
             confirmPassword: "",
-            submitted: false
+            submitted: false,
+            error: ""
         }
     }
-    _onPressSignup = () => {
+
+    _validateInputs = () => {
         var validator = require("email-validator");
-        this.setState({ error: "" })
+        const REGEX_PASS = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
 
         if (!(this.state.email && this.state.password && this.state.firstname && this.state.lastname && this.state.confirmPassword)) {
-            this.setState({ error: "Must fill in all fields" })
+            return "Must fill in all fields";
+          }
+        
+          if (!validator.validate(this.state.email)) {
+            return "Must enter valid email";
+          }
+        
+          if (!REGEX_PASS.test(this.state.password)) {
+            return "Password isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long";
+          }
+        
+          if (this.state.password !== this.state.confirmPassword) {
+            return "Passwords must match!";
+          }
+
+    }
+
+    _onPressSignup = async () => {
+        const error = this._validateInputs();
+        if (error) {
+            this.setState({ error });
             return;
         }
 
-        if (!validator.validate(this.state.email)) {
-            this.setState({ error: "Must enter valid email" })
-            return;
-        }
-
-        const REGEX_PASS = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
-        if (!REGEX_PASS.test(this.state.password)) {
-            this.setState({ error: "Password isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long" })
-            return;
-        }
-
-        if(this.state.password != this.state.confirmPassword) {
-            this.setState({error: "Passwords must match!"})
-            return;
-        }
         this.setState({ submitted: true })
 
         //SEND TO SERVER
@@ -49,22 +59,7 @@ class SignUpScreen extends Component {
             password: this.state.password
         };
 
-        return fetch("http://localhost:3333/api/1.0.0/user", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(to_send)
-        })
-            .then((response) => {
-                if (response.status === 201) {
-                    return response.json;
-                } else if (response.status === 400) {
-                    throw "Email exists or password isn't strong enough"
-                } else {
-                    throw "Something went wrong"
-                }
-            })
+        signupUser(to_send)
             .then((rJson) => {
                 console.log(rJson)
                 this.setState({ "error": "User added successfully" })

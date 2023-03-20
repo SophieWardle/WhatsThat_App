@@ -3,6 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
+//API
+import { sendChatMessage, createNewChat } from '../api/api';
 
 
 class ChatsNewScreen extends Component {
@@ -10,13 +12,13 @@ class ChatsNewScreen extends Component {
         super(props);
 
         this.state = {
-           chatName: "",
-           initialMessageForm: false,
-           message: ""
+            chatName: "",
+            initialMessageForm: false,
+            message: ""
         }
     }
-    
-    async createNewChat(){
+
+    async onCreateNewChat() {
         this.setState({ error: "" })
 
         if (!(this.state.chatName)) {
@@ -35,29 +37,11 @@ class ChatsNewScreen extends Component {
 
         const token = await AsyncStorage.getItem('whatsthat_session_token');
 
-        return fetch("http://localhost:3333/api/1.0.0/chat", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Authorization': token
-            },
-            body: JSON.stringify(to_send)
-        })
-            .then((response) => {
-                if (response.status === 201) {
-                    return response.json();
-                } else if (response.status === 400) {
-                    throw "Bad Request"
-                } else {
-                    throw "Something went wrong"
-                }
-            })
+        createNewChat(to_send)
             .then((rJson) => {
-                console.log(rJson)
                 this.setState({ "error": "Chat added successfully" })
                 this.setState({ "submitted": false })
-                this.setState({ "initialMessageForm": true})
-                AsyncStorage.setItem('chat_id', rJson.chat_id.toString());
+                this.setState({ "initialMessageForm": true })
             })
             .catch((error) => {
                 this.setState({ "error": error })
@@ -65,7 +49,7 @@ class ChatsNewScreen extends Component {
             })
     }
 
-    async sendMessage() {
+    async onSendMessage() {
         if (!(this.state.message)) {
             this.setState({ error: "Must enter a message" })
             return;
@@ -79,31 +63,13 @@ class ChatsNewScreen extends Component {
         };
 
         console.log(JSON.stringify(to_send));
-
-        const token = await AsyncStorage.getItem('whatsthat_session_token');
         const chat_id = await AsyncStorage.getItem('chat_id');
-        return fetch(`http://localhost:3333/api/1.0.0/chat/${chat_id}/message`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Authorization': token
-            },
-            body: JSON.stringify(to_send)
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    return response.json();
-                } else if (response.status === 400) {
-                    throw "Bad Request"
-                } else {
-                    throw "Something went wrong"
-                }
-            })
+        sendChatMessage(chat_id, to_send)
             .then((rJson) => {
                 console.log(rJson)
                 this.setState({ "error": "Message sent successfully" })
                 this.setState({ "submitted": false })
-                this.setState({ "initialMessageForm": false})
+                this.setState({ "initialMessageForm": false })
                 this.props.navigation.navigate("ChatsScreen")
             })
             .catch((error) => {
@@ -112,12 +78,10 @@ class ChatsNewScreen extends Component {
             })
     }
 
-
-
     render() {
-            if (this.state.initialMessageForm === true){
-                return ( 
-                    <View style={styles.container}>
+        if (this.state.initialMessageForm === true) {
+            return (
+                <View style={styles.container}>
                     <Text styles={styles.h1}>Enter your first message:</Text>
                     <TextInput
                         style={styles.input}
@@ -125,17 +89,17 @@ class ChatsNewScreen extends Component {
                         onChangeText={(message) => this.setState({ message })}
                     />
                     <View style={styles.signupbtn}>
-                        <TouchableOpacity onPress={() => this.sendMessage()}>
+                        <TouchableOpacity onPress={() => this.onSendMessage()}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>SEND</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
                 </View>
-                )
-            }else{
-                return (
-                    <View style={styles.container}>
+            )
+        } else {
+            return (
+                <View style={styles.container}>
                     <Text styles={styles.h1}>Enter a chat name:</Text>
                     <TextInput
                         style={styles.input}
@@ -143,7 +107,7 @@ class ChatsNewScreen extends Component {
                         onChangeText={(chatName) => this.setState({ chatName })}
                     />
                     <View style={styles.signupbtn}>
-                        <TouchableOpacity onPress={() => this.createNewChat()}>
+                        <TouchableOpacity onPress={() => this.onCreateNewChat()}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Create New Chat</Text>
                             </View>
@@ -157,11 +121,11 @@ class ChatsNewScreen extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                )
-                
-            }
+            )
+
         }
     }
+}
 
 
 const styles = StyleSheet.create({

@@ -5,39 +5,14 @@ import { TouchableOpacity } from "react-native";
 
 //API
 import { deleteContact } from "../api/api";
-export default class ContactsDelete extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            user_id: this.props.route.params.item.user_id,
-            first_name: this.props.route.params.item.first_name,
-            last_name: this.props.route.params.item.last_name,
-        };
-    }
 
-    componentDidMount() {
-    }
-
-    async handleDelete() {
-        const user_id = this.state.user_id;
-        console.log(user_id);
-        deleteContact(user_id)
-            .then(async (response) => {
-                this.props.navigation.navigate("ContactsScreen");
-                return response;
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    render() {
-        return (
-            <View>
-                <Text>Are you sure you want to delete {this.props.route.params.item.first_name} {this.props.route.params.item.last_name}?</Text>
+const ContactDeleteConfirm = ({contact, navigation}) => {
+    return (
+        <View>
+                <Text>Are you sure you want to delete {contact.first_name} {contact.last_name}?</Text>
                 <View style={styles.noBtn}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                    <TouchableOpacity onPress={() => navigation.navigate.goBack()}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>NO</Text>
                         </View>
@@ -45,15 +20,15 @@ export default class ContactsDelete extends Component {
                 </View>
 
                 <View style={styles.yesBtn}>
-                    <TouchableOpacity onPress={() => this.handleDelete(this.props.route.params.item.user_id)}>
+                    <TouchableOpacity onPress={() => this.handleDelete(contact.user_id)}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>YES</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
             </View>
-        );
-    }
+
+    )
 }
 
 
