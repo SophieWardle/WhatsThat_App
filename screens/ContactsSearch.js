@@ -4,6 +4,9 @@ import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "
 import { TouchableOpacity } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 
+//API
+import { searchForUser, addContact } from "../api/api";
+
 export default class ContactsSearch extends Component {
     constructor(props) {
         super(props);
@@ -66,16 +69,8 @@ export default class ContactsSearch extends Component {
             .join("&");
 
         console.log(query);
-        const url = `http://localhost:3333/api/1.0.0/search?${query}`;
-        const token = await AsyncStorage.getItem('whatsthat_session_token');
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                'X-Authorization': token,
-                'Content-Type': 'application/json'
-            },
-        })
-            .then((response) => response.json())
+
+        searchForUser(query)
             .then((responseJson) => {
                 this.setState({
                     isLoading: false,
@@ -92,35 +87,15 @@ export default class ContactsSearch extends Component {
 
     async addContact(user_id) {
         const queryId = user_id;
-        const token = await AsyncStorage.getItem('whatsthat_session_token');
-        return fetch(`http://localhost:3333/api/1.0.0/user/${queryId}/contact`, {
-            method: 'POST',
-            headers: {
-                'X-Authorization': token,
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(async (response) => {
-                if (response.status === 200) {
-                    this.setState({
-                        isLoading: false,
-                        showResults: false,
-                        showSearchForm: false
-                    })
-                    this.props.navigation.navigate('ContactsScreen');
-                } else if (response.status === 400) {
-                    throw "You can't add yourself"
-                } else if (response.status === 304) {
-                    throw "Already a contact"
-                }
-                else if (response.status === 401) {
-                    throw "Unauthorized"
-                }
-                else if (response.status === 404) {
-                    throw "Not Found"
-                } else {
-                    throw "Server error"
-                }
+        
+        addContact(queryId)
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    showResults: false,
+                    showSearchForm: false
+                })
+                this.props.navigation.navigate('ContactsScreen');
             })
             .catch((error) => {
                 this.setState({ addError: error });

@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { View, ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 
 import ChatList from "../components/ChatList";
+
+//API
 import { getChatListData } from "../api/api";
 
 export default class ChatsScreen extends Component {

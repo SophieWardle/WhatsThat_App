@@ -62,6 +62,99 @@ export const signupUser = async (to_send) => {
         })
 }
 
+export const logoutUser = async () => {
+    const id = await AsyncStorage.getItem('id');
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch("http://localhost:3333/api/1.0.0/logout", {
+        method: 'POST',
+        headers: {
+            'X-Authorization': token
+        }
+    })
+        .then(async (response) => {
+            if (response.status === 200) {
+                await AsyncStorage.removeItem('whatsthat_session_token')
+                await AsyncStorage.removeItem('id')
+
+            } else if (response.status === 401) {
+                console.log("Unauthorised")
+                await AsyncStorage.removeItem('whatsthat_session_token')
+                await AsyncStorage.removeItem('id')
+                this.props.navigation.navigate("Login")
+            } else {
+                throw "Something went wrong"
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+
+export const getUserProfileData = async () => {
+    const id = await AsyncStorage.getItem('id');
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    const url = `http://localhost:3333/api/1.0.0/user/${id}`
+    console.log(token);
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            'X-Authorization': token
+        }
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export const updateUserProfile = async (to_send) => {
+    const id = await AsyncStorage.getItem('id');
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch(`http://localhost:3333/api/1.0.0/user/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'X-Authorization': token
+        },
+        body: JSON.stringify(to_send)
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            this.setState({
+                isLoading: false,
+                contactData: responseJson
+            })
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export const getUsersProfilePic = async () => {
+    const id = await AsyncStorage.getItem('id');
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch(`http://localhost:3333/api/1.0.0/user/${id}/photo`, {
+        method: 'GET',
+        headers: {
+            'X-Authorization': token
+        }
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            this.setState({
+                isLoading: false,
+                contactData: responseJson
+            })
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+
 //CONTACT MANAGEMENT
 export const getContactData = async () => {
     const token = await AsyncStorage.getItem('whatsthat_session_token');
@@ -81,6 +174,37 @@ export const getContactData = async () => {
 
 }
 
+export const addContact = async(queryId) => {
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch(`http://localhost:3333/api/1.0.0/user/${queryId}/contact`, {
+        method: 'POST',
+        headers: {
+            'X-Authorization': token,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(async (response) => {
+            if (response.status === 200) {
+               return response;
+            } else if (response.status === 400) {
+                throw "You can't add yourself"
+            } else if (response.status === 304) {
+                throw "Already a contact"
+            }
+            else if (response.status === 401) {
+                throw "Unauthorized"
+            }
+            else if (response.status === 404) {
+                throw "Not Found"
+            } else {
+                throw "Server error"
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
 export const deleteContact = async (user_id) => {
     const deleteId = user_id;
     const token = await AsyncStorage.getItem('whatsthat_session_token');
@@ -93,7 +217,7 @@ export const deleteContact = async (user_id) => {
     })
         .then(async (response) => {
             if (response.status === 200) {
-               return response;
+                return response;
             } else if (response.status === 400) {
                 throw "You can't remove yourself"
             }
@@ -110,6 +234,27 @@ export const deleteContact = async (user_id) => {
             console.log(error);
         });
 }
+
+export const searchForUser = async (query) => {
+    const url = `http://localhost:3333/api/1.0.0/search?${query}`;
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            'X-Authorization': token,
+            'Content-Type': 'application/json'
+        },
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+//CHAT MANAGEMENT
 
 export const getChatListData = async () => {
     const token = await AsyncStorage.getItem('whatsthat_session_token');
@@ -158,6 +303,33 @@ export const createNewChat = async (to_send) => {
         })
 }
 
+export const sendChatMessage = async (chat_id, to_send) => {
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch(`http://localhost:3333/api/1.0.0/chat/${chat_id}/message`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': token
+        },
+        body: JSON.stringify(to_send)
+    })
+        .then(async (response) => {
+            if (response.status === 200) {
+                await AsyncStorage.removeItem('chat_id')
+                return response.json();
+            } else if (response.status === 400) {
+                throw "Bad Request"
+            } else {
+                throw "Something went wrong"
+            }
+        })
+        .then((rJson) => {
+            console.log(rJson)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
 
 export const sendPicToServer = async (data) => {
     const id = await AsyncStorage.getItem('id');
@@ -196,30 +368,3 @@ export const takePicture = async () => {
     }
 }
 
-export const sendChatMessage = async (chat_id, to_send) => {
-    const token = await AsyncStorage.getItem('whatsthat_session_token');
-    return fetch(`http://localhost:3333/api/1.0.0/chat/${chat_id}/message`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Authorization': token
-        },
-        body: JSON.stringify(to_send)
-    })
-        .then(async (response) => {
-            if (response.status === 200) {
-                await AsyncStorage.removeItem('chat_id')
-                return response.json();
-            } else if (response.status === 400) {
-                throw "Bad Request"
-            } else {
-                throw "Something went wrong"
-            }
-        })
-        .then((rJson) => {
-            console.log(rJson)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-}

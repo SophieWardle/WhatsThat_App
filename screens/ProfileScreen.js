@@ -2,6 +2,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
+//API
+import { getUserProfileData } from "../api/api";
+
 export default class ProfileScreen extends Component {
     constructor(props) {
         super(props);
@@ -13,21 +16,7 @@ export default class ProfileScreen extends Component {
     }
 
     componentDidMount() {
-        this.getData();
-    }
-
-    async getData() {
-        const id = await AsyncStorage.getItem('id');
-        const token = await AsyncStorage.getItem('whatsthat_session_token');
-        const url = `http://localhost:3333/api/1.0.0/user/${id}`
-        console.log(token);
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                'X-Authorization': token
-            }
-        })
-            .then((response) => response.json())
+        getUserProfileData()
             .then((responseJson) => {
                 this.setState({
                     isLoading: false,

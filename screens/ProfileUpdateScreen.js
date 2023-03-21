@@ -2,9 +2,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 
+import { updateUserProfile } from "../api/api";
+import { getUserProfileData } from "../api/api";
+
 export default class ProfileUpdateScreen extends Component {
     constructor(props) {
         super(props);
+
 
         this.state = {
             isLoading: true,
@@ -16,16 +20,17 @@ export default class ProfileUpdateScreen extends Component {
         this.getData();
     }
 
+    handleInputChange = (field, value) => {
+        this.setState({ [field]: value});
+    }
     async updateProfile() {
-        const id = await AsyncStorage.getItem('id');
-        const token = await AsyncStorage.getItem('whatsthat_session_token');
-        return fetch(`http://localhost:3333/api/1.0.0/user/${id}`, {
-            method: 'GET',
-            headers: {
-                'X-Authorization': token
-            }
-        })
-            .then((response) => response.json())
+        let to_send = {
+            first_name: this.state.firstname,
+            last_name: this.state.lastname,
+            email: this.state.email,
+        };
+        
+        updateUserProfile(to_send)
             .then((responseJson) => {
                 this.setState({
                     isLoading: false,
@@ -38,17 +43,7 @@ export default class ProfileUpdateScreen extends Component {
     }
 
     async getData() {
-        const id = await AsyncStorage.getItem('id');
-        const token = await AsyncStorage.getItem('whatsthat_session_token');
-        const url = `http://localhost:3333/api/1.0.0/user/${id}`
-        console.log(token);
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                'X-Authorization': token
-            }
-        })
-            .then((response) => response.json())
+       getUserProfileData()
             .then((responseJson) => {
                 this.setState({
                     isLoading: false,
@@ -69,25 +64,24 @@ export default class ProfileUpdateScreen extends Component {
                 </View>
             );
         } else {
-            console.log(this.state.profileData);
-            const { first_name, last_name, email} = this.state.profileData;
+            const { firstname, lastname, email } = this.state.profileData;
             return (
                 <ScrollView>
                     <View>
                         <TextInput
-                            placeholder={first_name}
-                            value={first_name}
-                            onChangeText={(first_name) => this.setState({ first_name: text })}
+                            placeholder={firstname}
+                            value={this.state.firstname}
+                            onChangeText={(text) => this.handleInputChange('firstname', text)}
                         />
                         <TextInput
-                            placeholder={last_name}
-                            value={last_name}
-                            onChangeText={(last_name) => this.setState({ last_name: text })}
+                            placeholder={lastname}
+                            value={this.state.lastname}
+                            onChangeText={(text) => this.handleInputChange('lastname', text)}
                         />
                         <TextInput
                             placeholder={email}
-                            value={email}
-                            onChangeText={(email) => this.setState({ email: text })}
+                            value={this.state.email}
+                            onChangeText={(text) => this.handleInputChange('email', text)}
                         />
                         <TouchableOpacity onPress={() => this.updateProfile()}>
                             <View style={styles.button}>
