@@ -111,6 +111,7 @@ export const getUserProfileData = async () => {
         });
 }
 
+//not working yet
 export const updateUserProfile = async (to_send) => {
     const id = await AsyncStorage.getItem('id');
     const token = await AsyncStorage.getItem('whatsthat_session_token');
@@ -133,21 +134,19 @@ export const updateUserProfile = async (to_send) => {
         });
 }
 
-export const getUsersProfilePic = async () => {
-    const id = await AsyncStorage.getItem('id');
+export const searchForUser = async (query) => {
+    const url = `http://localhost:3333/api/1.0.0/search?${query}`;
     const token = await AsyncStorage.getItem('whatsthat_session_token');
-    return fetch(`http://localhost:3333/api/1.0.0/user/${id}/photo`, {
+    return fetch(url, {
         method: 'GET',
         headers: {
-            'X-Authorization': token
-        }
+            'X-Authorization': token,
+            'Content-Type': 'application/json'
+        },
     })
         .then((response) => response.json())
         .then((responseJson) => {
-            this.setState({
-                isLoading: false,
-                contactData: responseJson
-            })
+            return responseJson;
         })
         .catch((error) => {
             console.log(error);
@@ -155,8 +154,9 @@ export const getUsersProfilePic = async () => {
 }
 
 
+
 //CONTACT MANAGEMENT
-export const getContactData = async () => {
+export const getContactList = async () => {
     const token = await AsyncStorage.getItem('whatsthat_session_token');
     return fetch("http://localhost:3333/api/1.0.0/contacts", {
         method: 'GET',
@@ -174,7 +174,28 @@ export const getContactData = async () => {
 
 }
 
-export const addContact = async(queryId) => {
+export const getContactProfile = async (contact_id) => {
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    const url = `http://localhost:3333/api/1.0.0/user/${contact_id}`
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            'X-Authorization': token
+        }
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+
+
+
+export const addContact = async (queryId) => {
     const token = await AsyncStorage.getItem('whatsthat_session_token');
     return fetch(`http://localhost:3333/api/1.0.0/user/${queryId}/contact`, {
         method: 'POST',
@@ -185,7 +206,7 @@ export const addContact = async(queryId) => {
     })
         .then(async (response) => {
             if (response.status === 200) {
-               return response;
+                return response;
             } else if (response.status === 400) {
                 throw "You can't add yourself"
             } else if (response.status === 304) {
@@ -235,15 +256,14 @@ export const deleteContact = async (user_id) => {
         });
 }
 
-export const searchForUser = async (query) => {
-    const url = `http://localhost:3333/api/1.0.0/search?${query}`;
+export const getBlockedUsers = async () => {
     const token = await AsyncStorage.getItem('whatsthat_session_token');
+    const url = `http://localhost:3333/api/1.0.0/blocked`
     return fetch(url, {
         method: 'GET',
         headers: {
-            'X-Authorization': token,
-            'Content-Type': 'application/json'
-        },
+            'X-Authorization': token
+        }
     })
         .then((response) => response.json())
         .then((responseJson) => {
@@ -253,6 +273,65 @@ export const searchForUser = async (query) => {
             console.log(error);
         });
 }
+
+export const blockContact = async (contact_id) => {
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    const url = `http://localhost:3333/api/1.0.0/user/${contact_id}/block`
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-Authorization': token
+        }
+    })
+        .then(async (response) => {
+            if (response.status === 200) {
+                return response;
+            } else if (response.status === 400) {
+                throw "You can't block yourself"
+            }else if (response.status === 401) {
+                throw "Unauthorized"
+            }
+            else if (response.status === 404) {
+                throw "Not Found"
+            } else {
+                throw "Server error"
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export const unblockContact = async (contact_id) => {
+    const contactId = contact_id;
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch(`http://localhost:3333/api/1.0.0/user/${contactId}/block`, {
+        method: 'DELETE',
+        headers: {
+            'X-Authorization': token,
+        }
+    })
+        .then(async (response) => {
+            if (response.status === 200) {
+                return response;
+            } else if (response.status === 400) {
+                throw "You can't unblock yourself"
+            }
+            else if (response.status === 401) {
+                throw "Unauthorized"
+            }
+            else if (response.status === 404) {
+                throw "Not Found"
+            } else {
+                throw "Server error"
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+
 
 //CHAT MANAGEMENT
 
@@ -331,6 +410,7 @@ export const sendChatMessage = async (chat_id, to_send) => {
         })
 }
 
+//PICS & CAMERA
 export const sendPicToServer = async (data) => {
     const id = await AsyncStorage.getItem('id');
     const token = await AsyncStorage.getItem('whatsthat_session_token');
@@ -353,8 +433,25 @@ export const sendPicToServer = async (data) => {
         })
 }
 
-export const getProfilePic = () => {
-
+export const getProfilePic = async () => {
+    const id = await AsyncStorage.getItem('id');
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    fetch(`http://localhost:3333/api/1.0.0/user/${id}/photo`, {
+        method: 'GET',
+        headers: {
+            'X-Authorization': token
+        }
+    })
+        .then((res) => {
+            return res.blob();
+        })
+        .then((resBlob) => {
+            console.log(URL.createObjectURL(resBlob))
+            return URL.createObjectURL(resBlob);
+        })
+        .catch((err) => {
+            console.log("error", err);
+        });
 }
 
 export const takePicture = async () => {

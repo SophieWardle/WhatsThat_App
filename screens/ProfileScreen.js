@@ -1,9 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 
+import DisplayProfilePicture from "../components/DisplayProfilePicture";
 //API
 import { getUserProfileData } from "../api/api";
+import { getProfilePic } from "../api/api";
 
 export default class ProfileScreen extends Component {
     constructor(props) {
@@ -12,6 +14,7 @@ export default class ProfileScreen extends Component {
         this.state = {
             isLoading: true,
             profileData: [],
+            photo: null
         };
     }
 
@@ -19,13 +22,14 @@ export default class ProfileScreen extends Component {
         getUserProfileData()
             .then((responseJson) => {
                 this.setState({
-                    isLoading: false,
-                    profileData: responseJson
+                    profileData: responseJson,
+                    isLoading: false
                 })
             })
             .catch((error) => {
                 console.log(error);
             });
+
     }
 
     render() {
@@ -40,6 +44,7 @@ export default class ProfileScreen extends Component {
             return (
                 <ScrollView style={styles.profileContainer}>
                     <View>
+                        <DisplayProfilePicture></DisplayProfilePicture>
                         <Text style={styles.name}>{first_name} {last_name}</Text>
                         <Text style={styles.email}>{email}</Text>
                     </View>

@@ -6,34 +6,28 @@ import { Picker } from '@react-native-picker/picker';
 
 import ContactList from "../components/ContactList";
 //API
-import { getContactList } from "../api/api";
+import { getBlockedUsers } from "../api/api";
+import BlockedList from "../components/BlockedList";
 
-export default class ContactsScreen extends Component {
+export default class ContactsBlockedScreen extends Component {
     constructor(props) {
         super(props);
 
 
         this.state = {
             isLoading: true,
-            contactData: [] || props.route.params.contactData,
-            prevData: [],
-            searchData: [],
-            q: "",
-            search_in: "all",
-            showSearchForm: false,
-            addError: "",
+            blockedData: [] || props.route.params.contactData,
             error: "",
-            showResults: false
         };
     }
 
     componentDidMount() {
-        getContactList()
+        getBlockedUsers()
             .then((responseJson) => {
                 console.log(responseJson);
                 this.setState({
                     isLoading: false,
-                    contactData: responseJson
+                    blockedData: responseJson
                 });
             })
             .catch((error) => {
@@ -52,16 +46,11 @@ export default class ContactsScreen extends Component {
             return (
                 <View style={styles.contactsContainer}>
                     <View style={styles.button}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Search', { getContactData: this.getContactData })}>
-                            <Text style={styles.searchBtn}>Search</Text>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("ContactsScreen")}>
+                            <Text style={styles.searchBtn}>Back</Text>
                         </TouchableOpacity>
-                    </View>
-                    <View style={styles.button}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BlockedContacts', { getContactData: this.getContactData })}>
-                            <Text style={styles.blockBtn}>Blocked Users</Text>
-                        </TouchableOpacity>
-                    </View>                       
-                    <ContactList contacts={this.state.contactData} navigation={this.props.navigation}/>
+                    </View>                   
+                    <BlockedList contacts={this.state.blockedData} navigation={this.props.navigation}/>
                 </View>
             );
         }

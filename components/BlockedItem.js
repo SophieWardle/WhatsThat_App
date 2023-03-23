@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const ContactItem = ({ contact, navigation }) => {
+const BlockedItem = ({ contact, navigation }) => {
   console.log(contact);
   return (
     <View style={styles.contactsRow}>
       <Text>{contact.first_name} {contact.last_name}</Text>
       <View style={styles.deleteBtn}>
-        <TouchableOpacity onPress={() => navigation.navigate("ContactProfile", { id: contact.user_id })}>
+        <TouchableOpacity onPress={() => navigation.navigate("Unblock", { id: contact.user_id })}>
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Profile</Text>
+            <Text style={styles.buttonText}>Unblock</Text>
           </View>
         </TouchableOpacity>
         
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ContactItem;
+export default BlockedItem;

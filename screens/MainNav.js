@@ -10,8 +10,12 @@ import ProfileScreen from "./ProfileScreen";
 import Logout from "./ProfileLogoutScreen";
 
 //Contacts Nav
+import ContactsProfileScreen from "./ContactsProfileScreen";
 import ContactsDeleteScreen from "./ContactsDeleteScreen";
 import ContactsSearch from "./ContactsSearch";
+import ContactsBlockScreen from "./ContactsBlockScreen";
+import ContactsBlockedScreen from "./ContactsBlockedScreen";
+import ContactsUnblockScreen from "./ContactsUnblockScreen";
 
 //Profile Nav
 import ProfileUpdateScreen from "./ProfileUpdateScreen";
@@ -32,8 +36,13 @@ function  ContactStackNavigator() {
             initialRouteName="Contacts"
             screenOptions={{ headerShown: false}}>
             <ContactStack.Screen name="ContactsScreen" component={ContactsScreen} />
+            <ContactStack.Screen name="ContactProfile" component={ContactsProfileScreen} />
             <ContactStack.Screen name="Delete" component={ContactsDeleteScreen} />
             <ContactStack.Screen name="Search" component={ContactsSearch} />
+            <ContactStack.Screen name="Block" component={ContactsBlockScreen} />
+            <ContactStack.Screen name="BlockedContacts" component={ContactsBlockedScreen} />
+            <ContactStack.Screen name="Unblock" component={ContactsUnblockScreen} />
+
 
         </ContactStack.Navigator>
     )
