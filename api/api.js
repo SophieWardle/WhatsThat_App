@@ -353,6 +353,23 @@ export const getChatListData = async () => {
         });
 }
 
+export const getSingleChatData = async (chat_id) => {
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch(`http://localhost:3333/api/1.0.0/chat/${chat_id}`, {
+        method: 'GET',
+        headers: {
+            'X-Authorization': token
+        }
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
 export const createNewChat = async (to_send) => {
     const token = await AsyncStorage.getItem('whatsthat_session_token');
     return fetch("http://localhost:3333/api/1.0.0/chat", {

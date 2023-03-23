@@ -23,6 +23,7 @@ import ProfileLogoutScreen from "./ProfileLogoutScreen";
 
 //Chats nav
 import ChatsNewScreen from "./ChatsNewScreen";
+import ChatDisplayScreen from "./ChatDisplayScreen";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -55,6 +56,7 @@ function  ChatStackNavigator() {
             screenOptions={{ headerShown: false}}>
             <ChatStack.Screen name="ChatsScreen" component={ChatsScreen} />
             <ChatStack.Screen name="NewChat" component={ChatsNewScreen} />
+            <ChatStack.Screen name="Chat" component={ChatDisplayScreen} />
 
         </ChatStack.Navigator>
     )

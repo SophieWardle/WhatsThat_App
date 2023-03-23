@@ -1,17 +1,17 @@
 import React from "react";
 import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 
-const MessageItem = (props) => {
+const MessageItem = ({ message, navigation }) => {
     return (
-        <View style={styles.messageContainer}>
-            <View style={styles.messageContent}>
-                <Text style={styles.name}>{props.message.author.first_name}</Text>
-                <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.message}>{props.message.message}</Text>
-            </View>
-            <Text style={styles.time}>{props.message.timestamp}</Text>
+      <View style={styles.messageContainer}>
+        <View style={styles.messageContent}>
+          <Text style={styles.name}>{message.author.first_name}</Text>
+          <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.message}>{message.message}</Text>
         </View>
+        <Text style={styles.time}>{message.timestamp}</Text>
+      </View>
     );
-};
+  };
 
 const styles = StyleSheet.create({
     messageContainer:{

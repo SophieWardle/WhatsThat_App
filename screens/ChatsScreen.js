@@ -18,7 +18,8 @@ export default class ChatsScreen extends Component {
     }
 
     componentDidMount() {
-        getChatListData()
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            getChatListData()
             .then((responseJson) => {
                 console.log(responseJson);
                 this.setState({
@@ -29,6 +30,11 @@ export default class ChatsScreen extends Component {
             .catch((error) => {
                 console.log(error);
             });
+        })
+    }
+
+    componentWillUnmount(){
+        this.unsubscribe();
     }
 
 
@@ -48,7 +54,7 @@ export default class ChatsScreen extends Component {
                             <Text style={styles.buttonText}>Create A New Chat</Text>
                         </View>
                     </TouchableOpacity>
-                    <ChatList chats={this.state.chats} />
+                    <ChatList chats={this.state.chats} navigation={this.props.navigation} />
                 </ScrollView >
             );
         }

@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from "moment/moment";
 
 
-export default function ChatItem({ chat }) {
+const ChatItem = ({ chat, navigation}) => {
     return (
       <View style={styles.chatContainer}>
         <View style={styles.chatContent}>
@@ -12,6 +12,11 @@ export default function ChatItem({ chat }) {
           <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.message}>{chat.last_message.message}</Text>
         </View>
         <Text style={styles.time}>{moment(chat.last_message.timestamp * 1000).format('DD/MM/YYYY, h:mm a')}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Chat", { chat_id: chat.chat_id})}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Open</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -51,3 +56,4 @@ const styles = StyleSheet.create({
   },
 })
 
+export default ChatItem;

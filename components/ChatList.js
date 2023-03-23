@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
 import ChatItem from "./ChatItem";
 
-const ChatList = ({ chats, navigateToNewChat }) => {
+const ChatList = ({ chats, navigation }) => {
+  
     return (
       <View style={styles.container}>
         <FlatList
@@ -10,6 +11,7 @@ const ChatList = ({ chats, navigateToNewChat }) => {
           renderItem={({ item }) => (
             <ChatItem 
                 chat={item}
+                navigation={navigation}
             />
             )}
           keyExtractor={({ chat_id }, index) => chat_id.toString()}
