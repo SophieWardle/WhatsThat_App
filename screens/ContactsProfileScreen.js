@@ -44,6 +44,13 @@ export default class ContactProfileScreen extends Component {
         }else {
             return (
                 <View style={styles.contactsProfile}>
+                     <View style={styles.backBtn}>
+                        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Back</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                     <Text>{contactProfile.first_name} {contactProfile.last_name}</Text>
                     <Text>{contactProfile.email}</Text>
                     <View style={styles.deleteBtn}>

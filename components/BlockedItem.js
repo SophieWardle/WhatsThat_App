@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const BlockedItem = ({ contact, navigation }) => {
-  console.log(contact);
+const BlockedItem = ({ blockedContact, navigation }) => {
+  console.log(blockedContact);
   return (
     <View style={styles.contactsRow}>
-      <Text>{contact.first_name} {contact.last_name}</Text>
+      <Text>{blockedContact.first_name} {blockedContact.last_name}</Text>
       <View style={styles.deleteBtn}>
-        <TouchableOpacity onPress={() => navigation.navigate("Unblock", { id: contact.user_id })}>
+        <TouchableOpacity onPress={() => navigation.navigate("Unblock", {item: blockedContact, navigation: navigation })}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Unblock</Text>
           </View>

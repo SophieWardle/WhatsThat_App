@@ -14,12 +14,14 @@ export default class ContactsUnblockScreen extends Component {
             first_name: this.props.route.params.item.first_name,
             last_name: this.props.route.params.item.last_name,
         };
+
+        this.handleUnblock = this.handleUnblock.bind(this)
     }
 
-    async handleUnblock() {
+    handleUnblock = async () => {
         const contact_id = this.state.user_id;
         console.log(contact_id);
-        deleteContact(contact_id)
+        unblockContact(contact_id)
             .then(async (response) => {
                 this.props.navigation.navigate("ContactsScreen");
                 return response;
@@ -30,9 +32,10 @@ export default class ContactsUnblockScreen extends Component {
     }
 
     render() {
+        const { user_id, first_name, last_name } = this.state;
         return (
             <View>
-                <Text>Are you sure you want to unblock {this.props.route.params.item.first_name} {this.props.route.params.item.last_name}?</Text>
+                <Text>Are you sure you want to unblock this user?</Text>
                 <View style={styles.noBtn}>
                     <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                         <View style={styles.button}>
@@ -42,7 +45,7 @@ export default class ContactsUnblockScreen extends Component {
                 </View>
 
                 <View style={styles.yesBtn}>
-                    <TouchableOpacity onPress={() => this.handleUnblock(this.props.route.params.item.user_id)}>
+                    <TouchableOpacity onPress={() => this.handleUnblock(user_id)}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>YES</Text>
                         </View>

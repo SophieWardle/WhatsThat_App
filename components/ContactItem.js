@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const ContactItem = ({ contact, navigation }) => {
-  console.log(contact);
   return (
     <View style={styles.contactsRow}>
       <Text>{contact.first_name} {contact.last_name}</Text>

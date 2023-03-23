@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Picker } from '@react-native-picker/picker';
+import { useNavigation } from '@react-navigation/native';
 
 import ContactList from "../components/ContactList";
 //API
@@ -28,9 +29,9 @@ export default class ContactsScreen extends Component {
     }
 
     componentDidMount() {
-        getContactList()
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            getContactList()
             .then((responseJson) => {
-                console.log(responseJson);
                 this.setState({
                     isLoading: false,
                     contactData: responseJson
@@ -39,6 +40,11 @@ export default class ContactsScreen extends Component {
             .catch((error) => {
                 console.log(error);
             });
+        })
+    }
+
+    componentWillUnmount(){
+        this.unsubscribe();
     }
 
     render() {
@@ -51,6 +57,7 @@ export default class ContactsScreen extends Component {
         } else {
             return (
                 <View style={styles.contactsContainer}>
+  
                     <View style={styles.button}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Search', { getContactData: this.getContactData })}>
                             <Text style={styles.searchBtn}>Search</Text>

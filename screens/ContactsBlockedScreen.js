@@ -50,7 +50,7 @@ export default class ContactsBlockedScreen extends Component {
                             <Text style={styles.searchBtn}>Back</Text>
                         </TouchableOpacity>
                     </View>                   
-                    <BlockedList contacts={this.state.blockedData} navigation={this.props.navigation}/>
+                    <BlockedList blockedContact={this.state.blockedData} navigation={this.props.navigation}/>
                 </View>
             );
         }
