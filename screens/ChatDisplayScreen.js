@@ -8,10 +8,13 @@ import ChatList from "../components/ChatList";
 import { getSingleChatData } from "../api/api";
 import { sendChatMessage } from "../api/api";
 import MessageList from "../components/MessageList";
+import { deleteChatMessage } from "../api/api";
+
 
 export default class ChatDisplayScreen extends Component {
     constructor(props) {
         super(props);
+     
 
         this.state = {
             chat_id: props.route.params.chat_id,
@@ -22,18 +25,25 @@ export default class ChatDisplayScreen extends Component {
     }
 
     componentDidMount() {
-        const chat_id = this.state.chat_id;
-        getSingleChatData(chat_id)
-            .then((responseJson) => {
-                console.log(responseJson);
-                this.setState({
-                    isLoading: false,
-                    chatData: responseJson
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            const chat_id = this.state.chat_id;
+            getSingleChatData(chat_id)
+                .then((responseJson) => {
+                    console.log(responseJson);
+                    this.setState({
+                        isLoading: false,
+                        chatData: responseJson
+                    });
+                   
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        })
+    }
+
+    componentWillUnmount(){
+        this.unsubscribe();
     }
 
     handleSendMessage = async () => {
@@ -73,6 +83,9 @@ export default class ChatDisplayScreen extends Component {
         } else {
             return (
                 <ScrollView style={styles.container}>
+                    <View style={styles.chatName}>
+                        <Text style={styles.buttonText}>{this.state.chatData.name}</Text>
+                    </View>
                     <View style={styles.backBtn}>
                         <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                             <View style={styles.button}>
@@ -80,7 +93,14 @@ export default class ChatDisplayScreen extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <MessageList messages={this.state.chatData.messages} navigation={this.props.navigation} />
+                    <View style={styles.detailsBtn}>
+                        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Details</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <MessageList messages={this.state.chatData.messages} chat_id={this.state.chat_id} navigation={this.props.navigation} />
                     <View style={styles.sendMessage}>
                         <TextInput
                             style={styles.messageInput}
@@ -129,6 +149,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+    },
+    sendButtonText: {
+
     },
     messageInput: {
         flex: 1,

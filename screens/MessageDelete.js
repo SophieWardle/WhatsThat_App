@@ -4,36 +4,40 @@ import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "
 import { TouchableOpacity } from "react-native";
 
 //API
-import { deleteContact } from "../api/api";
-export default class ContactsDelete extends Component {
+import { deleteChatMessage } from "../api/api";
+export default class MessageDelete extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            user_id: this.props.route.params.item.user_id,
-            first_name: this.props.route.params.item.first_name,
-            last_name: this.props.route.params.item.last_name,
+            message_id: this.props.route.params.message_id,
+            chat_id: this.props.route.params.chat_id
         };
+        console.log("Message id delete:" + this.state.message_id + "chat_id delete:" + this.state.chat_id)
     }
 
-
-    async handleDelete() {
-        const user_id = this.state.user_id;
-        console.log(user_id);
-        deleteContact(user_id)
-            .then(async (response) => {
-                this.props.navigation.navigate("ContactsScreen");
-                return response;
-            })
-            .catch((error) => {
-                console.log(error);
+    handleDelete = async (chat_id, message_id) =>  {
+        console.log(chat_id,message_id);
+        deleteChatMessage(chat_id, message_id)
+        .then((responseJson) => {
+            console.log(responseJson);
+            this.setState({
+              isLoading: false,
+              chats: responseJson
             });
+            this.props.navigation.goBack();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
+    
     render() {
+        const {message_id, chat_id} = this.state;
         return (
             <View>
-                <Text>Are you sure you want to delete {this.props.route.params.item.first_name} {this.props.route.params.item.last_name}?</Text>
+                <Text>Are you sure you want to delete the message?</Text>
                 <View style={styles.noBtn}>
                     <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                         <View style={styles.button}>
@@ -43,7 +47,7 @@ export default class ContactsDelete extends Component {
                 </View>
 
                 <View style={styles.yesBtn}>
-                    <TouchableOpacity onPress={() => this.handleDelete(this.props.route.params.item.user_id)}>
+                    <TouchableOpacity onPress={() => this.handleDelete(chat_id,message_id)}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>YES</Text>
                         </View>

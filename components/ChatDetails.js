@@ -16,7 +16,7 @@ const ChatDetails = (chatData) => {
             <View style={styles.deleteBtn}>
                 <TouchableOpacity onPress={() => navigation.navigate("Unblock", { item: blockedContact, navigation: navigation })}>
                     <View style={styles.button}>
-                        <Text style={styles.buttonText}>Unblock</Text>
+                        <Text style={styles.buttonText}>Delete Chat</Text>
                     </View>
                 </TouchableOpacity>
 

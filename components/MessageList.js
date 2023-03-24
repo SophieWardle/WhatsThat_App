@@ -3,7 +3,8 @@ import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native
 import ChatItem from "./ChatItem";
 import MessageItem from "./MessageItem";
 
-const MessageList = ({ messages, navigation }) => {
+const MessageList = ({ messages, chat_id, navigation }) => {
+  console.log("MessageList nav:" + navigation)
     return (
       <View style={styles.container}>
         <FlatList
@@ -11,6 +12,7 @@ const MessageList = ({ messages, navigation }) => {
           renderItem={({ item }) => (
             <MessageItem 
                 message={item}
+                chat_id={chat_id}
                 navigation={navigation}
             />
             )}
