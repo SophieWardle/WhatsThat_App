@@ -48,12 +48,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#777',
   },
-  time: {
-    color: '#777',
-    fontSize: 12,
-    alignSelf: 'flex-end',
-    marginBottom: 5,
-  },
+
 })
 
 export default ChatItem;

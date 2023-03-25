@@ -14,9 +14,11 @@ export default class ChatAddMember extends Component {
         this.state = {
             isLoading: true,
             addContactData: [],
-            chat_id: this.props.route.params.chat_id
+            chat_id: this.props.route.params.chat_id,
+            user_id: this.props.route.params.user_id,
+            members: this.props.route.params.members
         };
-        console.log("User id add:" + this.state.user_id + "chat_id add:" + this.state.chat_id)
+        console.log("members add:" + this.state.members);
     }
 
     componentDidMount() {
@@ -51,11 +53,21 @@ export default class ChatAddMember extends Component {
           });
     }
 
+    handleSelectUser = (user_id) => {
+        this.setState({ user_id }, () => {
+          this.handleAddUserToChat(this.state.chat_id, user_id);
+        });
+      };
+
     render() {
         
             return (
                 <View>
-                    <ChatAddMemberList contacts={this.state.addContactData} chat_id={this.state.chat_id} addFunction={this.handleAddUserToChat}/>
+                    <ChatAddMemberList 
+                      contacts={this.state.addContactData} 
+                      chat_id={this.state.chat_id} 
+                      members={this.state.members} 
+                      onSelectUser={this.handleSelectUser}/>
                 </View>
             );
         }

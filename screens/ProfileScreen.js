@@ -5,7 +5,7 @@ import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet
 import DisplayProfilePicture from "../components/DisplayProfilePicture";
 //API
 import { getUserProfileData } from "../api/api";
-import { getProfilePic } from "../api/api";
+import { getUserProfilePic } from "../api/api";
 
 export default class ProfileScreen extends Component {
     constructor(props) {
@@ -22,15 +22,29 @@ export default class ProfileScreen extends Component {
         getUserProfileData()
             .then((responseJson) => {
                 this.setState({
-                    profileData: responseJson,
-                    isLoading: false
+                    profileData: responseJson
                 })
+                this.getProfilePic()
             })
             .catch((error) => {
                 console.log(error);
             });
 
     }
+
+    getProfilePic = async () => {
+        try {
+            const photoBlob = await getUserProfilePic();
+            this.setState({
+                photo: photoBlob,
+                isLoading: false
+            });
+            console.log("Get profile pic resblob value:" + this.state.photo);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     render() {
         if (this.state.isLoading) {
@@ -44,7 +58,7 @@ export default class ProfileScreen extends Component {
             return (
                 <ScrollView style={styles.profileContainer}>
                     <View>
-                        <DisplayProfilePicture></DisplayProfilePicture>
+                        <DisplayProfilePicture photo={this.state.photo} />
                         <Text style={styles.name}>{first_name} {last_name}</Text>
                         <Text style={styles.email}>{email}</Text>
                     </View>
@@ -65,47 +79,47 @@ export default class ProfileScreen extends Component {
                 </ScrollView>
 
             );
-        } 
+        }
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    profileContainer: {
         flex: 1,
         backgroundColor: '#fff',
-      },
-      profileInfo: {
+    },
+    profileInfo: {
         paddingVertical: 20,
         paddingHorizontal: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
-      },
-      name: {
+    },
+    name: {
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 5,
-      },
-      email: {
+    },
+    email: {
         fontSize: 16,
         color: '#666',
-      },
-      editBtn: {
+    },
+    editBtn: {
         marginHorizontal: 10,
         marginVertical: 20,
-      },
-      logoutBtn: {
+    },
+    logoutBtn: {
         marginHorizontal: 10,
         marginBottom: 20,
-      },
-      button: {
+    },
+    button: {
         backgroundColor: '#428bca',
         borderRadius: 5,
         padding: 10,
-      },
-      buttonText: {
+    },
+    buttonText: {
         color: '#fff',
         textAlign: 'center',
         fontSize: 16,
         fontWeight: 'bold',
-      },
+    },
 });

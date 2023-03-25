@@ -2,10 +2,9 @@ import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import ChatAddMemberItem from './ChatAddMemberItem';
 
-const ChatAddMemberList = ({ contacts, chat_id, addFunction }) => {
+const ChatAddMemberList = ({ contacts, chat_id, onSelectUser }) => {
     console.log("list contact:" + contacts);
     console.log("list chat id:" + chat_id);
-    console.log("list function:" + addFunction);
   return (
     <View style={styles.contactsContainer}>
       <FlatList
@@ -13,10 +12,10 @@ const ChatAddMemberList = ({ contacts, chat_id, addFunction }) => {
         renderItem={({ item }) => <ChatAddMemberItem
          contact={item}
          chat_id={chat_id}
-         addFunction={addFunction}
+         onSelectUser={onSelectUser}
          />
         }
-        keyExtractor={({ id }, index) => id ? id.toString() : index.toString()} />
+        keyExtractor={({ user_id }, index) => user_id ? user_id.toString() : index.toString()} />
     </View>
   );
 }

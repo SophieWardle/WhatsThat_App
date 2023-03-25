@@ -5,7 +5,9 @@ import { TouchableOpacity } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 
+import defaultProfile from '../images/defaultProfile.png';
 import ContactList from "../components/ContactList";
+import { getContactProfilePic } from "../api/api";
 //API
 import { getContactList } from "../api/api";
 
@@ -47,6 +49,16 @@ export default class ContactsScreen extends Component {
         this.unsubscribe();
     }
 
+    handleFetchPicture = async (user_id) => {
+        try {
+            const photo = await getContactProfilePic(user_id);
+            this.setState({ photo: photo });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+
     render() {
         if (this.state.isLoading) {
             return (
@@ -68,7 +80,7 @@ export default class ContactsScreen extends Component {
                             <Text style={styles.blockBtn}>Blocked Users</Text>
                         </TouchableOpacity>
                     </View>                       
-                    <ContactList contacts={this.state.contactData} navigation={this.props.navigation}/>
+                    <ContactList contacts={this.state.contactData} navigation={this.props.navigation} handleFetchPicture={this.handleFetchPicture}/>
                 </View>
             );
         }

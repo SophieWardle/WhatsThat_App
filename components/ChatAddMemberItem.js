@@ -1,15 +1,14 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const ChatAddMemberItem = ({ contact, chat_id, addFunction}) => {
+const ChatAddMemberItem = ({ contact, chat_id, onSelectUser}) => {
   console.log("item contact:" + contact);
   console.log("item chat id:" + chat_id);
-  console.log("item function:" + addFunction);
   return (
     <View style={styles.contactsRow}>
       <Text>{contact.first_name} {contact.last_name}</Text>
       <View style={styles.deleteBtn}>
-        <TouchableOpacity onPress={() => addFunction(contact.user_id,chat_id)}>
+        <TouchableOpacity onPress={() => onSelectUser(contact.user_id)}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Add</Text>
           </View>

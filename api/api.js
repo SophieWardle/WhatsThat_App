@@ -288,7 +288,7 @@ export const blockContact = async (contact_id) => {
                 return response;
             } else if (response.status === 400) {
                 throw "You can't block yourself"
-            }else if (response.status === 401) {
+            } else if (response.status === 401) {
                 throw "Unauthorized"
             }
             else if (response.status === 404) {
@@ -476,7 +476,7 @@ export const addUserToChat = async (chat_id, user_id) => {
                 throw "Not found"
             } else if (response.status === 500) {
                 throw "Server Error"
-            }else {
+            } else {
                 throw "Something went wrong"
             }
         })
@@ -539,26 +539,45 @@ export const sendPicToServer = async (data) => {
         })
 }
 
-export const getProfilePic = async () => {
-    const id = await AsyncStorage.getItem('id');
-    const token = await AsyncStorage.getItem('whatsthat_session_token');
-    fetch(`http://localhost:3333/api/1.0.0/user/${id}/photo`, {
+export const getUserProfilePic = async () => {
+    try {
+      const id = await AsyncStorage.getItem('id');
+      const token = await AsyncStorage.getItem('whatsthat_session_token');
+      const response = await fetch(`http://localhost:3333/api/1.0.0/user/${id}/photo`, {
         method: 'GET',
         headers: {
-            'X-Authorization': token
+          'X-Authorization': token
         }
-    })
-        .then((res) => {
-            return res.blob();
-        })
-        .then((resBlob) => {
-            console.log(URL.createObjectURL(resBlob))
-            return URL.createObjectURL(resBlob);
-        })
-        .catch((err) => {
-            console.log("error", err);
-        });
-}
+      });
+      const blob = await response.blob();
+      const resBlob = URL.createObjectURL(blob);
+      console.log("res blob:" + resBlob);
+      return resBlob;
+    } catch (error) {
+      console.log("error", error);
+      throw error;
+    }
+  }
+
+  export const getContactProfilePic = async (id) => {
+    try {
+      const token = await AsyncStorage.getItem('whatsthat_session_token');
+      const response = await fetch(`http://localhost:3333/api/1.0.0/user/${id}/photo`, {
+        method: 'GET',
+        headers: {
+          'X-Authorization': token
+        }
+      });
+      const blob = await response.blob();
+      const resBlob = URL.createObjectURL(blob);
+      console.log("res blob:" + resBlob);
+      return resBlob;
+    } catch (error) {
+      console.log("error", error);
+      throw error;
+    }
+  }
+  
 
 export const takePicture = async () => {
     if (this.camera) {

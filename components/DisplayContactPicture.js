@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { View, StyleSheet, Image } from "react-native";
 
 
-const DisplayProfilePicture = ({ photo }) => {
+const DisplayContactPicture = ({ handleFetchPicture, user_id }) => {
     return (
         <View style={styles.pictureContainer}>
             <Image
                 source={{
-                    uri: photo,
+                    uri: handleFetchPicture(user_id),
                 }}
                 style={styles.profilePic}
             />
@@ -17,18 +17,18 @@ const DisplayProfilePicture = ({ photo }) => {
 
 const styles = StyleSheet.create({
     pictureContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+      marginLeft: 10,
     },
     profilePic: {
-        width: 150,
-        height: 150,
-        borderRadius: 75,
-    }
-});
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+    },
+  });
 
 
 
-export default DisplayProfilePicture;
+export default DisplayContactPicture;

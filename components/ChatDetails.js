@@ -4,6 +4,7 @@ import MemberList from './MemberList';
 import MessageList from './MessageList';
 
 const ChatDetails = ({ chatData, navigation, members, chat_id }) => {
+    console.log("Details chat ID:"+chat_id)
     return (
         <View style={styles.chatDetailsContainer}>
             <View style={styles.backBtn}>
@@ -21,7 +22,7 @@ const ChatDetails = ({ chatData, navigation, members, chat_id }) => {
             </View>
             <View style={styles.chatMembers}>
                 <Text>Members:</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("AddMember", chat_id={chat_id})}>
+                <TouchableOpacity onPress={() => navigation.navigate("AddMember", chat_id={chat_id}, members={members})}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Add a Member</Text>
                     </View>

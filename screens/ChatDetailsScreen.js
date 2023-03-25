@@ -15,7 +15,7 @@ export default class ChatDetailsScreen extends Component {
             chatDetails: this.props.route.params.chatData,
             chat_id: this.props.route.params.chat_id,
             creator: "",
-            members: []
+            members:this.props.route.params.members,
         };
         console.log("Chat_id: " + this.state.chat_id)
         console.log("ChatData: " + this.state.chatDetails)
@@ -36,7 +36,7 @@ export default class ChatDetailsScreen extends Component {
                     creator: responseJson.creator,
                     isLoading: false
                 })
-                console.log("Members mount func" + responseJson.members);
+                console.log("Members mount func" + this.state.chatData.members);
             })
             .catch((error) => {
                 console.log(error);
