@@ -29,7 +29,6 @@ export default class ChatDisplayScreen extends Component {
             const chat_id = this.state.chat_id;
             getSingleChatData(chat_id)
                 .then((responseJson) => {
-                    console.log(responseJson);
                     this.setState({
                         isLoading: false,
                         chatData: responseJson
@@ -53,10 +52,8 @@ export default class ChatDisplayScreen extends Component {
         const chat_id = this.state.chat_id;
         sendChatMessage(chat_id, to_send)
         .then((responseJson) => {
-            console.log(responseJson);
             getSingleChatData(chat_id)
             .then((responseJson) => {
-                console.log(responseJson);
                 this.setState({
                     isLoading: false,
                     chatData: responseJson,
@@ -81,6 +78,7 @@ export default class ChatDisplayScreen extends Component {
                 </View>
             );
         } else {
+            console.log(this.state.chatData)
             return (
                 <ScrollView style={styles.container}>
                     <View style={styles.chatName}>
@@ -94,7 +92,7 @@ export default class ChatDisplayScreen extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.detailsBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("ChatDetails", {chat_id: this.state.chat_id,chatData:this.state.chatData})}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Details</Text>
                             </View>

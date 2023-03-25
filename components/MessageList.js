@@ -4,7 +4,6 @@ import ChatItem from "./ChatItem";
 import MessageItem from "./MessageItem";
 
 const MessageList = ({ messages, chat_id, navigation }) => {
-  console.log("MessageList nav:" + navigation)
     return (
       <View style={styles.container}>
         <FlatList

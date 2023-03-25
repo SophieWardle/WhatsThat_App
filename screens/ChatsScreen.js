@@ -16,7 +16,7 @@ export default class ChatsScreen extends Component {
             chats: []
         };
     }
-
+    
     componentDidMount() {
         this.unsubscribe = this.props.navigation.addListener('focus', () => {
             getChatListData()
@@ -36,6 +36,8 @@ export default class ChatsScreen extends Component {
     componentWillUnmount(){
         this.unsubscribe();
     }
+
+
 
 
 

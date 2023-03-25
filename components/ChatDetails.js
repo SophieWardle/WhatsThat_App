@@ -1,20 +1,35 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import MemberList from './MemberList';
+import MessageList from './MessageList';
 
-const ChatDetails = (chatData) => {
-    console.log(chatData);
+const ChatDetails = ({ chatData, navigation, members, chat_id }) => {
     return (
         <View style={styles.chatDetailsContainer}>
+            <View style={styles.backBtn}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}>Back</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
             <Text style={styles.chatName}>{chatData.name}</Text>
             <View style={styles.chatCreator}>
-                <Text style={styles.chatCreatorDetails}>{chatData.creator.first_name}{chatData.creator.last_name}</Text>
-                <Text style={styles.chatCreatorDetails}>{chatData.creator.email}</Text>
+                <Text>Creator:</Text>
+                <Text style={styles.chatCreatorDetails}>name: {chatData.creator.first_name} {chatData.creator.last_name}</Text>
+                <Text style={styles.chatCreatorDetails}>email: {chatData.creator.email}</Text>
             </View>
             <View style={styles.chatMembers}>
-                <Text style={styles.chatMembersDetails}>{chatData.members.first_name}{chatData.members.last_name}</Text>
+                <Text>Members:</Text>
+                <TouchableOpacity onPress={() => navigation.navigate("AddMember", chat_id={chat_id})}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}>Add a Member</Text>
+                    </View>
+                </TouchableOpacity>
+                <MemberList members={members} navigation={navigation} chat_id={chat_id} />
             </View>
             <View style={styles.deleteBtn}>
-                <TouchableOpacity onPress={() => navigation.navigate("Unblock", { item: blockedContact, navigation: navigation })}>
+                <TouchableOpacity >
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Delete Chat</Text>
                     </View>
@@ -49,4 +64,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default BlockedItem;
+export default ChatDetails;

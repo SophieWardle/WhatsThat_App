@@ -54,11 +54,7 @@ export default class ContactsSearch extends Component {
 
     async onPressSearch() {
 
-        if (!(this.state.q)) {
-            this.setState({ error: "Must fill search field" })
-            return;
-        }
-
+        
         const to_send = {
             q: this.state.q,
             search_in: this.state.search_in

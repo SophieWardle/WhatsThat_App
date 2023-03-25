@@ -25,6 +25,9 @@ import ProfileLogoutScreen from "./ProfileLogoutScreen";
 import ChatsNewScreen from "./ChatsNewScreen";
 import ChatDisplayScreen from "./ChatDisplayScreen";
 import MessageDelete from "./MessageDelete";
+import ChatDetailsScreen from "./ChatDetailsScreen";
+import ChatDeleteMember from "./ChatDeleteMember";
+import ChatAddMember from "./ChatAddMember";
 
 const Tab = createMaterialTopTabNavigator();
 const ContactStack = createNativeStackNavigator();
@@ -58,6 +61,10 @@ function  ChatStackNavigator() {
             <ChatStack.Screen name="NewChat" component={ChatsNewScreen} />
             <ChatStack.Screen name="Chat" component={ChatDisplayScreen} />
             <ChatStack.Screen name="DeleteMessage" component={MessageDelete} />
+            <ChatStack.Screen name="ChatDetails" component={ChatDetailsScreen} />
+            <ChatStack.Screen name="DeleteMember" component={ChatDeleteMember} />
+            <ChatStack.Screen name="AddMember" component={ChatAddMember} />
+
 
         </ChatStack.Navigator>
     )

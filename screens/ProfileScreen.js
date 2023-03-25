@@ -14,7 +14,7 @@ export default class ProfileScreen extends Component {
         this.state = {
             isLoading: true,
             profileData: [],
-            photo: null
+            photo: []
         };
     }
 

@@ -5,9 +5,6 @@ import moment from "moment";
 
 
 const MessageItem = ({ message, chat_id, navigation }) => {
-  console.log("Item Chat ID:" + chat_id);
-  console.log("Item Message ID:" + message.message_id);
-  console.log("Item NAV:" + navigation);
   return (
 
     <View style={styles.messageContainer}>
