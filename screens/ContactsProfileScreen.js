@@ -3,8 +3,9 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { ActivityIndicator } from "react-native-web";
 import { getContactProfile } from "../api/api";
 
+import DisplayProfilePicture from "../components/DisplayProfilePicture";
 //API
-
+import { getContactProfilePic } from "../api/api";
 
 export default class ContactProfileScreen extends Component {
     constructor(props) {
@@ -25,13 +26,31 @@ export default class ContactProfileScreen extends Component {
                 isLoading: false,
                 contactProfile: responseJson,
             });
+            this.handleFetchPicture(this.state.id);
          })
          .catch((error) => {
             console.log(error);
          })
     }
 
-
+    
+    handleFetchPicture = async (user_id) => {
+        try {
+          if (this.state.photo) {
+            // Use cached photo data if it exists
+            return this.state.photo;
+          }
+          const photo = await getContactProfilePic(user_id);
+          // Cache the photo data in component state
+          this.setState({ photo: photo }, () => {
+            console.log("logging the photo in handleFetch: "+ this.state.photo);
+          });
+          return photo;
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      
 
     render() {
         const { isLoading, contactProfile } = this.state;
@@ -51,6 +70,7 @@ export default class ContactProfileScreen extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
+                    <DisplayProfilePicture photo={this.state.photo}/>
                     <Text>{contactProfile.first_name} {contactProfile.last_name}</Text>
                     <Text>{contactProfile.email}</Text>
                     <View style={styles.deleteBtn}>

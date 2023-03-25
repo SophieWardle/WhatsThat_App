@@ -49,14 +49,6 @@ export default class ContactsScreen extends Component {
         this.unsubscribe();
     }
 
-    handleFetchPicture = async (user_id) => {
-        try {
-            const photo = await getContactProfilePic(user_id);
-            this.setState({ photo: photo });
-        } catch (error) {
-            console.log(error);
-        }
-    }
     
 
     render() {

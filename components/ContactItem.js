@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-import DisplayContactPicture from './DisplayContactPicture';
-const ContactItem = ({ contact, navigation, handleFetchPicture }) => {
+
+const ContactItem = ({ contact, navigation }) => {
   console.log("Contact_id: "+ contact.user_id);
   return (
     <View style={styles.contactsRow}>
