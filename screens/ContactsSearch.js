@@ -54,7 +54,7 @@ export default class ContactsSearch extends Component {
 
     async onPressSearch() {
 
-        
+
         const to_send = {
             q: this.state.q,
             search_in: this.state.search_in
@@ -83,7 +83,7 @@ export default class ContactsSearch extends Component {
 
     async addContact(user_id) {
         const queryId = user_id;
-        
+
         addContact(queryId)
             .then((responseJson) => {
                 this.setState({
@@ -110,8 +110,8 @@ export default class ContactsSearch extends Component {
                 <View style={styles.resultsContainer}>
                     <Text style={styles.errorMessage}>{this.state.addError}</Text>
                     <View style={styles.closeBtn}>
-                        <TouchableOpacity onPress={() => this.hideResults()}>
-                            <Text style={styles.searchBtn}>Close</Text>
+                        <TouchableOpacity onPress={() => this.hideResults()} style={styles.button}>
+                            <Text style={styles.buttonText}>Close</Text>
                         </TouchableOpacity>
                     </View>
                     <FlatList
@@ -147,7 +147,7 @@ export default class ContactsSearch extends Component {
                         selectedValue={this.search_in}
                         onValueChange={(itemValue, itemIndex) => this.setState({ search_in: itemValue })}
                     >
-                        <Picker.Item label="All" value="all" />
+                        <Picker.Item label="All Users" value="all" />
                         <Picker.Item label="Contacts" value="contacts" />
                     </Picker>
                     <Text style={styles.errorMessage}>{this.state.error}</Text>
@@ -158,7 +158,7 @@ export default class ContactsSearch extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.closeBtn}>
+                    <View style={styles.backBtn}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate("ContactsScreen")}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Back</Text>
@@ -186,6 +186,76 @@ const styles = StyleSheet.create({
     },
     searchFormBtn: {
         textAlign: "center"
+    },
+    searchContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        padding: 20,
+    },
+    header: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    input: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
+    },
+    resultsContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: 1,
+        paddingBottom: 20,
+
+    },
+    contactsRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 13,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+    },
+    addBtn: {
+        backgroundColor: '#428bca',
+        borderRadius: 5,
+        padding: 1,
+    },
+    button: {
+        backgroundColor: '#428bca',
+        borderRadius: 5,
+        padding: 10,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    errorMessage: {
+        color: 'red',
+        marginBottom: 10,
+    },
+    searchBtn: {
+        marginTop: 20,
+        marginBottom: 10,
+    },
+    closeBtn: {
+        width: '40%',
+        backgroundColor: '#428bca',
+        borderRadius: 5,
+        padding: 5,
+        margin: 5,
+        
+        top: 2,
+        left: 10,
+
     }
 
 })

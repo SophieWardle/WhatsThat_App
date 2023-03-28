@@ -62,7 +62,7 @@ export default class ContactProfileScreen extends Component {
             )
         }else {
             return (
-                <View style={styles.contactsProfile}>
+                <View style={styles.contactsProfileContainer}>
                      <View style={styles.backBtn}>
                         <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                             <View style={styles.button}>
@@ -70,9 +70,10 @@ export default class ContactProfileScreen extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <DisplayProfilePicture photo={this.state.photo}/>
-                    <Text>{contactProfile.first_name} {contactProfile.last_name}</Text>
-                    <Text>{contactProfile.email}</Text>
+                    <DisplayProfilePicture photo={this.state.photo} style={styles.profilePicture}/>
+                    <Text style={styles.name}>{contactProfile.first_name} {contactProfile.last_name}</Text>
+                    <Text style={styles.email}>{contactProfile.email}</Text>
+
                     <View style={styles.deleteBtn}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate("Delete", { item: contactProfile, navigation: navigation })}>
                             <View style={styles.button}>
@@ -95,5 +96,47 @@ export default class ContactProfileScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-
-});
+    contactsProfileContainer:{
+        margin:5,
+        flex: 1,
+        backgroundColor: '#fff',
+        justifyContent: 'center'
+    },
+    deleteBtn: {
+        marginHorizontal: 10,
+        marginVertical: 20,
+    },
+    blockBtn: {
+        marginHorizontal: 10,
+        marginBottom: 20,
+    },
+    button: {
+        backgroundColor: '#428bca',
+        borderRadius: 5,
+        padding: 10
+      },
+      buttonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: 'bold'
+      },
+      profilePicture: {
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+        marginBottom: 20
+      },
+      name: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        paddingLeft: 10
+      },
+      email: {
+        fontSize: 18,
+        color: '#666',
+        marginBottom: 20,
+        paddingLeft: 10
+      }
+    });

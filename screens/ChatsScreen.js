@@ -16,24 +16,24 @@ export default class ChatsScreen extends Component {
             chats: []
         };
     }
-    
+
     componentDidMount() {
         this.unsubscribe = this.props.navigation.addListener('focus', () => {
             getChatListData()
-            .then((responseJson) => {
-                console.log(responseJson);
-                this.setState({
-                    isLoading: false,
-                    chats: responseJson
+                .then((responseJson) => {
+                    console.log(responseJson);
+                    this.setState({
+                        isLoading: false,
+                        chats: responseJson
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
         })
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.unsubscribe();
     }
 
@@ -64,5 +64,20 @@ export default class ChatsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    button: {
+        margin: 5,
+        backgroundColor: '#007AFF',
+        borderRadius: 5,
+        padding: 8,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
 
 })

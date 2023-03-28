@@ -21,34 +21,51 @@ const ChatItem = ({ chat, navigation}) => {
     );
   }
 
-const styles = StyleSheet.create({
-  chatContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-  },
-  chatContent: {
-    flex: 1,
-    paddingRight: 16,
-  },
-  chatName: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 4,
-  },
-  name: {
-    color: '#777',
-    fontSize: 14,
-    marginBottom: 4,
-  },
-  message: {
-    fontSize: 14,
-    color: '#777',
-  },
-
-})
+  const styles = StyleSheet.create({
+    chatContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: 16,
+      borderBottomColor: '#ccc',
+      borderBottomWidth: 1,
+      backgroundColor: '#fff',
+    },
+    chatContent: {
+      flex: 1,
+      paddingRight: 16,
+    },
+    chatName: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      marginBottom: 4,
+    },
+    name: {
+      color: '#777',
+      fontSize: 14,
+      marginBottom: 4,
+    },
+    message: {
+      fontSize: 14,
+      color: '#777',
+    },
+    time: {
+      color: '#777',
+      fontSize: 12,
+      alignSelf: 'flex-end',
+    },
+    button: {
+      backgroundColor: '#007AFF',
+      borderRadius: 5,
+      padding: 8,
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 14,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+  });
+  
 
 export default ChatItem;

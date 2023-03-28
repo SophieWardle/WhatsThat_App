@@ -21,6 +21,20 @@ const ChatList = ({ chats, navigation }) => {
   };
 
   const styles = StyleSheet.create({
-
-  })
+    container: {
+      backgroundColor: '#fff',
+      borderRadius: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      marginVertical: 10,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+  });
   export default ChatList;

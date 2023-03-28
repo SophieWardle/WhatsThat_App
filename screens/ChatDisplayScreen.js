@@ -14,7 +14,7 @@ import { deleteChatMessage } from "../api/api";
 export default class ChatDisplayScreen extends Component {
     constructor(props) {
         super(props);
-     
+
 
         this.state = {
             chat_id: props.route.params.chat_id,
@@ -33,7 +33,7 @@ export default class ChatDisplayScreen extends Component {
                         isLoading: false,
                         chatData: responseJson
                     });
-                   
+
                 })
                 .catch((error) => {
                     console.log(error);
@@ -41,7 +41,7 @@ export default class ChatDisplayScreen extends Component {
         })
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.unsubscribe();
     }
 
@@ -51,24 +51,24 @@ export default class ChatDisplayScreen extends Component {
         }
         const chat_id = this.state.chat_id;
         sendChatMessage(chat_id, to_send)
-        .then((responseJson) => {
-            getSingleChatData(chat_id)
             .then((responseJson) => {
-                this.setState({
-                    isLoading: false,
-                    chatData: responseJson,
-                    newMessage: ''
-                });
+                getSingleChatData(chat_id)
+                    .then((responseJson) => {
+                        this.setState({
+                            isLoading: false,
+                            chatData: responseJson,
+                            newMessage: ''
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             })
             .catch((error) => {
                 console.log(error);
             });
-        })
-        .catch((error) => {
-            console.log(error);
-        });
     }
-    
+
 
     render() {
         if (this.state.isLoading) {
@@ -81,23 +81,26 @@ export default class ChatDisplayScreen extends Component {
             console.log(this.state.chatData)
             return (
                 <ScrollView style={styles.container}>
+
                     <View style={styles.chatName}>
-                        <Text style={styles.buttonText}>{this.state.chatData.name}</Text>
+                        <Text style={styles.chatNameText}>{this.state.chatData.name}</Text>
                     </View>
-                    <View style={styles.backBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.backBtn}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Back</Text>
                             </View>
                         </TouchableOpacity>
-                    </View>
-                    <View style={styles.detailsBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("ChatDetails", {chat_id: this.state.chat_id,chatData:this.state.chatData})}>
+
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("ChatDetails", { chat_id: this.state.chat_id, chatData: this.state.chatData })} style={styles.detailsBtn}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Details</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
+
+
                     <MessageList messages={this.state.chatData.messages} chat_id={this.state.chat_id} navigation={this.props.navigation} />
                     <View style={styles.sendMessage}>
                         <TextInput
@@ -118,23 +121,45 @@ export default class ChatDisplayScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+
+    buttonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 10,
     },
     backBtn: {
-        paddingHorizontal: 10,
-        paddingTop: 20,
+        marginLeft: 10,
+        width: '30%',
+    },
+    detailsBtn: {
+        marginRight: 10,
+        width: '30%',
     },
     button: {
-        backgroundColor: '#1E6738',
-        padding: 10,
+        backgroundColor: '#007AFF',
         borderRadius: 5,
-        width: 80,
-        alignItems: 'center',
+        padding: 10,
+    },
+    chatName: {
+        margin: 5,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        alignSelf: 'center',
+    },
+    chatNameText: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 18,
+        textAlign: 'center',
     },
     buttonText: {
         color: '#FFFFFF',
-        fontWeight: 'bold',
+        fontWeight: 16,
+        textAlign: 'center',
+        fontWeight: 'bold'
     },
     sendMessage: {
         bottom: 0,

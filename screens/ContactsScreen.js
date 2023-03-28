@@ -61,17 +61,19 @@ export default class ContactsScreen extends Component {
         } else {
             return (
                 <View style={styles.contactsContainer}>
-  
-                    <View style={styles.button}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Search', { getContactData: this.getContactData })}>
-                            <Text style={styles.searchBtn}>Search</Text>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Search', { getContactData: this.getContactData })} style={styles.searchBtn}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Search</Text>
+                            </View>
                         </TouchableOpacity>
-                    </View>
-                    <View style={styles.button}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BlockedContacts', { getContactData: this.getContactData })}>
-                            <Text style={styles.blockBtn}>Blocked Users</Text>
+                        
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BlockedContacts', { getContactData: this.getContactData })} style={styles.blockedBtn}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Blocked Users</Text>
+                            </View>
                         </TouchableOpacity>
-                    </View>                       
+                    </View>                  
                     <ContactList contacts={this.state.contactData} navigation={this.props.navigation} handleFetchPicture={this.handleFetchPicture}/>
                 </View>
             );
@@ -94,6 +96,31 @@ const styles = StyleSheet.create({
     },
     searchFormBtn: {
         textAlign: "center"
-    }
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 10,
+    },
+    searchBtn: {
+        marginLeft: 10,
+        width: '40%',
+    },
+    blockedBtn: {
+        marginRight: 10,
+        width: '40%',
+    },
+    button: {
+        backgroundColor: '#007AFF',
+        borderRadius: 5,
+        padding: 10,
+    },
+    buttonText: {
+        color: '#FFFFFF',
+        fontWeight: 16,
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
 
 })
