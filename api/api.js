@@ -111,23 +111,20 @@ export const getUserProfileData = async () => {
         });
 }
 
-//not working yet
 export const updateUserProfile = async (to_send) => {
     const id = await AsyncStorage.getItem('id');
     const token = await AsyncStorage.getItem('whatsthat_session_token');
     return fetch(`http://localhost:3333/api/1.0.0/user/${id}`, {
         method: 'PATCH',
         headers: {
-            'X-Authorization': token
+            'X-Authorization': token,
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(to_send)
+        body: JSON.stringify(to_send),
     })
         .then((response) => response.json())
         .then((responseJson) => {
-            this.setState({
-                isLoading: false,
-                contactData: responseJson
-            })
+            return responseJson;
         })
         .catch((error) => {
             console.log(error);
@@ -510,6 +507,25 @@ export const removeUserFromChat = async (chat_id, user_id) => {
             } else {
                 throw "Server error"
             }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export const updateChatDetails = async (chat_id,to_send) => {
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch(`http://localhost:3333/api/1.0.0/chat/${chat_id}`, {
+        method: 'PATCH',
+        headers: {
+            'X-Authorization': token,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(to_send),
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson;
         })
         .catch((error) => {
             console.log(error);

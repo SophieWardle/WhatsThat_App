@@ -19,7 +19,8 @@ export default class ProfileScreen extends Component {
     }
 
     componentDidMount() {
-        getUserProfileData()
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            getUserProfileData()
             .then((responseJson) => {
                 this.setState({
                     profileData: responseJson
@@ -29,7 +30,12 @@ export default class ProfileScreen extends Component {
             .catch((error) => {
                 console.log(error);
             });
+        })
 
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     getProfilePic = async () => {
