@@ -452,6 +452,25 @@ export const deleteChatMessage = async (chat_id, message_id) => {
         });
 }
 
+export const updateChatMessage = async (chat_id,message_id,to_send) => {
+    const token = await AsyncStorage.getItem('whatsthat_session_token');
+    return fetch(`http://localhost:3333/api/1.0.0/chat/${chat_id}/message/${message_id}`, {
+        method: 'PATCH',
+        headers: {
+            'X-Authorization': token,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(to_send),
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
 export const addUserToChat = async (chat_id, user_id) => {
     const token = await AsyncStorage.getItem('whatsthat_session_token');
     return fetch(`http://localhost:3333/api/1.0.0/chat/${chat_id}/user/${user_id}`, {

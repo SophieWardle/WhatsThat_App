@@ -30,7 +30,7 @@ class ChatDetailsUpdateScreen extends Component {
         if (this.state.newChatName !== "") {
             to_send.name = this.state.newChatName;
         }
-        updateChatDetails(chat_id,to_send)
+        updateChatDetails(this.state.chat_id,to_send)
             .then(() => {
                 this.setState({
                     error: 'Name updated!',
