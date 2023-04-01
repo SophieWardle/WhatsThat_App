@@ -45,7 +45,7 @@ export default class ProfileScreen extends Component {
                 photo: photoBlob,
                 isLoading: false
             });
-            console.log("Get profile pic resblob value:" + this.state.photo);
+            console.log("Get Profile Pic Success!"+ this.state.photo);
         } catch (error) {
             console.log(error);
         }

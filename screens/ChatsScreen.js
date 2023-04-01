@@ -37,10 +37,6 @@ export default class ChatsScreen extends Component {
         this.unsubscribe();
     }
 
-
-
-
-
     render() {
         if (this.state.isLoading) {
             return (

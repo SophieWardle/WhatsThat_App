@@ -95,7 +95,6 @@ export const getUserProfileData = async () => {
     const id = await AsyncStorage.getItem('id');
     const token = await AsyncStorage.getItem('whatsthat_session_token');
     const url = `http://localhost:3333/api/1.0.0/user/${id}`
-    console.log(token);
     return fetch(url, {
         method: 'GET',
         headers: {
@@ -104,6 +103,7 @@ export const getUserProfileData = async () => {
     })
         .then((response) => response.json())
         .then((responseJson) => {
+            console.log("Get user profile data api success!")
             return responseJson;
         })
         .catch((error) => {
@@ -586,7 +586,7 @@ export const getUserProfilePic = async () => {
       });
       const blob = await response.blob();
       const resBlob = URL.createObjectURL(blob);
-      console.log("res blob:" + resBlob);
+      console.log("Get profile pic api success. Photo:" + resBlob);
       return resBlob;
     } catch (error) {
       console.log("error", error);
