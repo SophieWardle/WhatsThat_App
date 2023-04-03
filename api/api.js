@@ -557,7 +557,8 @@ export const sendPicToServer = async (data) => {
     const token = await AsyncStorage.getItem('whatsthat_session_token');
 
     let res = await fetch(data.base64);
-    let blob = await res.blob;
+    let blob = await res.blob();
+    
     return fetch(`http://localhost:3333/api/1.0.0/user/${id}/photo`, {
         method: 'POST',
         headers: {

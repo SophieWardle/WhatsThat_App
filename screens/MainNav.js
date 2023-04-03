@@ -20,6 +20,7 @@ import ContactsUnblockScreen from "./ContactsUnblockScreen";
 //Profile Nav
 import ProfileUpdateScreen from "./ProfileUpdateScreen";
 import ProfileLogoutScreen from "./ProfileLogoutScreen";
+import CameraApp from "../Camera";
 
 //Chats nav
 import ChatsNewScreen from "./ChatsNewScreen";
@@ -68,8 +69,6 @@ function  ChatStackNavigator() {
             <ChatStack.Screen name="EditChat" component={ChatDetailsUpdateScreen} />
             <ChatStack.Screen name="DeleteMember" component={ChatDeleteMember} />
             <ChatStack.Screen name="AddMember" component={ChatAddMember} />
-
-
         </ChatStack.Navigator>
     )
 }
@@ -83,6 +82,8 @@ function  ProfileStackNavigator() {
             <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
             <ProfileStack.Screen name="ProfileLogoutScreen" component={ProfileLogoutScreen} />
             <ProfileStack.Screen name="ProfileUpdateScreen" component={ProfileUpdateScreen} />
+            <ProfileStack.Screen name="Camera" component={CameraApp} />
+
         </ProfileStack.Navigator>
     )
 }

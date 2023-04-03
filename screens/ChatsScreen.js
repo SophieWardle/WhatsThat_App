@@ -46,14 +46,14 @@ export default class ChatsScreen extends Component {
             );
         } else {
             return (
-                <ScrollView style={styles.container}>
+                <View style={styles.container}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('NewChat')}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>Create A New Chat</Text>
                         </View>
                     </TouchableOpacity>
                     <ChatList chats={this.state.chats} navigation={this.props.navigation} />
-                </ScrollView >
+                </View >
             );
         }
     }

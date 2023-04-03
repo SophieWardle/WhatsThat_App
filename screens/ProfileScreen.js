@@ -69,7 +69,7 @@ export default class ProfileScreen extends Component {
                         <Text style={styles.email}>{email}</Text>
                     </View>
                     <View style={styles.editBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfilePictureUpdateScreen')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Edit Profile Picture</Text>
                             </View>
