@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Platform, PermissionsAndroid, StyleSheet, TouchableOpacity } from 'react-native';
 import { Camera, CameraType, onCameraReady, CameraPictureOptions } from 'expo-camera';
-
-export default function CameraApp() {
+import { sendPicToServer } from './api/api';
+export default function CameraApp({ navigation }) {
     const [type, setType] = useState(CameraType.back);
     const [permission, setPermission] = useState(null);
     const [camera, setCamera] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function getCameraPermission() {
@@ -38,37 +39,47 @@ export default function CameraApp() {
         getCameraPermission();
     }, []);
 
-    function toggleCameraType(){
+    function toggleCameraType() {
         setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
         console.log("Camera: ", type)
     }
 
-    async function takePhoto(){
-        if(camera){
-            const options = {quality: 0.5, base64: true, onPictureSaved: (data) => sendToServer(data)}
+    async function takePhoto() {
+        if (camera) {
+            const options = { quality: 0.5, base64: true, onPictureSaved: (data) => sendToServer(data) }
             const data = await camera.takePictureAsync(options)
+            sendToServer(data);
         }
     }
 
-    async function sendToServer(data){
+    async function sendToServer(data) {
         console.log("HERE", data.uri)
 
-        let id = 10;
-        let token = "token here";
+        sendPicToServer(data)
+            .then((rJson) => {
+                console.log(rJson)
+                setError({ "error": "Picture Saved Successfully" })
+                navigation.navigate("ProfileScreen")
+            })
+            .catch((error) => {
+                setError({ "error": error })
+            })
 
-        let res = await fetch(data.uri);
-        let blob = await res.blob()
-
-        //network request here
+        
     }
 
 
 
-    if(!permission || !permission.granted){
+    if (!permission || !permission.granted) {
         return (<Text>No access to camera</Text>)
-    }else{
+    } else {
         return (
             <View style={styles.container}>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+                        <Text style={styles.text}>Back</Text>
+                    </TouchableOpacity>
+                </View>
                 <Camera style={styles.camera} type={type} ref={ref => setCamera(ref)}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
@@ -82,9 +93,10 @@ export default function CameraApp() {
                         </TouchableOpacity>
                     </View>
                 </Camera>
+                <Text style={styles.errorMessage}>{error}</Text>
             </View>
         );
-    }  
+    }
 }
 
 

@@ -21,15 +21,15 @@ export default class ProfileScreen extends Component {
     componentDidMount() {
         this.unsubscribe = this.props.navigation.addListener('focus', () => {
             getUserProfileData()
-            .then((responseJson) => {
-                this.setState({
-                    profileData: responseJson
+                .then((responseJson) => {
+                    this.setState({
+                        profileData: responseJson
+                    })
+                    this.getProfilePic()
                 })
-                this.getProfilePic()
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+                .catch((error) => {
+                    console.log(error);
+                });
         })
 
     }
@@ -45,7 +45,7 @@ export default class ProfileScreen extends Component {
                 photo: photoBlob,
                 isLoading: false
             });
-            console.log("Get Profile Pic Success!"+ this.state.photo);
+            console.log("Get Profile Pic Success!" + this.state.photo);
         } catch (error) {
             console.log(error);
         }
@@ -69,7 +69,7 @@ export default class ProfileScreen extends Component {
                         <Text style={styles.email}>{email}</Text>
                     </View>
                     <View style={styles.editBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera', { navigation: this.props.navigation })}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Edit Profile Picture</Text>
                             </View>
@@ -98,11 +98,11 @@ export default class ProfileScreen extends Component {
 
 const styles = StyleSheet.create({
     profileContainer: {
-        margin:5,
+        margin: 5,
         flex: 1,
         backgroundColor: '#fff',
         justifyContent: 'center'
-       
+
     },
     profileInformation: {
         paddingVertical: 20,
