@@ -2,12 +2,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native";
-import { Picker } from '@react-native-picker/picker';
-import { useNavigation } from '@react-navigation/native';
 
-import defaultProfile from '../images/defaultProfile.png';
 import ContactList from "../components/ContactList";
-import { getContactProfilePic } from "../api/api";
+
 //API
 import { getContactList } from "../api/api";
 

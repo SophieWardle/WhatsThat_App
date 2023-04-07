@@ -52,6 +52,11 @@ export default class ChatsScreen extends Component {
                             <Text style={styles.buttonText}>Create A New Chat</Text>
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Drafts')}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>Drafts</Text>
+                        </View>
+                    </TouchableOpacity>
                     <ChatList chats={this.state.chats} navigation={this.props.navigation} />
                 </View >
             );
