@@ -92,7 +92,7 @@ export default class ChatDisplayScreen extends Component {
                                 <Text style={styles.buttonText}>Back</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftMessages", { chat_id: this.state.chat_id})} style={styles.backBtn}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftMessages", { chat_id: this.state.chat_id, chat_name: this.state.chatData.name})} style={styles.backBtn}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Draft a Message</Text>
                             </View>

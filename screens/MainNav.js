@@ -33,6 +33,7 @@ import ChatAddMember from "./ChatAddMember";
 import ChatDetailsUpdateScreen from "./ChatDetailsUpdateScreen";
 import DraftMessagesScreen from "../DraftMessagesScreen";
 import DraftsScreen from "../DraftsScreen"
+import DraftsDisplayScreen from "../DraftsDisplayScreen";
 
 const Tab = createMaterialTopTabNavigator();
 const ContactStack = createNativeStackNavigator();
@@ -73,6 +74,7 @@ function  ChatStackNavigator() {
             <ChatStack.Screen name="AddMember" component={ChatAddMember} />
             <ChatStack.Screen name="DraftMessages" component={DraftMessagesScreen} />
             <ChatStack.Screen name="Drafts" component={DraftsScreen} />
+            <ChatStack.Screen name="DraftsDisplay" component={DraftsDisplayScreen} />
 
         </ChatStack.Navigator>
     )
