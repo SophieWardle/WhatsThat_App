@@ -9,6 +9,7 @@ class DraftsDisplayScreen extends Component {
         super(props);
         this.state = {
             chat_id: props.route.params.chat_id,
+            draft_id: props.route.params.draft_id,
             chat_name: props.route.params.chat_name,
             message: props.route.params.message
         };
@@ -20,18 +21,37 @@ class DraftsDisplayScreen extends Component {
         }
 
         const chat_id = this.state.chat_id;
+        const draft_id = this.state.draft_id;
         sendChatMessage(chat_id, to_send)
-            .then((responseJson) => {
-                
+            .then(async(responseJson) => {
+                await this.handleDeleteDraft(draft_id);
+                this.props.navigation.navigate('Drafts');
             })
             .catch((error) => {
                 console.log(error);
             });
     }
 
+    handleDeleteDraft = async (draft_id) => {
+        const currentDrafts = await AsyncStorage.getItem('draftMessagesKey');
+        
+        let draftArray = JSON.parse(currentDrafts) || [];
+        
+        //find index of draft w/matching id
+        const itemIndexToRemove = draftArray.findIndex(item => item.draft_id === draft_id )
+        if(itemIndexToRemove !== -1){
+            //remove draft
+            draftArray.splice(itemIndexToRemove, 1);
+
+            //store updated array
+            await AsyncStorage.setItem('draftMessagesKey', JSON.stringify(draftArray))
+            this.props.navigation.navigate('Drafts');
+        }
+    }
+
 
 render() {
-    const { chat_name, message } = this.state;
+    const { chat_name, message, draft_id } = this.state;
     return (
         <View style={styles.container}>
 
@@ -44,12 +64,12 @@ render() {
             <View style={styles.draftContainer}>
                 <Text style={styles.draftTitle}>{chat_name}</Text>
                 <Text style={styles.draftContent}>{message}</Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftsEdit")}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftsEdit", {message: message, draft_id: draft_id})}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Edit</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftsDelete")}>
+                <TouchableOpacity onPress={() => this.handleDeleteDraft(draft_id)}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Delete</Text>
                     </View>

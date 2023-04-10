@@ -2,7 +2,7 @@ import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import ContactItem from './ContactItem';
 
-const ContactList = ({ contacts, navigation, handleFetchPicture }) => {
+const ContactList = ({ contacts, navigation }) => {
   return (
     <View style={styles.contactsContainer}>
       <FlatList
@@ -10,7 +10,7 @@ const ContactList = ({ contacts, navigation, handleFetchPicture }) => {
         renderItem={({ item }) => <ContactItem 
           contact={item} 
           navigation={navigation}
-          handleFetchPicture={handleFetchPicture}/>}
+          />}
         keyExtractor={({ id }, index) => id ? id.toString() : index.toString()} />
     </View>
   );

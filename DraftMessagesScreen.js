@@ -17,34 +17,45 @@ export default class DraftMessagesScreen extends Component {
 
     handleSaveDraftMessage = async () => {
         try {
-            const { draftMessage, chat_id, chat_name} = this.state; // Access the state
-
-            // Retrieve existing draft messages from AsyncStorage
-            const jsonString = await AsyncStorage.getItem('draftMessagesKey');
-            const draftMessages = jsonString ? JSON.parse(jsonString) : [];
-
-            // Add new draft message to the draft messages array
-            draftMessages.push({ message: draftMessage, chat_id, chat_name });
-
-            // Save updated draft messages array in AsyncStorage
-            await AsyncStorage.setItem('draftMessagesKey', JSON.stringify(draftMessages));
-
-            // Show success message
-            this.setState({error: 'Draft message saved successfully.'});
-
-            // Clear input field
-            this.setState({ draftMessage: '' }); // Update the state
+          const { draftMessage, chat_id, chat_name } = this.state; // Access the state
+      
+          // Retrieve existing draft messages from AsyncStorage
+          const jsonString = await AsyncStorage.getItem('draftMessagesKey');
+          const draftMessages = jsonString ? JSON.parse(jsonString) : [];
+      
+          // Find the last used draft_id
+          let lastDraftId = 0;
+          if (draftMessages.length > 0) {
+            const lastDraft = draftMessages[draftMessages.length - 1];
+            lastDraftId = lastDraft.draft_id;
+          }
+      
+          // Generate a new draft_id by adding 1 to the last used draft_id
+          const newDraftId = lastDraftId + 1;
+      
+          // Add new draft message with the generated draft_id to the draft messages array
+          draftMessages.push({ draft_id: newDraftId, message: draftMessage, chat_id, chat_name });
+      
+          // Save updated draft messages array in AsyncStorage
+          await AsyncStorage.setItem('draftMessagesKey', JSON.stringify(draftMessages));
+      
+          // Show success message
+          this.setState({ error: 'Draft message saved successfully.' });
+      
+          // Clear input field
+          this.setState({ draftMessage: '' }); // Update the state
         } catch (error) {
-            // Show error message
-            this.setState({error: 'Failed to save draft message. Please try again.'});
+          // Show error message
+          this.setState({ error: 'Failed to save draft message. Please try again.' });
         }
-    }
+      }
+      
 
     render() {
         const { draftMessage, chat_name } = this.state;
         return (
             <View style={styles.container}>
-                <Text style={styles.chatName}>Draft a message for: {this.state.chat_name}</Text>
+                <Text style={styles.chatName}>Draft a message for: {chat_name}</Text>
                 <TextInput
                     style={styles.textInput}
                     value={draftMessage}

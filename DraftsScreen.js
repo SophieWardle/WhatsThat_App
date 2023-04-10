@@ -11,8 +11,14 @@ class DraftsScreen extends Component {
   }
 
   componentDidMount() {
-    this.getDrafts();
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.getDrafts();
+    })
   }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+}
 
   getDrafts = async () => {
     try {
@@ -43,7 +49,7 @@ class DraftsScreen extends Component {
               <View style={styles.draftContainer}>
                 <Text style={styles.draftTitle}>{item.chat_name}</Text>
                 <Text style={styles.draftContent}>{item.message}</Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftsDisplay", { chat_id: item.chat_id, chat_name: item.chat_name, message: item.message })}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftsDisplay", { draft_id: item.draft_id, chat_id: item.chat_id, chat_name: item.chat_name, message: item.message })}>
                   <View style={styles.button}>
                     <Text style={styles.buttonText}>Open</Text>
                   </View>
