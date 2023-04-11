@@ -22,7 +22,7 @@ const ChatList = ({ chats, navigation }) => {
 
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: '#fff',
+      backgroundColor: '#f0ece3',
       borderRadius: 10,
       paddingVertical: 10,
       paddingHorizontal: 20,
@@ -30,7 +30,7 @@ const ChatList = ({ chats, navigation }) => {
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
-        height: 2,
+        height: 1,
       },
       shadowOpacity: 0.25,
       shadowRadius: 3.84,

@@ -47,18 +47,21 @@ export default class ChatsScreen extends Component {
         } else {
             return (
                 <View style={styles.backgroundContainer}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('NewChat')}>
-                        <View style={styles.chatsButton}>
-                            <Text style={styles.chatsBtnText}>Create A New Chat</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Drafts')}>
-                        <View style={styles.chatsButton}>
-                            <Text style={styles.chatsBtnText}>Drafts</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <View style={styles.rowContainer}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewChat')}>
+                            <View style={styles.chatsButton}>
+                                <Text style={styles.chatsBtnText}>Create A New Chat</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Drafts')}>
+                            <View style={styles.chatsButton}>
+                                <Text style={styles.chatsBtnText}>Drafts</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                     <ChatList chats={this.state.chats} navigation={this.props.navigation} />
-                </View >
+                </View>
+
             );
         }
     }

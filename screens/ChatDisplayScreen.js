@@ -83,16 +83,16 @@ export default class ChatDisplayScreen extends Component {
                 <ScrollView style={styles.container}>
 
                     <View style={styles.chatName}>
-                        <Text style={styles.chatNameText}>{this.state.chatData.name}</Text>
-                    </View>
-
-                    <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.backBtn}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Back</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftMessages", { chat_id: this.state.chat_id, chat_name: this.state.chatData.name})} style={styles.backBtn}>
+                        <Text style={styles.chatNameText}>{this.state.chatData.name}</Text>
+                    </View>
+
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftMessages", { chat_id: this.state.chat_id, chat_name: this.state.chatData.name })} style={styles.detailsBtn}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Draft a Message</Text>
                             </View>
@@ -126,39 +126,43 @@ export default class ChatDisplayScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-
+    container:{
+        flex: 1,
+    },
+    chatName: {
+        flexDirection: 'row',
+        flex: 1, 
+        backgroundColor: 'white',
+        borderRadius: 1,
+        borderColor: 'black',
+        borderWidth: 0.5,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        
+    },
     buttonContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
         marginBottom: 10,
-    },
-    backBtn: {
-        marginLeft: 10,
-        width: '30%',
     },
     detailsBtn: {
         marginRight: 10,
         width: '30%',
+    },
+    backButton: {
+        marginRight: 10,
     },
     button: {
         backgroundColor: '#007AFF',
         borderRadius: 5,
         padding: 10,
     },
-    chatName: {
-        margin: 5,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        alignSelf: 'center',
-    },
     chatNameText: {
+        flex: 1,
         color: 'black',
         fontWeight: 'bold',
         fontSize: 18,
         textAlign: 'center',
+        justifyContent: 'center'
     },
     buttonText: {
         color: '#FFFFFF',

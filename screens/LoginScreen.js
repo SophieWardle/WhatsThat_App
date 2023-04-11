@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
-import { Text, View, TextInput, StyleSheet } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import styles from '../styles/globalTheme';
-
+import Logo from '../components/Logo';
 //API
 import { loginUser } from '../api/api';
 class LoginScreen extends Component {
@@ -91,6 +91,7 @@ class LoginScreen extends Component {
       <View style={styles.backgroundContainer}>
 
         <View style={styles.loginContainer}>
+          <Logo></Logo>
           <Text style={styles.formHeader}>Email:</Text>
           <TextInput
             style={styles.formInput}

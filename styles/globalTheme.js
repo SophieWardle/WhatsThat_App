@@ -74,6 +74,12 @@ const globalStyle = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  rowContainer: {
+    flexDirection: 'row', // make the child components align horizontally
+    justifyContent: 'center', // align child components with space in between
+    paddingTop: 5, // add horizontal margin for spacing
+     // add bottom margin for spacing
+  },
   //profile update screen
   profileEditContainer: {
     flex: 1,
@@ -86,6 +92,35 @@ const globalStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center'
+  },
+  //logo
+  
+  logo: {
+    width: 100,
+    height: 100,
+  },
+  logoTextContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center',
+  },
+  logoTextPrimary: {
+    color: '#332724',
+    fontSize: 24, 
+    fontWeight: 'bold', 
+    paddingTop: 5,
+    paddingBottom: 5,
+    textShadowColor: 'gray', // Set the text shadow color for the letters
+    textShadowOffset: { width: 1, height: 1 }, // Set the text shadow offset for the letters
+    textShadowRadius: 2, // Set the text shadow radius for the letters
+  },
+  logoTextSecondary: {
+    color: '#8e7569',
+    fontSize: 24, // Set the font size for the letters
+    fontWeight: 'bold', // Set the font weight for the letters
+    paddingTop: 5,
+    paddingBottom: 5,
+    
+    
   },
 });
 

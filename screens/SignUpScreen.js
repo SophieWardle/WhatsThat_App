@@ -5,6 +5,8 @@ import { TouchableOpacity } from 'react-native';
 import styles from '../styles/globalTheme';
 //API
 import { signupUser } from '../api/api';
+//My components
+import Logo from '../components/Logo';
 
 class SignUpScreen extends Component {
     constructor(props) {
@@ -79,6 +81,7 @@ class SignUpScreen extends Component {
         return (
             <View style={styles.backgroundContainer}>
                 <View style={styles.signupContainer}>
+                    <Logo></Logo>
                     <Text style={styles.formHeader}>First name:</Text>
                     <TextInput
                         style={styles.formInput}
