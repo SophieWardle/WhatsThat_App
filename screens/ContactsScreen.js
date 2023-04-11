@@ -81,7 +81,7 @@ export default class ContactsScreen extends Component {
 const styles = StyleSheet.create({
     contactsContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#f0ece3',
         paddingHorizontal: 16,
         paddingVertical: 8,
     },
@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
         width: '40%',
     },
     button: {
-        backgroundColor: '#007AFF',
+        backgroundColor: '#bbb5a7',
         borderRadius: 5,
         padding: 10,
     },
     buttonText: {
-        color: '#FFFFFF',
+        color: 'black',
         fontWeight: 16,
         textAlign: 'center',
         fontWeight: 'bold'

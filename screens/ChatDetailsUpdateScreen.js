@@ -4,7 +4,8 @@ import { TouchableOpacity } from 'react-native';
 
 //API
 import { updateChatDetails } from '../api/api';
-
+//styles
+import styles from '../styles/globalTheme';
 class ChatDetailsUpdateScreen extends Component {
     constructor(props) {
         super(props);
@@ -30,7 +31,7 @@ class ChatDetailsUpdateScreen extends Component {
         if (this.state.newChatName !== "") {
             to_send.name = this.state.newChatName;
         }
-        updateChatDetails(this.state.chat_id,to_send)
+        updateChatDetails(this.state.chat_id, to_send)
             .then(() => {
                 this.setState({
                     error: 'Name updated!',
@@ -44,64 +45,31 @@ class ChatDetailsUpdateScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.header}>Enter new chat name</Text>
-                <TextInput
-                    style={styles.input}
-                    value={this.state.newChatName}
-                    onChangeText={(newChatName) => this.setState({ newChatName })}
-                />
-                <Text style={styles.errorMessage}>{this.state.error}</Text>
-                <TouchableOpacity onPress={this.updateChat}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>Save</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>Back</Text>
-                    </View>
-                </TouchableOpacity>
+            <View style={styles.backgroundContainer}>
+                <View style={styles.updateChatForm}>
+                    <Text style={styles.formHeader}>Enter a new chat name</Text>
+
+                    <TextInput
+                        style={styles.formInput}
+                        value={this.state.newChatName}
+                        onChangeText={(newChatName) => this.setState({ newChatName })}
+                    />
+                    <Text style={styles.errorMessage}>{this.state.error}</Text>
+                    <TouchableOpacity onPress={this.updateChat}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>Save</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>Back</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    input: {
-        height: 40,
-        width: 200,
-        borderWidth: 2,
-        borderColor: 'black'
-    },
-    header: {
-        color: 'black',
-        fontSize: 16,
-        fontWeight: 'bold'
-    },
-    errorMessage: {
-        color: 'red'
-    },
-    signupbtn: {
-        marginTop: 10,
-        backgroundColor: 'green',
-        color: 'black',
-        fontSize: 16,
-        fontWeight: 'bold'
-
-    },
-    backBtn: {
-        marginTop: 10,
-        backgroundColor: 'red',
-        color: 'black',
-        fontSize: 16,
-        fontWeight: 'bold'
-    }
-});
 
 export default ChatDetailsUpdateScreen;

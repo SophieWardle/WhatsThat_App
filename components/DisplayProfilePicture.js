@@ -18,7 +18,6 @@ const DisplayProfilePicture = ({ photo }) => {
 const styles = StyleSheet.create({
     pictureContainer: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },

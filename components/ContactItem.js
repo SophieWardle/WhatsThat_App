@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#bbb5a7',
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 5
   },
   buttonText: {
-    color: '#fff',
+    color: 'black',
     fontWeight: 'bold'
   }
 });

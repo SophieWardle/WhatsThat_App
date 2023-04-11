@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { Text, TouchableOpacity, StyleSheet, TextInput, View } from "react-native";
-
-
+import { Text, TouchableOpacity, TextInput, View } from "react-native";
+//styles
+import styles from './styles/globalTheme';
 export default class DraftMessagesScreen extends Component {
     constructor(props) {
         super(props);
@@ -54,8 +54,8 @@ export default class DraftMessagesScreen extends Component {
     render() {
         const { draftMessage, chat_name } = this.state;
         return (
-            <View style={styles.container}>
-                <Text style={styles.chatName}>Draft a message for: {chat_name}</Text>
+            <View style={styles.draftMsgContainer}>
+                <Text style={styles.formHeader}>Draft a message for: {chat_name}</Text>
                 <TextInput
                     style={styles.textInput}
                     value={draftMessage}
@@ -63,7 +63,7 @@ export default class DraftMessagesScreen extends Component {
                     placeholder="Enter your draft message..."
                     multiline
                 />
-                <Text style={styles.error}>{this.state.error}</Text>
+                <Text style={styles.errorMessage}>{this.state.error}</Text>
                 <TouchableOpacity onPress={() => this.handleSaveDraftMessage()}> {/* Update the event handler */}
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Save</Text>
@@ -79,20 +79,3 @@ export default class DraftMessagesScreen extends Component {
     };
 }
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 16,
-    },
-    textInput: {
-        width: '100%',
-        height: 200,
-        borderWidth: 1,
-        borderColor: 'gray',
-        marginBottom: 16,
-        padding: 8,
-    }
-});

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../styles/globalTheme';
 const ConfirmTask = ({ message, onCancel, onConfirm }) => {
   return (
@@ -23,20 +23,5 @@ const ConfirmTask = ({ message, onCancel, onConfirm }) => {
     </View>
   );
 };
-/*
-const styles = StyleSheet.create({
-  noBtn: {
-    // Style for NO button container
-  },
-  yesBtn: {
-    // Style for YES button container
-  },
-  button: {
-    // Style for button
-  },
-  buttonText: {
-    // Style for button text
-  },
-});
-*/
+
 export default ConfirmTask;

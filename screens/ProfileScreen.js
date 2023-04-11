@@ -1,11 +1,12 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-
+import { ActivityIndicator, View, Text, TouchableOpacity } from "react-native";
+//my components
 import DisplayProfilePicture from "../components/DisplayProfilePicture";
 //API
 import { getUserProfileData } from "../api/api";
 import { getUserProfilePic } from "../api/api";
+//STYLES
+import styles from '../styles/globalTheme';
 
 export default class ProfileScreen extends Component {
     constructor(props) {
@@ -51,7 +52,6 @@ export default class ProfileScreen extends Component {
         }
     }
 
-
     render() {
         if (this.state.isLoading) {
             return (
@@ -68,75 +68,24 @@ export default class ProfileScreen extends Component {
                         <Text style={styles.name}>{first_name} {last_name}</Text>
                         <Text style={styles.email}>{email}</Text>
                     </View>
-                    <View style={styles.editBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera', { navigation: this.props.navigation })}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>Edit Profile Picture</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.editBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileUpdateScreen')}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>Edit My Profile</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.logoutBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("ProfileLogoutScreen")}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>Logout</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera', { navigation: this.props.navigation })}>
+                        <View style={styles.profileButton}>
+                            <Text style={styles.buttonText}>Edit Profile Picture</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileUpdateScreen')}>
+                        <View style={styles.profileButton}>
+                            <Text style={styles.buttonText}>Edit My Profile</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("ProfileLogoutScreen")}>
+                        <View style={styles.profileButton}>
+                            <Text style={styles.buttonText}>Logout</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
-
             );
         }
     }
 }
 
-const styles = StyleSheet.create({
-    profileContainer: {
-        margin: 5,
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'center'
-
-    },
-    profileInformation: {
-        paddingVertical: 20,
-        paddingHorizontal: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
-        textAlign: 'center'
-    },
-    name: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    email: {
-        fontSize: 16,
-        color: '#666',
-    },
-    editBtn: {
-        marginHorizontal: 10,
-        marginVertical: 20,
-    },
-    logoutBtn: {
-        marginHorizontal: 10,
-        marginBottom: 20,
-    },
-    button: {
-        backgroundColor: '#428bca',
-        borderRadius: 5,
-        padding: 10,
-    },
-    buttonText: {
-        color: '#fff',
-        textAlign: 'center',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-});

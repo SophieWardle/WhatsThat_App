@@ -36,16 +36,18 @@ import DraftsScreen from "../DraftsScreen"
 import DraftsDisplayScreen from "../DraftsDisplayScreen";
 import DraftsEditScreen from "../DraftsEditScreen";
 
+import { NavigationContainer } from '@react-navigation/native';
+
 const Tab = createMaterialTopTabNavigator();
 const ContactStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 const ChatStack = createNativeStackNavigator();
 
-function  ContactStackNavigator() {
+function ContactStackNavigator() {
     return (
         <ContactStack.Navigator
             initialRouteName="Contacts"
-            screenOptions={{ headerShown: false}}>
+            screenOptions={{ headerShown: false }}>
             <ContactStack.Screen name="ContactsScreen" component={ContactsScreen} />
             <ContactStack.Screen name="ContactProfile" component={ContactsProfileScreen} />
             <ContactStack.Screen name="Delete" component={ContactsDeleteScreen} />
@@ -59,11 +61,11 @@ function  ContactStackNavigator() {
     )
 }
 
-function  ChatStackNavigator() {
+function ChatStackNavigator() {
     return (
         <ChatStack.Navigator
             initialRouteName="Chats"
-            screenOptions={{ headerShown: false}}>
+            screenOptions={{ headerShown: false }}>
             <ChatStack.Screen name="ChatsScreen" component={ChatsScreen} />
             <ChatStack.Screen name="NewChat" component={ChatsNewScreen} />
             <ChatStack.Screen name="Chat" component={ChatDisplayScreen} />
@@ -83,11 +85,11 @@ function  ChatStackNavigator() {
 }
 
 
-function  ProfileStackNavigator() {
+function ProfileStackNavigator() {
     return (
         <ProfileStack.Navigator
             initialRouteName="Profile"
-            screenOptions={{ headerShown: false}}>
+            screenOptions={{ headerShown: false }}>
             <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
             <ProfileStack.Screen name="ProfileLogoutScreen" component={ProfileLogoutScreen} />
             <ProfileStack.Screen name="ProfileUpdateScreen" component={ProfileUpdateScreen} />
@@ -117,12 +119,23 @@ export default class MainNav extends Component {
 
     render() {
         return (
-            <Tab.Navigator initialRouteName="Chats">
-                <Tab.Screen name="Contacts" component={ContactStackNavigator} />
-                <Tab.Screen name="Chats" component={ChatStackNavigator} />
-                <Tab.Screen name="Profile" component={ProfileStackNavigator} />
+            
+                <Tab.Navigator
+                    initialRouteName="Chats"
+                    screenOptions={{
+                        tabBarOptions: {
+                            style: { backgroundColor: 'red' },
+                            activeTintColor: 'white', // Set the text color of the active tab
+                            inactiveTintColor: 'gray'
+                        },
+                    }}>
+                    <Tab.Screen name="Contacts" component={ContactStackNavigator} />
+                    <Tab.Screen name="Chats" component={ChatStackNavigator} />
+                    <Tab.Screen name="Profile" component={ProfileStackNavigator} />
 
-            </Tab.Navigator>
+                </Tab.Navigator>
+            
+
         )
     }
 }

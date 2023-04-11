@@ -2,13 +2,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { View, ActivityIndicator, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 
-import ChatList from "../components/ChatList";
 
+//Styles
+import styles from '../styles/globalTheme';
 //API
 import { getSingleChatData } from "../api/api";
 import { sendChatMessage } from "../api/api";
+//My components
 import MessageList from "../components/MessageList";
-import { deleteChatMessage } from "../api/api";
+import ChatHeader from "../components/ChatHeader";
+
 
 
 export default class ChatDisplayScreen extends Component {
@@ -43,6 +46,9 @@ export default class ChatDisplayScreen extends Component {
 
     componentWillUnmount() {
         this.unsubscribe();
+    }
+    handleCancel = () => {
+        this.props.navigation.goBack();
     }
 
     handleSendMessage = async () => {
@@ -80,26 +86,22 @@ export default class ChatDisplayScreen extends Component {
         } else {
             console.log(this.state.chatData)
             return (
-                <ScrollView style={styles.container}>
+                <View style={styles.backgroundContainer}>
 
-                    <View style={styles.chatName}>
-                        <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.backBtn}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>Back</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <Text style={styles.chatNameText}>{this.state.chatData.name}</Text>
-                    </View>
+                    <ChatHeader
+                        chatName={this.state.chatData.name}
+                        onCancel={this.handleCancel}
+                    />
 
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate("DraftMessages", { chat_id: this.state.chat_id, chat_name: this.state.chatData.name })} style={styles.detailsBtn}>
-                            <View style={styles.button}>
+                            <View style={styles.chatDisplayBtn}>
                                 <Text style={styles.buttonText}>Draft a Message</Text>
                             </View>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => this.props.navigation.navigate("ChatDetails", { chat_id: this.state.chat_id, chatData: this.state.chatData })} style={styles.detailsBtn}>
-                            <View style={styles.button}>
+                            <View style={styles.chatDisplayBtn}>
                                 <Text style={styles.buttonText}>Details</Text>
                             </View>
                         </TouchableOpacity>
@@ -109,7 +111,7 @@ export default class ChatDisplayScreen extends Component {
                     <MessageList messages={this.state.chatData.messages} chat_id={this.state.chat_id} navigation={this.props.navigation} />
                     <View style={styles.sendMessage}>
                         <TextInput
-                            style={styles.messageInput}
+                            style={styles.chatInput}
                             value={this.state.newMessage}
                             onChangeText={(newMessage) => this.setState({ newMessage })}
                         />
@@ -119,79 +121,9 @@ export default class ChatDisplayScreen extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                </ScrollView >
+                </View >
             );
         }
     }
 }
 
-const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-    },
-    chatName: {
-        flexDirection: 'row',
-        flex: 1, 
-        backgroundColor: 'white',
-        borderRadius: 1,
-        borderColor: 'black',
-        borderWidth: 0.5,
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        marginBottom: 10,
-    },
-    detailsBtn: {
-        marginRight: 10,
-        width: '30%',
-    },
-    backButton: {
-        marginRight: 10,
-    },
-    button: {
-        backgroundColor: '#007AFF',
-        borderRadius: 5,
-        padding: 10,
-    },
-    chatNameText: {
-        flex: 1,
-        color: 'black',
-        fontWeight: 'bold',
-        fontSize: 18,
-        textAlign: 'center',
-        justifyContent: 'center'
-    },
-    buttonText: {
-        color: '#FFFFFF',
-        fontWeight: 16,
-        textAlign: 'center',
-        fontWeight: 'bold'
-    },
-    sendMessage: {
-        bottom: 0,
-        width: '100%',
-        backgroundColor: '#FFFFFF',
-        borderTopWidth: 1,
-        borderTopColor: '#E0E0E0',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    sendButtonText: {
-
-    },
-    messageInput: {
-        flex: 1,
-        backgroundColor: '#F4F4F4',
-        borderRadius: 20,
-        paddingVertical: 8,
-        paddingHorizontal: 20,
-        fontSize: 16,
-        marginRight: 10,
-    },
-});
