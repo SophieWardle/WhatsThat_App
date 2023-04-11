@@ -1,10 +1,12 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native";
-
+import {  View, Text } from "react-native";
 //API
 import { blockContact } from "../api/api";
+//MY COMPONENTS
+import ConfirmTask from "../components/ConfirmTask";
+//STYLES
+import styles from '../styles/globalTheme';
+
 export default class ContactsBlockScreen extends Component {
     constructor(props) {
         super(props);
@@ -16,8 +18,13 @@ export default class ContactsBlockScreen extends Component {
         };
     }
 
-    componentDidMount() {
-    }
+    handleCancel = () => {
+        this.props.navigation.goBack();
+    };
+
+    handleConfirm = () => {
+        this.handleBlock();
+    };
 
     async handleBlock() {
         const contact_id = this.state.user_id;
@@ -33,42 +40,17 @@ export default class ContactsBlockScreen extends Component {
     }
 
     render() {
+        const { first_name, last_name } = this.state;
         return (
-            <View>
-                <Text>Are you sure you want to block {this.props.route.params.item.first_name} {this.props.route.params.item.last_name}?</Text>
-                <View style={styles.noBtn}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>NO</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.yesBtn}>
-                    <TouchableOpacity onPress={() => this.handleBlock(this.props.route.params.item.user_id)}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>YES</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+            <View style={styles.backgroundContainer}>
+                <Text> You are trying to block: </Text>
+                <Text> {first_name} {last_name} </Text>
+                <ConfirmTask
+                    message="block this user"
+                    onCancel={this.handleCancel}
+                    onConfirm={this.handleConfirm}
+                />
             </View>
         );
     }
 }
-
-
-const styles = StyleSheet.create({
-    contactsContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-    },
-    contactsRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginVertical: 8,
-    },
-
-})

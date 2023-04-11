@@ -1,10 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native";
-
 //API
 import { unblockContact } from "../api/api";
+//MY COMPONENTS
+import ConfirmTask from "../components/ConfirmTask";
+//STYLES
+import styles from '../styles/globalTheme';
+
 export default class ContactsUnblockScreen extends Component {
     constructor(props) {
         super(props);
@@ -17,6 +20,14 @@ export default class ContactsUnblockScreen extends Component {
 
         this.handleUnblock = this.handleUnblock.bind(this)
     }
+
+    handleCancel = () => {
+        this.props.navigation.goBack();
+    };
+
+    handleConfirm = () => {
+        this.handleUnblock();
+    };
 
     handleUnblock = async () => {
         const contact_id = this.state.user_id;
@@ -34,44 +45,16 @@ export default class ContactsUnblockScreen extends Component {
     render() {
         const { user_id, first_name, last_name } = this.state;
         return (
-            <View>
-                <Text>Are you sure you want to unblock this user?</Text>
-                <View style={styles.noBtn}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>NO</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.yesBtn}>
-                    <TouchableOpacity onPress={() => this.handleUnblock(user_id)}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>YES</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+            <View style={styles.backgroundContainer}>
+                <Text> You are trying to unblock: </Text>
+                <Text> {first_name} {last_name} </Text>
+                <ConfirmTask
+                    message="unblock this user"
+                    onCancel={this.handleCancel}
+                    onConfirm={this.handleConfirm}
+                />
             </View>
         );
     }
 }
 
-
-const styles = StyleSheet.create({
-    contactsContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-    },
-    contactsRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginVertical: 8,
-    },
-    searchFormBtn: {
-        textAlign: "center"
-    }
-
-})

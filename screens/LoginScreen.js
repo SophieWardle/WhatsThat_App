@@ -90,29 +90,29 @@ class LoginScreen extends Component {
     return (
       <View style={styles.backgroundContainer}>
 
-        <View style={styles.login}>
-          <Text style={styles.header}>Email:</Text>
+        <View style={styles.loginContainer}>
+          <Text style={styles.formHeader}>Email:</Text>
           <TextInput
-            style={styles.input}
+            style={styles.formInput}
             value={this.state.email}
             onChangeText={(email) => this.setState({ email })}
           />
-          <Text style={styles.header}>Password:</Text>
+          <Text style={styles.formHeader}>Password:</Text>
           <TextInput
-            style={styles.input}
+            style={styles.formInput}
             secureTextEntry={true}
             value={this.state.password}
             onChangeText={(password) => this.setState({ password })}
           />
-          <Text style={styles.error}>{this.state.error}</Text>
-          <View style={styles.loginbtn}>
+          <Text style={styles.errorMessage}>{this.state.error}</Text>
+          <View style={styles.loginBtn}>
             <TouchableOpacity onPress={this._onPressButton}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Login</Text>
               </View>
             </TouchableOpacity>
           </View>
-          <View style={styles.signupbtn}>
+          <View style={styles.signupBtn}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Need an account? Click here</Text>

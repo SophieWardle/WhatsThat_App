@@ -1,10 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native";
-
 //API
 import { deleteContact } from "../api/api";
+//MY COMPONENTS
+import ConfirmTask from "../components/ConfirmTask";
+//STYLES
+import styles from '../styles/globalTheme';
+
 export default class ContactsDelete extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +19,13 @@ export default class ContactsDelete extends Component {
         };
     }
 
+    handleCancel = () => {
+        this.props.navigation.goBack();
+    };
+
+    handleConfirm = () => {
+        this.handleDelete();
+    };
 
     async handleDelete() {
         const user_id = this.state.user_id;
@@ -31,45 +41,18 @@ export default class ContactsDelete extends Component {
     }
 
     render() {
+        const { first_name, last_name } = this.state;
         return (
-            <View>
-                <Text>Are you sure you want to delete {this.props.route.params.item.first_name} {this.props.route.params.item.last_name}?</Text>
-                <View style={styles.noBtn}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>NO</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.yesBtn}>
-                    <TouchableOpacity onPress={() => this.handleDelete(this.props.route.params.item.user_id)}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>YES</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+            <View style={styles.backgroundContainer}>
+                <Text> You are trying to delete: </Text>
+                <Text> {first_name} {last_name} </Text>
+                <ConfirmTask
+                    message="delete this user"
+                    onCancel={this.handleCancel}
+                    onConfirm={this.handleConfirm}
+                />
             </View>
         );
     }
 }
 
-
-const styles = StyleSheet.create({
-    contactsContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-    },
-    contactsRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginVertical: 8,
-    },
-    searchFormBtn: {
-        textAlign: "center"
-    }
-
-})

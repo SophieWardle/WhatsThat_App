@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
+import styles from '../styles/globalTheme';
 //API
 import { signupUser } from '../api/api';
 
@@ -26,19 +27,19 @@ class SignUpScreen extends Component {
 
         if (!(this.state.email && this.state.password && this.state.firstname && this.state.lastname && this.state.confirmPassword)) {
             return "Must fill in all fields";
-          }
-        
-          if (!validator.validate(this.state.email)) {
+        }
+
+        if (!validator.validate(this.state.email)) {
             return "Must enter valid email";
-          }
-        
-          if (!REGEX_PASS.test(this.state.password)) {
+        }
+
+        if (!REGEX_PASS.test(this.state.password)) {
             return "Password isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long";
-          }
-        
-          if (this.state.password !== this.state.confirmPassword) {
+        }
+
+        if (this.state.password !== this.state.confirmPassword) {
             return "Passwords must match!";
-          }
+        }
 
     }
 
@@ -76,95 +77,61 @@ class SignUpScreen extends Component {
 
     render() {
         return (
-            <View style={styles.signup}>
-                <Text style={styles.header}>First name:</Text>
-                <TextInput
-                    style={styles.input}
-                    value={this.state.firstname}
-                    onChangeText={(firstname) => this.setState({ firstname })}
-                />
-                <Text style={styles.header}>Last name:</Text>
-                <TextInput
-                    style={styles.input}
-                    value={this.state.lastname}
-                    onChangeText={(lastname) => this.setState({ lastname })}
-                />
-                <Text style={styles.header}>Email:</Text>
-                <TextInput
-                    style={styles.input}
-                    value={this.state.email}
-                    onChangeText={(email) => this.setState({ email })}
-                />
-                <Text style={styles.header}>Password:</Text>
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
-                    value={this.state.password}
-                    onChangeText={(password) => this.setState({ password })}
-                />
-                <Text style={styles.header}>Confirm Password:</Text>
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
-                    value={this.state.confirmPassword}
-                    onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
-                />
-                <Text style={styles.errorMessage}>{this.state.error}</Text>
-                <View style={styles.signupbtn}>
-                    <TouchableOpacity onPress={this._onPressSignup}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>Signup</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.backBtn}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>Back</Text>
-                        </View>
-                    </TouchableOpacity>
+            <View style={styles.backgroundContainer}>
+                <View style={styles.signupContainer}>
+                    <Text style={styles.formHeader}>First name:</Text>
+                    <TextInput
+                        style={styles.formInput}
+                        value={this.state.firstname}
+                        onChangeText={(firstname) => this.setState({ firstname })}
+                    />
+                    <Text style={styles.formHeader}>Last name:</Text>
+                    <TextInput
+                        style={styles.formInput}
+                        value={this.state.lastname}
+                        onChangeText={(lastname) => this.setState({ lastname })}
+                    />
+                    <Text style={styles.formHeader}>Email:</Text>
+                    <TextInput
+                        style={styles.formInput}
+                        value={this.state.email}
+                        onChangeText={(email) => this.setState({ email })}
+                    />
+                    <Text style={styles.formHeader}>Password:</Text>
+                    <TextInput
+                        style={styles.formInput}
+                        secureTextEntry={true}
+                        value={this.state.password}
+                        onChangeText={(password) => this.setState({ password })}
+                    />
+                    <Text style={styles.formHeader}>Confirm Password:</Text>
+                    <TextInput
+                        style={styles.formInput}
+                        secureTextEntry={true}
+                        value={this.state.confirmPassword}
+                        onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
+                    />
+                    <Text style={styles.errorMessage}>{this.state.error}</Text>
+                    <View style={styles.signupBtn}>
+                        <TouchableOpacity onPress={this._onPressSignup}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Signup</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.backBtn}>
+                        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Back</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
+
         );
     }
 }
 
-const styles = StyleSheet.create({
-    signup: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F7D6E0'
-    },
-    input: {
-        height: 40,
-        width: 200,
-        borderWidth: 2,
-        borderColor: 'black'
-    },
-    header: {
-        color: 'black',
-        fontSize: 16,
-        fontWeight: 'bold'
-    }, 
-    errorMessage: {
-        color: 'red'
-    },
-    signupbtn: {
-        marginTop: 10,
-        backgroundColor: 'green',
-        color: 'black',
-        fontSize: 16,
-        fontWeight: 'bold'
-        
-    },
-    backBtn: {
-        marginTop: 10,
-        backgroundColor: 'red',
-        color: 'black',
-        fontSize: 16,
-        fontWeight: 'bold'
-    }
-});
 
 export default SignUpScreen;

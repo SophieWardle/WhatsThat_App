@@ -5,6 +5,7 @@ import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet
 import { updateUserProfile } from "../api/api";
 import { getUserProfileData } from "../api/api";
 
+import styles from '../styles/globalTheme';
 export default class ProfileUpdateScreen extends Component {
     constructor(props) {
         super(props);
@@ -99,44 +100,41 @@ export default class ProfileUpdateScreen extends Component {
 
     render() {
         return (
-            <ScrollView>
-                <View>
-                    <TextInput
-                        placeholder="First name..."
-                        onChangeText={this.firstNameHandler}
-                        value={this.state.firstName}
-                    />
-                    <TextInput
-                        placeholder="Last name..."
-                        onChangeText={this.lastNameHandler}
-                        value={this.state.lastName}
-                    />
-                    <TextInput
-                        placeholder="Email..."
-                        onChangeText={this.emailHandler}
-                        value={this.state.email}
-                    />
-                    <Text style={styles.errorMessage}>{this.state.error}</Text>
-                    <TouchableOpacity onPress={() => this.updateProfile()}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>Save</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileScreen')}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>Back</Text>
-                        </View>
-                    </TouchableOpacity>
+                <View style={styles.backgroundContainer}>
+                    <View style={styles.profileEditContainer}>
+                        <Text style={styles.formHeader}>First name:</Text>
+                        <TextInput
+                            onChangeText={this.firstNameHandler}
+                            value={this.state.firstName}
+                            style={styles.formInput}
+                        />
+                        <Text style={styles.formHeader}>Last name:</Text>
+                        <TextInput
+                            onChangeText={this.lastNameHandler}
+                            value={this.state.lastName}
+                            style={styles.formInput}
+                        />
+                        <Text style={styles.formHeader}>Email:</Text>
+                        <TextInput
+                            onChangeText={this.emailHandler}
+                            value={this.state.email}
+                            style={styles.formInput}
+                        />
+                        <Text style={styles.errorMessage}>{this.state.error}</Text>
+                        <TouchableOpacity onPress={() => this.updateProfile()}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Save</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileScreen')}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Back</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </ScrollView>
         );
     }
 }
 
-
-const styles = StyleSheet.create({
-    formInput: {
-
-    }
-});
 

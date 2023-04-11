@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { View, ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
-
+import styles from '../styles/globalTheme';
 import ChatList from "../components/ChatList";
 
 //API
@@ -46,15 +46,15 @@ export default class ChatsScreen extends Component {
             );
         } else {
             return (
-                <View style={styles.container}>
+                <View style={styles.backgroundContainer}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('NewChat')}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>Create A New Chat</Text>
+                        <View style={styles.chatsButton}>
+                            <Text style={styles.chatsBtnText}>Create A New Chat</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Drafts')}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>Drafts</Text>
+                        <View style={styles.chatsButton}>
+                            <Text style={styles.chatsBtnText}>Drafts</Text>
                         </View>
                     </TouchableOpacity>
                     <ChatList chats={this.state.chats} navigation={this.props.navigation} />
@@ -63,22 +63,3 @@ export default class ChatsScreen extends Component {
         }
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    button: {
-        margin: 5,
-        backgroundColor: '#007AFF',
-        borderRadius: 5,
-        padding: 8,
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-
-})

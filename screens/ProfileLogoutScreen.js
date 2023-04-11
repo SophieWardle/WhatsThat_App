@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import {View, Text, TouchableOpacity, StyleSheet } from "react-native";
-
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import ConfirmTask from "../components/ConfirmTask";
 //API
 import { logoutUser } from "../api/api";
-
+import styles from '../styles/globalTheme';
 export default class ProfileScreen extends Component {
 
     async logout() {
@@ -15,35 +15,27 @@ export default class ProfileScreen extends Component {
                 this.props.navigation.navigate("Login")
                 console.log(error);
             })
-      }
-      
-    render() {
-            return (
-                <View>
-                    <Text>Are you sure you want to log out?</Text>
-                    <View style={styles.noBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("ProfileScreen")}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>NO</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.yesBtn}>
-                        <TouchableOpacity onPress={() => this.logout()}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>YES</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-                </View>
-            );
-
-        }
     }
 
+    handleCancel = () => {
+        this.props.navigation.goBack();
+    };
 
-const styles = StyleSheet.create({
+    handleConfirm = () => {
+        this.logout();
+    };
 
-});
+    render() {
+        return (
+            <View style={styles.backgroundContainer}>
+                <ConfirmTask
+                    message="log out"
+                    onCancel={this.handleCancel}
+                    onConfirm={this.handleConfirm}
+                />
+
+            </View>
+        );
+
+    }
+}
