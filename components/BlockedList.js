@@ -16,7 +16,6 @@ const BlockedList = ({ blockedContact, navigation }) => {
 const styles = StyleSheet.create({
   contactsContainer: {
     flex: 1,
-    backgroundColor: '#fff'
   }
 });
 

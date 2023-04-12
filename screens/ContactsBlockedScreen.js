@@ -43,14 +43,19 @@ export default class ContactsBlockedScreen extends Component {
                 </View>
             );
         } else {
+            
             return (
                 <View style={styles.contactsContainer}>
                     <View style={styles.button}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate("ContactsScreen")}>
                             <Text style={styles.searchBtn}>Back</Text>
                         </TouchableOpacity>
-                    </View>                   
-                    <BlockedList blockedContact={this.state.blockedData} navigation={this.props.navigation}/>
+                    </View> 
+                    {this.state.blockedData.length > 0 ? (
+                        <BlockedList blockedContact={this.state.blockedData} navigation={this.props.navigation}/>
+                    ) : (
+                        <Text style={styles.emptyText}>No Blocked Contacts</Text>
+                    )}    
                 </View>
             );
         }
@@ -60,7 +65,7 @@ export default class ContactsBlockedScreen extends Component {
 const styles = StyleSheet.create({
     contactsContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#f0ece3',
         paddingHorizontal: 16,
         paddingVertical: 8,
     },
@@ -72,6 +77,11 @@ const styles = StyleSheet.create({
     },
     searchFormBtn: {
         textAlign: "center"
-    }
+    },
+    emptyText: {
+        fontSize: 16,
+        textAlign: 'center',
+        marginTop: 16,
+    },
 
 })

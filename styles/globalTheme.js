@@ -268,6 +268,48 @@ textInput: {
   borderColor: 'gray',
   marginBottom: 16,
   padding: 8,
+},
+//New chat screen
+chatNewContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+sendBtn: {
+  backgroundColor: '#bbb5a7',
+  marginTop: 10,
+  color: 'black',
+  fontSize: 16,
+  fontWeight: 'bold'
+},
+createBtn: {
+  backgroundColor: '#bbb5a7',
+  marginTop: 10,
+  color: 'black',
+  fontSize: 16,
+  fontWeight: 'bold'  
+},
+//DRAFTS
+draftContainer: {
+  flex: 1,
+  marginBottom: 16,
+},
+draftTitle: {
+  fontSize: 18,
+  fontWeight: 'bold',
+  marginBottom: 8,
+},
+draftContent: {
+  fontSize: 16,
+  color: 'gray',
+},
+emptyText: {
+  fontSize: 16,
+  textAlign: 'center',
+  marginTop: 16,
+},
+openBtn: {
+  marginLeft: 0,
 }
 
 

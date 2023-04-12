@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Text, View, StyleSheet, TextInput } from 'react-native';
+import { Text, View, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 //API
 import { sendChatMessage, createNewChat } from '../api/api';
-
+//Styles
+import styles from '../styles/globalTheme';
 
 class ChatsNewScreen extends Component {
     constructor(props) {
@@ -81,44 +82,48 @@ class ChatsNewScreen extends Component {
     render() {
         if (this.state.initialMessageForm === true) {
             return (
-                <View style={styles.container}>
-                    <Text styles={styles.h1}>Enter your first message:</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={this.state.message}
-                        onChangeText={(message) => this.setState({ message })}
-                    />
-                    <View style={styles.signupbtn}>
-                        <TouchableOpacity onPress={() => this.onSendMessage()}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>SEND</Text>
-                            </View>
-                        </TouchableOpacity>
+                <View style={styles.backgroundContainer}>
+                    <View style={styles.chatNewContainer}>
+                        <Text styles={styles.formHeader}>Enter your first message:</Text>
+                        <TextInput
+                            style={styles.formInput}
+                            value={this.state.message}
+                            onChangeText={(message) => this.setState({ message })}
+                        />
+                        <View style={styles.sendBtn}>
+                            <TouchableOpacity onPress={() => this.onSendMessage()}>
+                                <View style={styles.button}>
+                                    <Text style={styles.buttonText}>SEND</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             )
         } else {
             return (
-                <View style={styles.container}>
-                    <Text styles={styles.h1}>Enter a chat name:</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={this.state.chatName}
-                        onChangeText={(chatName) => this.setState({ chatName })}
-                    />
-                    <View style={styles.signupbtn}>
-                        <TouchableOpacity onPress={() => this.onCreateNewChat()}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>Create New Chat</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.backBtn}>
-                        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>Back</Text>
-                            </View>
-                        </TouchableOpacity>
+                <View style={styles.backgroundContainer}>
+                    <View style={styles.chatNewContainer}>
+                        <Text styles={styles.formHeader}>Enter a chat name:</Text>
+                        <TextInput
+                            style={styles.formInput}
+                            value={this.state.chatName}
+                            onChangeText={(chatName) => this.setState({ chatName })}
+                        />
+                        <View style={styles.createBtn}>
+                            <TouchableOpacity onPress={() => this.onCreateNewChat()}>
+                                <View style={styles.button}>
+                                    <Text style={styles.buttonText}>Create New Chat</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.createBtn}>
+                            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                                <View style={styles.button}>
+                                    <Text style={styles.buttonText}>Back</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             )
@@ -126,10 +131,5 @@ class ChatsNewScreen extends Component {
         }
     }
 }
-
-
-const styles = StyleSheet.create({
-
-});
 
 export default ChatsNewScreen;

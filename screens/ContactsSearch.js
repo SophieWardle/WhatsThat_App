@@ -108,12 +108,15 @@ export default class ContactsSearch extends Component {
         } else if (this.state.showResults) {
             return (
                 <View style={styles.resultsContainer}>
+
                     <Text style={styles.errorMessage}>{this.state.addError}</Text>
+
                     <View style={styles.closeBtn}>
                         <TouchableOpacity onPress={() => this.hideResults()} style={styles.button}>
                             <Text style={styles.buttonText}>Close</Text>
                         </TouchableOpacity>
                     </View>
+
                     <FlatList
                         data={this.state.resultsData}
                         renderItem={({ item }) => (
@@ -172,26 +175,16 @@ export default class ContactsSearch extends Component {
 }
 
 const styles = StyleSheet.create({
-    contactsContainer: {
+    searchContainer: {
         flex: 1,
-        backgroundColor: '#fff',
-        paddingHorizontal: 16,
-        paddingVertical: 8,
+        backgroundColor: '#f0ece3',
+        padding: 20,
     },
-    contactsRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginVertical: 8,
-    },
+    
     searchFormBtn: {
         textAlign: "center"
     },
-    searchContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        padding: 20,
-    },
+    
     header: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -204,37 +197,37 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginBottom: 10,
+        backgroundColor: 'white'
     },
+
+    
     resultsContainer: {
         flex: 1,
-        backgroundColor: '#fff',
-        paddingTop: 1,
-        paddingBottom: 20,
+        backgroundColor: '#f0ece3',
+        paddingHorizontal: 16,
+        paddingVertical: 8,
 
     },
     contactsRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 13,
-        paddingLeft: 10,
-        paddingRight: 10,
+        padding: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-    },
+        borderBottomColor: '#ccc'
+      },
     addBtn: {
-        backgroundColor: '#428bca',
         borderRadius: 5,
         padding: 1,
     },
     button: {
-        backgroundColor: '#428bca',
+        backgroundColor: '#bbb5a7',
         borderRadius: 5,
         padding: 10,
         alignItems: 'center',
     },
     buttonText: {
-        color: '#fff',
+        color: 'black',
         fontWeight: 'bold',
         fontSize: 16,
     },
@@ -248,14 +241,11 @@ const styles = StyleSheet.create({
     },
     closeBtn: {
         width: '40%',
-        backgroundColor: '#428bca',
         borderRadius: 5,
         padding: 5,
         margin: 5,
-        
         top: 2,
         left: 10,
-
     }
 
 })

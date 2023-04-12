@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { View, ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, ActivityIndicator, Text, TouchableOpacity, ScrollView } from "react-native";
 import styles from '../styles/globalTheme';
 import ChatList from "../components/ChatList";
 
@@ -46,7 +46,7 @@ export default class ChatsScreen extends Component {
             );
         } else {
             return (
-                <View style={styles.backgroundContainer}>
+                <ScrollView style={styles.backgroundContainer}>
                     <View style={styles.rowContainer}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('NewChat')}>
                             <View style={styles.chatsButton}>
@@ -60,7 +60,7 @@ export default class ChatsScreen extends Component {
                         </TouchableOpacity>
                     </View>
                     <ChatList chats={this.state.chats} navigation={this.props.navigation} />
-                </View>
+                </ScrollView>
 
             );
         }
