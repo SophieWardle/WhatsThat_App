@@ -70,8 +70,12 @@ export default class ContactsScreen extends Component {
                                 <Text style={styles.buttonText}>Blocked Users</Text>
                             </View>
                         </TouchableOpacity>
-                    </View>                  
-                    <ContactList contacts={this.state.contactData} navigation={this.props.navigation} handleFetchPicture={this.handleFetchPicture}/>
+                    </View>  
+                    {this.state.contactData.length > 0 ? (
+                        <ContactList contacts={this.state.contactData} navigation={this.props.navigation} handleFetchPicture={this.handleFetchPicture}/>
+                    ) : (
+                        <Text style={styles.emptyText}>No Contacts! Try searching</Text>
+                    )}                
                 </View>
             );
         }
@@ -118,6 +122,11 @@ const styles = StyleSheet.create({
         fontWeight: 16,
         textAlign: 'center',
         fontWeight: 'bold'
+    },
+    emptyText: {
+        fontSize: 16,
+        textAlign: 'center',
+        marginTop: 16,
     },
 
 })
