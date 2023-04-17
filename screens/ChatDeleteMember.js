@@ -1,10 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
 
 //API
-import { removeUserFromChat } from "../api/api";
+import { removeUserFromChat } from '../api/ChatManagement';
+
 export default class ChatDeleteMember extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +31,6 @@ export default class ChatDeleteMember extends Component {
           });
     }
 
-    
     render() {
         const {chat_id, user_id} = this.state;
         return (
@@ -57,7 +55,6 @@ export default class ChatDeleteMember extends Component {
         );
     }
 }
-
 
 const styles = StyleSheet.create({
     contactsContainer: {

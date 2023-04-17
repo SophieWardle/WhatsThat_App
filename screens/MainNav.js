@@ -36,8 +36,6 @@ import DraftsScreen from "../DraftsScreen"
 import DraftsDisplayScreen from "../DraftsDisplayScreen";
 import DraftsEditScreen from "../DraftsEditScreen";
 
-import { NavigationContainer } from '@react-navigation/native';
-
 const Tab = createMaterialTopTabNavigator();
 const ContactStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
@@ -48,6 +46,7 @@ function ContactStackNavigator() {
         <ContactStack.Navigator
             initialRouteName="Contacts"
             screenOptions={{ headerShown: false }}>
+                
             <ContactStack.Screen name="ContactsScreen" component={ContactsScreen} />
             <ContactStack.Screen name="ContactProfile" component={ContactsProfileScreen} />
             <ContactStack.Screen name="Delete" component={ContactsDeleteScreen} />
@@ -84,7 +83,6 @@ function ChatStackNavigator() {
     )
 }
 
-
 function ProfileStackNavigator() {
     return (
         <ProfileStack.Navigator
@@ -98,6 +96,7 @@ function ProfileStackNavigator() {
         </ProfileStack.Navigator>
     )
 }
+
 export default class MainNav extends Component {
 
     componentDidMount() {
@@ -119,7 +118,6 @@ export default class MainNav extends Component {
 
     render() {
         return (
-            
                 <Tab.Navigator
                     initialRouteName="Chats"
                     screenOptions={{
@@ -132,10 +130,7 @@ export default class MainNav extends Component {
                     <Tab.Screen name="Contacts" component={ContactStackNavigator} />
                     <Tab.Screen name="Chats" component={ChatStackNavigator} />
                     <Tab.Screen name="Profile" component={ProfileStackNavigator} />
-
                 </Tab.Navigator>
-            
-
         )
     }
 }

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View} from "react-native";
 import ConfirmTask from "../components/ConfirmTask";
 //API
-import { logoutUser } from "../api/api";
+import { logoutUser } from "../api/UserManagement";
+//My styles
 import styles from '../styles/globalTheme';
+
 export default class ProfileScreen extends Component {
 
     async logout() {

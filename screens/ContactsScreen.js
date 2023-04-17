@@ -1,12 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
+import { ActivityIndicator, View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native";
-
+//My Components
 import ContactList from "../components/ContactList";
-
 //API
-import { getContactList } from "../api/api";
+import { getContactList } from '../api/ContactManagement';
 
 export default class ContactsScreen extends Component {
     constructor(props) {
@@ -46,8 +44,6 @@ export default class ContactsScreen extends Component {
         this.unsubscribe();
     }
 
-    
-
     render() {
         if (this.state.isLoading) {
             return (
@@ -72,7 +68,7 @@ export default class ContactsScreen extends Component {
                         </TouchableOpacity>
                     </View>  
                     {this.state.contactData.length > 0 ? (
-                        <ContactList contacts={this.state.contactData} navigation={this.props.navigation} handleFetchPicture={this.handleFetchPicture}/>
+                        <ContactList contacts={this.state.contactData} navigation={this.props.navigation} />
                     ) : (
                         <Text style={styles.emptyText}>No Contacts! Try searching</Text>
                     )}                

@@ -1,18 +1,14 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { View, ActivityIndicator, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
-
+import { View, ActivityIndicator, TextInput, Text, TouchableOpacity } from "react-native";
 
 //Styles
 import styles from '../styles/globalTheme';
 //API
-import { getSingleChatData } from "../api/api";
-import { sendChatMessage } from "../api/api";
+import { getSingleChatData } from '../api/ChatManagement';
+import { sendChatMessage } from '../api/ChatManagement';
 //My components
 import MessageList from "../components/MessageList";
 import ChatHeader from "../components/ChatHeader";
-
-
 
 export default class ChatDisplayScreen extends Component {
     constructor(props) {

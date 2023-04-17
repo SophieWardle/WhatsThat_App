@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput } from 'react-native';
+import { Text, View, StyleSheet, TextInput,} from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 import styles from '../styles/globalTheme';
 //API
-import { signupUser } from '../api/api';
+import { signupUser } from '../api/UserManagement';
 //My components
 import Logo from '../components/Logo';
 
@@ -75,8 +75,6 @@ class SignUpScreen extends Component {
             })
     }
 
-
-
     render() {
         return (
             <View style={styles.backgroundContainer}>
@@ -135,6 +133,5 @@ class SignUpScreen extends Component {
         );
     }
 }
-
 
 export default SignUpScreen;

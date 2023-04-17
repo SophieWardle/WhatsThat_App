@@ -310,6 +310,11 @@ emptyText: {
 },
 openBtn: {
   marginLeft: 0,
+},
+pageHeader: {
+  textAlign: 'center',
+  fontWeight: 'bold',
+  fontSize: 20,
 }
 
 

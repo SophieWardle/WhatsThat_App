@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from "moment";
 
 const MessageItem = ({ message, chat_id, navigation }) => {
@@ -33,7 +33,8 @@ const MessageItem = ({ message, chat_id, navigation }) => {
           <Text  style={styles.message}>{message.message}</Text>
         )}
       </View>
-      <Text style={styles.time}>{moment(message.timestamp * 1000).format('DD/MM/YYYY, h:mm a')}</Text>
+      <Text style={styles.time}>{moment(message.timestamp).format('DD/MM/YYYY, h:mm a')}</Text>
+
       {isEditable && (
         <TouchableOpacity onPress={() => navigation.navigate("EditMessage", { chat_id: chat_id, message_id: message.message_id, message: message.message, navigation: navigation })}>
           <View style={styles.button}>
@@ -49,7 +50,6 @@ const MessageItem = ({ message, chat_id, navigation }) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   messageContainer: {

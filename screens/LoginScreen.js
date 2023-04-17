@@ -1,11 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
-import { Text, View, TextInput, StyleSheet, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+//My Styles
 import styles from '../styles/globalTheme';
+//My Components
 import Logo from '../components/Logo';
 //API
-import { loginUser } from '../api/api';
+import { loginUser } from '../api/UserManagement';
+
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
@@ -54,7 +56,6 @@ class LoginScreen extends Component {
   }
 
   _onPressButton = () => {
-
     const error = this._validateInputs();
     if (error) {
       this.setState({ error });

@@ -1,11 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { View, ActivityIndicator, Text, TouchableOpacity, ScrollView } from "react-native";
 import styles from '../styles/globalTheme';
 import ChatList from "../components/ChatList";
 
 //API
-import { getChatListData } from "../api/api";
+import { getChatListData } from '../api/ChatManagement';
 
 export default class ChatsScreen extends Component {
     constructor(props) {
@@ -47,15 +46,18 @@ export default class ChatsScreen extends Component {
         } else {
             return (
                 <ScrollView style={styles.backgroundContainer}>
+                    <Text style={styles.pageHeader}>
+                            My Chats
+                    </Text>
                     <View style={styles.rowContainer}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('NewChat')}>
                             <View style={styles.chatsButton}>
-                                <Text style={styles.chatsBtnText}>Create A New Chat</Text>
+                                <Text style={styles.chatsBtnText}>Create a New Chat</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Drafts')}>
                             <View style={styles.chatsButton}>
-                                <Text style={styles.chatsBtnText}>Drafts</Text>
+                                <Text style={styles.chatsBtnText}>My Drafts</Text>
                             </View>
                         </TouchableOpacity>
                     </View>

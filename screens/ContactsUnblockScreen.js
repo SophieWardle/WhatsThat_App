@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 //API
-import { unblockContact } from "../api/api";
+import { unblockContact } from "../api/ContactManagement";
 //MY COMPONENTS
 import ConfirmTask from "../components/ConfirmTask";
 //STYLES

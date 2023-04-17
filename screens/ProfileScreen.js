@@ -3,7 +3,7 @@ import { ActivityIndicator, View, Text, TouchableOpacity } from "react-native";
 //my components
 import DisplayProfilePicture from "../components/DisplayProfilePicture";
 //API
-import { getUserProfileData } from "../api/api";
+import { getUserProfileData } from "../api/UserManagement";
 import { getUserProfilePic } from "../api/api";
 //STYLES
 import styles from '../styles/globalTheme';

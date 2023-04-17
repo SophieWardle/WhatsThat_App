@@ -4,7 +4,7 @@ import { Text, View, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 //API
-import { sendChatMessage, createNewChat } from '../api/api';
+import { sendChatMessage, createNewChat } from '../api/ChatManagement';
 //Styles
 import styles from '../styles/globalTheme';
 

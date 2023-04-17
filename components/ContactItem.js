@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-
 const ContactItem = ({ contact, navigation }) => {
   console.log("Contact_id: "+ contact.user_id);
   return (

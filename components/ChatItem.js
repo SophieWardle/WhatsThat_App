@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from "moment/moment";
 
 const ChatItem = ({ chat, navigation }) => {
@@ -11,7 +11,7 @@ const ChatItem = ({ chat, navigation }) => {
           <Text style={styles.name}>{chat.last_message.author.first_name} {chat.last_message.author.last_name}:</Text>
           <View style={styles.messageTimeContainer}>
             <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.message}>{chat.last_message.message}</Text>
-            <Text style={styles.time}>{moment(chat.last_message.timestamp * 1000).format('DD/MM/YYYY, h:mm a')}</Text>
+            <Text style={styles.time}>{moment(chat.last_message.timestamp).format('DD/MM/YYYY, h:mm a')}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   messageTimeContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    justifyContent: 'space-between',
   },
   message: {
     fontSize: 14,
@@ -57,9 +58,7 @@ const styles = StyleSheet.create({
   time: {
     color: '#777',
     fontSize: 12,
-    marginLeft: 8,
     alignSelf: 'flex-end',
-    flex: 1,
   },
   button: {
     backgroundColor: '#007AFF',
@@ -73,7 +72,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-  
 
 export default ChatItem;

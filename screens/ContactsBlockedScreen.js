@@ -1,12 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
+import { ActivityIndicator, View, Text, StyleSheet} from "react-native";
 import { TouchableOpacity } from "react-native";
-import { Picker } from '@react-native-picker/picker';
 
-import ContactList from "../components/ContactList";
 //API
-import { getBlockedUsers } from "../api/api";
+import { getBlockedUsers } from '../api/ContactManagement';
+//My Components
 import BlockedList from "../components/BlockedList";
 
 export default class ContactsBlockedScreen extends Component {

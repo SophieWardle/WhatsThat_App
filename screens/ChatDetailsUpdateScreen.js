@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput } from 'react-native';
+import { Text, View, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 //API
-import { updateChatDetails } from '../api/api';
+import { updateChatDetails } from '../api/ChatManagement';
 //styles
 import styles from '../styles/globalTheme';
 class ChatDetailsUpdateScreen extends Component {

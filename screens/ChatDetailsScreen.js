@@ -1,10 +1,11 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { ActivityIndicator, View, StyleSheet} from "react-native";
+
 //My components
 import ChatDetails from "../components/ChatDetails";
+
 //API
-import { getSingleChatData } from "../api/api";
+import {getSingleChatData} from '../api/ChatManagement';
 
 export default class ChatDetailsScreen extends Component {
     constructor(props) {
@@ -51,7 +52,6 @@ export default class ChatDetailsScreen extends Component {
     handleCancel = () => {
         this.props.navigation.goBack();
     }
-
 
     render() {
         if (this.state.isLoading) {

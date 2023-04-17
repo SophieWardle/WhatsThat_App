@@ -1,10 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 //API
-import { updateChatMessage } from "../api/api";
+import { updateChatMessage } from "../api/ChatManagement";
 export default class MessageUpdate extends Component {
     constructor(props) {
         super(props);

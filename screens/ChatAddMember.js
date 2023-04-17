@@ -1,12 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native";
+import { View, StyleSheet} from "react-native";
 
-import { getContactList } from "../api/api";
+//My Components
 import ChatAddMemberList from "../components/ChatAddMemberList";
+
 //API
-import { addUserToChat } from "../api/api";
+import { getContactList } from "../api/ContactManagement";
+import { addUserToChat } from "../api/ChatManagement";
+
 export default class ChatAddMember extends Component {
     constructor(props) {
         super(props);

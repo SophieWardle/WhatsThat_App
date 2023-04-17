@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View} from "react-native";
 //API
-import { deleteChatMessage } from "../api/api";
+import { deleteChatMessage } from "../api/ChatManagement";
 //MY COMPONENTS
 import ConfirmTask from "../components/ConfirmTask";
 //STYLES

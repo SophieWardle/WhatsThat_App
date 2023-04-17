@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { ActivityIndicator } from "react-native-web";
-import { getContactProfile } from "../api/api";
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 
+//My Components
 import DisplayProfilePicture from "../components/DisplayProfilePicture";
 //API
-import { getContactProfilePic } from "../api/api";
+import { getContactProfile } from "../api/ContactManagement";
+import { getContactProfilePic } from '../api/api';
 
 export default class ContactProfileScreen extends Component {
     constructor(props) {

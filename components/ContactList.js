@@ -3,15 +3,21 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import ContactItem from './ContactItem';
 
 const ContactList = ({ contacts, navigation }) => {
+
   return (
+
     <View style={styles.contactsContainer}>
+
       <FlatList
         data={contacts}
-        renderItem={({ item }) => <ContactItem 
+        renderItem={({ item }) => 
+        <ContactItem 
           contact={item} 
           navigation={navigation}
           />}
-        keyExtractor={({ id }, index) => id ? id.toString() : index.toString()} />
+        keyExtractor={({ id }, index) => id ? id.toString() : index.toString()} 
+        />
+        
     </View>
   );
 }

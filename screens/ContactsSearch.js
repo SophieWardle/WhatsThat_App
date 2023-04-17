@@ -1,11 +1,11 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { ActivityIndicator, FlatList, View, Text, StyleSheet, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 
 //API
-import { searchForUser, addContact } from "../api/api";
+import { searchForUser } from "../api/UserManagement";
+import { addContact } from "../api/ContactManagement";
 
 export default class ContactsSearch extends Component {
     constructor(props) {

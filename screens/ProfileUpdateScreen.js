@@ -1,11 +1,12 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { ActivityIndicator, ScrollView, View, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, TextInput } from "react-native";
 
-import { updateUserProfile } from "../api/api";
-import { getUserProfileData } from "../api/api";
-
+//API
+import { updateUserProfile } from "../api/UserManagement";
+import { getUserProfileData } from "../api/UserManagement";
+//Styles
 import styles from '../styles/globalTheme';
+
 export default class ProfileUpdateScreen extends Component {
     constructor(props) {
         super(props);

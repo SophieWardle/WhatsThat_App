@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //API
-import { sendChatMessage } from './api/api';
+import { sendChatMessage } from './api/ChatManagement';
 class DraftsDisplayScreen extends Component {
     constructor(props) {
         super(props);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {  View, Text } from "react-native";
 //API
-import { blockContact } from "../api/api";
+import { blockContact } from '../api/ContactManagement';
 //MY COMPONENTS
 import ConfirmTask from "../components/ConfirmTask";
 //STYLES
