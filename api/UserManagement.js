@@ -1,6 +1,36 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-//USER MANAGEMENT
+/**
+ * Signs up a new user
+ * @param {Object} to_send 
+ * @returns 
+ */
+export const signupUser = async (to_send) => {
+    return fetch("http://localhost:3333/api/1.0.0/user", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(to_send)
+    })
+        .then((response) => {
+            if (response.status === 201) {
+                return response.json();
+            } else if (response.status === 400) {
+                throw "Email exists or password isn't strong enough"
+            } else {
+                throw "Something went wrong"
+            }
+        })
+        .then((rJson) => {
+            console.log(rJson)
+
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
+
 export const loginUser = async (to_send) => {
     return fetch("http://localhost:3333/api/1.0.0/login", {
         method: 'POST',
@@ -29,31 +59,6 @@ export const loginUser = async (to_send) => {
         })
 }
 
-export const signupUser = async (to_send) => {
-    return fetch("http://localhost:3333/api/1.0.0/user", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(to_send)
-    })
-        .then((response) => {
-            if (response.status === 201) {
-                return response.json();
-            } else if (response.status === 400) {
-                throw "Email exists or password isn't strong enough"
-            } else {
-                throw "Something went wrong"
-            }
-        })
-        .then((rJson) => {
-            console.log(rJson)
-
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-}
 
 export const logoutUser = async () => {
     const id = await AsyncStorage.getItem('id');
