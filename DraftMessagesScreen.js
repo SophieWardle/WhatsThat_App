@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { Text, TouchableOpacity, TextInput, View, Switch } from "react-native";
+import DatePicker from 'react-native-date-picker';
 //styles
 import styles from './styles/globalTheme';
 export default class DraftMessagesScreen extends Component {
@@ -80,6 +81,7 @@ export default class DraftMessagesScreen extends Component {
 					onValueChange={this.toggleSwitch}
 					value={isScheduled}
 				/>
+				<DatePicker />
 
 				<Text style={styles.errorMessage}>{this.state.error}</Text>
 				<TouchableOpacity onPress={() => this.handleSaveDraftMessage()}>
