@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
+import React from "react";
+import { View, FlatList, StyleSheet } from "react-native";
 import ChatItem from "./ChatItem";
 
 const ChatList = ({ chats, navigation }) => {

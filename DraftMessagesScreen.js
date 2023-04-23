@@ -1,9 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { Text, TouchableOpacity, TextInput, View, Switch } from "react-native";
-import DatePicker from 'react-native-date-picker';
+import { Text, TouchableOpacity, TextInput, View } from "react-native";
+import Sheduling from "./Scheduling";
 //styles
 import styles from './styles/globalTheme';
+
 export default class DraftMessagesScreen extends Component {
 	constructor(props) {
 		super(props);
@@ -13,13 +14,10 @@ export default class DraftMessagesScreen extends Component {
 			chat_name: props.route.params.chat_name,
 			draftMessage: "",
 			isScheduled: false,
-			error: ""
+			error: "",
+			selectedDate: new Date(),
 		}
 	}
-
-	toggleSwitch = (value) => {
-    this.setState({ isScheduled: value });
-  }
 
 	handleSaveDraftMessage = async () => {
 		try {
@@ -74,14 +72,8 @@ export default class DraftMessagesScreen extends Component {
 				/>
 
 				<Text style={styles.formHeader}>Would you like to schedule this message now?</Text>
-				<Switch
-					trackColor={{ false: "#767577", true: "#81b0ff" }}
-					thumbColor={isScheduled ? "#f5dd4b" : "#f4f3f4"}
-					ios_backgroundColor="#3e3e3e"
-					onValueChange={this.toggleSwitch}
-					value={isScheduled}
-				/>
-				<DatePicker />
+				
+				<Sheduling></Sheduling>
 
 				<Text style={styles.errorMessage}>{this.state.error}</Text>
 				<TouchableOpacity onPress={() => this.handleSaveDraftMessage()}>
