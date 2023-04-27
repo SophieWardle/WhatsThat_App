@@ -27,6 +27,7 @@ export default class ContactsScreen extends Component {
 
     componentDidMount() {
         this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            console.log("Screen reached");
             getContactList()
             .then((responseJson) => {
                 this.setState({

@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //CHAT MANAGEMENT
-
 export const getChatListData = async () => {
     const token = await AsyncStorage.getItem('whatsthat_session_token');
     const url = 'http://localhost:3333/api/1.0.0/chat'
