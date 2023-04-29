@@ -47,7 +47,7 @@ export default class ContactsSearch extends Component {
     }
 
     handleContactData = (contactData) => {
-        this.props.setStateOfParent(contactData);
+        //this.props.setStateOfParent(contactData);
         this.props.navigation.navigate("ContactsScreen");
     }
 

@@ -1,58 +1,70 @@
-import React, { Component } from "react";
-import { View, Text } from "react-native";
+/* eslint-disable linebreak-style */
+/* eslint-disable no-console */
+/* eslint-disable react/prop-types */
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
 
-//API
+// API
 import { deleteContact } from '../api/ContactManagement';
-//MY COMPONENTS
-import ConfirmTask from "../components/ConfirmTask";
-//STYLES
+// MY COMPONENTS
+import ConfirmTask from '../components/ConfirmTask';
+// STYLES
 import styles from '../styles/globalTheme';
 
 export default class ContactsDelete extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            user_id: this.props.route.params.item.user_id,
-            first_name: this.props.route.params.item.first_name,
-            last_name: this.props.route.params.item.last_name,
-        };
-    }
-
-    handleCancel = () => {
-        this.props.navigation.goBack();
+    this.state = {
+      userId: props.route.params.item.user_id,
+      firstName: props.route.params.item.first_name,
+      lastName: props.route.params.item.last_name,
     };
 
-    handleConfirm = () => {
-        this.handleDelete();
-    };
+    // globally here?
+  }
 
-    async handleDelete() {
-        const user_id = this.state.user_id;
-        console.log(user_id);
-        deleteContact(user_id)
-            .then(async (response) => {
-                this.props.navigation.navigate("ContactsScreen");
-                return response;
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+  handleCancel = () => {
+    const { navigation } = this.props;
+    navigation.goBack();
+  };
 
-    render() {
-        const { first_name, last_name } = this.state;
-        return (
-            <View style={styles.backgroundContainer}>
-                <Text> You are trying to delete: </Text>
-                <Text> {first_name} {last_name} </Text>
-                <ConfirmTask
-                    message="delete this user"
-                    onCancel={this.handleCancel}
-                    onConfirm={this.handleConfirm}
-                />
-            </View>
-        );
-    }
+  handleConfirm = () => {
+    this.handleDelete();
+  };
+
+  async handleDelete() {
+    const { userId } = this.state;
+    const { navigation } = this.props;
+    deleteContact(userId)
+      .then(async (response) => {
+        navigation.navigate('ContactsScreen');
+        return response;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  render() {
+    const { firstName, lastName } = this.state;
+    return (
+      <View style={styles.backgroundContainer}>
+        <View style={styles.deleteContainer}>
+          <Text style={styles.confirmText}> You are trying to delete: </Text>
+          <Text style={styles.confirmTextName}>
+            {firstName}
+            {lastName}
+          </Text>
+        </View>
+        <View style={styles.deleteConfirmContainer}>
+          <ConfirmTask
+            message="delete this user"
+            onCancel={this.handleCancel}
+            onConfirm={this.handleConfirm}
+          />
+        </View>
+      </View>
+    );
+  }
 }
-

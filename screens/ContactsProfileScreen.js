@@ -98,8 +98,8 @@ export default class ContactProfileScreen extends Component {
 const styles = StyleSheet.create({
 	contactsProfileContainer: {
 		margin: 5,
+		backgroundColor: '#f0ece3',
 		flex: 1,
-		backgroundColor: '#fff',
 		justifyContent: 'center'
 	},
 	deleteBtn: {

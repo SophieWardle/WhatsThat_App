@@ -46,7 +46,7 @@ const globalStyle = StyleSheet.create({
   },
   buttonText: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -149,173 +149,222 @@ const globalStyle = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 20,
   },
-//chat display screen
-chatName: {
-  flexDirection: 'row',
-  backgroundColor: '#bbb5a7',
-  paddingHorizontal: 8,
-  paddingVertical: 4,
-  top: 0,
-},
-buttonContainer: {
-  padding: 5,
-  justifyContent: 'center',
-  flexDirection: 'row',
-},
-detailsBtn: {
-  marginRight: 10,
-},
-backButton: {
-  marginRight: 10,
-},
-chatDisplayBtn: {
-  backgroundColor: '#bbb5a7',
-  borderRadius: 5,
-  padding: 10,
-},
-chatNameText: {
-  flex: 1,
-  color: 'black',
-  fontWeight: 'bold',
-  fontSize: 18,
-  textAlign: 'center',
-},
-sendMessage: {
-  bottom: 0,
-  position: 'absolute',
-  width: '100%',
-  backgroundColor: '#bbb5a7',
-  borderTopWidth: 1,
-  borderTopColor: '#E0E0E0',
-  paddingVertical: 10,
-  paddingHorizontal: 20,
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-},
-chatInput: {
-  flex: 1,
-  backgroundColor: '#F4F4F4',
-  borderRadius: 20,
-  paddingVertical: 8,
-  paddingHorizontal: 20,
-  fontSize: 16,
-  marginRight: 10,
-},
-sendButtonText: {
+  //chat display screen
+  chatName: {
+    flexDirection: 'row',
+    backgroundColor: '#bbb5a7',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    top: 0,
+  },
+  buttonContainer: {
+    padding: 5,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  detailsBtn: {
+    marginRight: 10,
+  },
+  backButton: {
+    marginRight: 10,
+  },
+  chatDisplayBtn: {
+    backgroundColor: '#bbb5a7',
+    borderRadius: 5,
+    padding: 10,
+  },
+  chatNameText: {
+    flex: 1,
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  sendMessage: {
+    bottom: 0,
+    position: 'absolute',
+    width: '100%',
+    backgroundColor: '#bbb5a7',
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  chatInput: {
+    flex: 1,
+    backgroundColor: '#F4F4F4',
+    borderRadius: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    fontSize: 16,
+    marginRight: 10,
+  },
+  sendButtonText: {
 
-},
-//chat details
-chatCreatorContainer:{
-  
-},
-chatCreatorDetails: {
-  textAlign: 'center',
-},
-chatCreatorHeader: {
-  textAlign: 'center',
-  fontWeight: 'bold',
-},
-editBtn: {
-  backgroundColor: '#bbb5a7',
-  marginRight: 10,
-  borderRadius: 5,
-  padding: 4,
-    
-},
-addBtn: {
-  backgroundColor: '#bbb5a7',
-  marginLeft: 10,
-  borderRadius: 5,
-  padding: 4,
-},
-chatMembers: {
-  flex: 1,
-  textAlign: 'center',
-  borderWidth: 2,
-  borderColor: '#bbb5a7'
-},
-chatMembersHeader: {
-  fontWeight: 'bold',
-},
-deleteBtn: {
-  marginTop: 10,
-  alignSelf: 'center',
-  backgroundColor: '#bbb5a7',
-  width: '50%',
-  borderRadius: 5,
-  padding: 4,
-},
-chatDetailsContainer: {
-  flex: 1,
-},
-updateChatForm: {
-  alignItems: 'center',
-  justifyContent:'center',
-  flex: 1
-},
-draftMsgContainer: {
-  flex: 1,
-  backgroundColor: '#f0ece3',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: 16,
-},
-textInput: {
-  width: '100%',
-  height: 200,
-  borderWidth: 1,
-  borderColor: 'gray',
-  marginBottom: 16,
-  padding: 8,
-},
-//New chat screen
-chatNewContainer: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-sendBtn: {
-  backgroundColor: '#bbb5a7',
-  marginTop: 10,
-  color: 'black',
-  fontSize: 16,
-  fontWeight: 'bold'
-},
-createBtn: {
-  backgroundColor: '#bbb5a7',
-  marginTop: 10,
-  color: 'black',
-  fontSize: 16,
-  fontWeight: 'bold'  
-},
-//DRAFTS
-draftContainer: {
-  flex: 1,
-  marginBottom: 16,
-},
-draftTitle: {
-  fontSize: 18,
-  fontWeight: 'bold',
-  marginBottom: 8,
-},
-draftContent: {
-  fontSize: 16,
-  color: 'gray',
-},
-emptyText: {
-  fontSize: 16,
-  textAlign: 'center',
-  marginTop: 16,
-},
-openBtn: {
-  marginLeft: 0,
-},
-pageHeader: {
-  textAlign: 'center',
-  fontWeight: 'bold',
-  fontSize: 20,
-}
+  },
+  //chat details
+  chatCreatorContainer: {
+
+  },
+  chatCreatorDetails: {
+    textAlign: 'center',
+  },
+  chatCreatorHeader: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  editBtn: {
+    backgroundColor: '#bbb5a7',
+    marginRight: 10,
+    borderRadius: 5,
+    padding: 4,
+
+  },
+  addBtn: {
+    backgroundColor: '#bbb5a7',
+    marginLeft: 10,
+    borderRadius: 5,
+    padding: 4,
+  },
+  chatMembers: {
+    flex: 1,
+    textAlign: 'center',
+    borderWidth: 2,
+    borderColor: '#bbb5a7'
+  },
+  chatMembersHeader: {
+    fontWeight: 'bold',
+  },
+  deleteBtn: {
+    marginTop: 10,
+    alignSelf: 'center',
+    backgroundColor: '#bbb5a7',
+    width: '50%',
+    borderRadius: 5,
+    padding: 4,
+  },
+  chatDetailsContainer: {
+    flex: 1,
+  },
+  updateChatForm: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
+  },
+  draftMsgContainer: {
+    flex: 1,
+    backgroundColor: '#f0ece3',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  textInput: {
+    width: '100%',
+    height: 200,
+    borderWidth: 1,
+    borderColor: 'gray',
+    marginBottom: 16,
+    padding: 8,
+  },
+  //New chat screen
+  chatNewContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sendBtn: {
+    backgroundColor: '#bbb5a7',
+    marginTop: 10,
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  createBtn: {
+    backgroundColor: '#bbb5a7',
+    marginTop: 10,
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  //DRAFTS
+  draftContainer: {
+    flex: 1,
+    marginBottom: 16,
+  },
+  draftTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  draftContent: {
+    fontSize: 16,
+    color: 'gray',
+  },
+  emptyText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 16,
+  },
+  openBtn: {
+    marginLeft: 0,
+  },
+  pageHeader: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  confirmText: {
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 20,
+  },
+  confirmTextName: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    fontSize: 20,
+  },
+  noBtn: {
+    backgroundColor: '#bbb5a7',
+    borderRadius: 5,
+    padding: 10,
+    marginLeft: 10,
+    width: '40%',
+    marginTop: 10,
+  },
+  yesBtn: {
+    backgroundColor: '#bbb5a7',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
+    marginRight: 10,
+    width: '40%',
+  },
+  deleteConfirmContainer: {
+    padding: 10,
+    marginTop: 10
+  },
+  deleteContainer: {
+    padding: 10,
+    marginTop: 10
+  },
+  confirmButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  blockContainer:{
+    padding: 10,
+    marginTop: 10
+  },
+  blockConfirmContainer: {
+    padding: 10,
+    marginTop: 10
+  }
 
 
 });

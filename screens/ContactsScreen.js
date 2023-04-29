@@ -71,7 +71,7 @@ export default class ContactsScreen extends Component {
                     {this.state.contactData.length > 0 ? (
                         <ContactList contacts={this.state.contactData} navigation={this.props.navigation} />
                     ) : (
-                        <Text style={styles.emptyText}>No Contacts! Try searching</Text>
+                        <Text style={styles.emptyText}>You Currently Have No Contacts. Try searching for someone.</Text>
                     )}                
                 </View>
             );
@@ -116,12 +116,12 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'black',
-        fontWeight: 16,
+        fontWeight: 18,
         textAlign: 'center',
         fontWeight: 'bold'
     },
     emptyText: {
-        fontSize: 16,
+        fontSize: 18,
         textAlign: 'center',
         marginTop: 16,
     },
