@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 // My Components
 import ChatAddMemberList from '../components/ChatAddMemberList';
@@ -65,14 +65,19 @@ export default class ChatAddMember extends Component {
 
   render() {
     const { addContactData, chatId, members } = this.state;
+    console.log(addContactData);
     return (
       <View>
-        <ChatAddMemberList
-          contacts={addContactData}
-          chat_id={chatId}
-          members={members}
-          onSelectUser={this.handleSelectUser}
-        />
+        {addContactData.length > 0 ? (
+          <ChatAddMemberList
+            contacts={addContactData}
+            chat_id={chatId}
+            members={members}
+            onSelectUser={this.handleSelectUser}
+          />
+        ) : (
+          <Text>You currently have no contacts</Text>
+        )}
       </View>
     );
   }

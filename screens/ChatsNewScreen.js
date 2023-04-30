@@ -23,6 +23,7 @@ class ChatsNewScreen extends Component {
       chatName: '',
       initialMessageForm: false,
       message: '',
+      error: '',
     };
   }
 
@@ -41,7 +42,7 @@ class ChatsNewScreen extends Component {
     };
     createNewChat(toSend)
       .then(() => {
-        this.setState({ error: 'Chat added successfully' });
+        this.setState({ error: 'Chat created! Enter a new message' });
         this.setState({ initialMessageForm: true });
       })
       .catch((error) => {
@@ -51,7 +52,7 @@ class ChatsNewScreen extends Component {
 
   async onSendMessage() {
     const message = this.state;
-    const navigation = this.props;
+    const { navigation } = this.props;
     if (!(message)) {
       this.setState({ error: 'Must enter a message' });
       return;
@@ -110,6 +111,7 @@ class ChatsNewScreen extends Component {
             value={this.state.chatName}
             onChangeText={(chatName) => this.setState({ chatName })}
           />
+          <Text style={styles.errorMessage}>{error}</Text>
           <View style={styles.createBtn}>
             <TouchableOpacity onPress={() => this.onCreateNewChat()}>
               <View style={styles.button}>
