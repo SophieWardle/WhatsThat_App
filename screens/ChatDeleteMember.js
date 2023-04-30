@@ -1,76 +1,78 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
+import React, { Component } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 
-//API
+// API
 import { removeUserFromChat } from '../api/ChatManagement';
 
-export default class ChatDeleteMember extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            user_id: this.props.route.params.user_id,
-            chat_id: this.props.route.params.chat_id
-        };
-        console.log("User id delete:" + this.state.user_id + "chat_id delete:" + this.state.chat_id)
-    }
-
-    handleRemoveUser = async (chat_id, user_id) =>  {
-        console.log(chat_id,user_id);
-        removeUserFromChat(chat_id, user_id)
-        .then((responseJson) => {
-            console.log(responseJson);
-            this.setState({
-              isLoading: false,
-              chats: responseJson
-            });
-            this.props.navigation.goBack();
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-    }
-
-    render() {
-        const {chat_id, user_id} = this.state;
-        return (
-            <View>
-                <Text>Are you sure you want to remove this user?</Text>
-                <View style={styles.noBtn}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>NO</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.yesBtn}>
-                    <TouchableOpacity onPress={() => this.handleRemoveUser(chat_id,user_id)}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>YES</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        );
-    }
-}
-
 const styles = StyleSheet.create({
-    contactsContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-    },
-    contactsRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginVertical: 8,
-    },
-    searchFormBtn: {
-        textAlign: "center"
-    }
+  contactsContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  contactsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginVertical: 8,
+  },
+  searchFormBtn: {
+    textAlign: 'center',
+  },
+});
 
-})
+export default class ChatDeleteMember extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      userId: props.route.params.user_id,
+      chatId: props.route.params.chat_id,
+    };
+  }
+
+  handleRemoveUser = async (chatId, userId) => {
+    const navigation = this.props;
+    removeUserFromChat(chatId, userId)
+      .then(() => {
+        navigation.navigation.goBack();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  render() {
+    const { chatId, userId } = this.state;
+    const navigation = this.props;
+    return (
+      <View>
+        <Text>Are you sure you want to remove this user?</Text>
+        <View style={styles.noBtn}>
+          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>NO</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.yesBtn}>
+          <TouchableOpacity onPress={() => this.handleRemoveUser(chatId, userId)}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>YES</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}

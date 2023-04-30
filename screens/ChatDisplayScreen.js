@@ -1,5 +1,8 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable linebreak-style */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable no-shadow */
+/* eslint-disable no-console */
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import {
   View,
@@ -22,7 +25,7 @@ export default class ChatDisplayScreen extends Component {
     super(props);
 
     this.state = {
-      chat_id: props.route.params.chat_id,
+      chatId: props.route.params.chat_id,
       isLoading: true,
       chatData: [],
       newMessage: '',
@@ -32,8 +35,8 @@ export default class ChatDisplayScreen extends Component {
   componentDidMount() {
     const navigation = this.props;
     this.unsubscribe = navigation.navigation.addListener('focus', () => {
-      const { chat_id } = this.state;
-      getSingleChatData(chat_id)
+      const { chatId } = this.state;
+      getSingleChatData(chatId)
         .then((responseJson) => {
           this.setState({
             isLoading: false,
@@ -56,14 +59,14 @@ export default class ChatDisplayScreen extends Component {
   };
 
   handleSendMessage = async () => {
-    const to_send = {
+    const toSend = {
       // eslint-disable-next-line react/destructuring-assignment
       message: this.state.newMessage,
     };
-    const { chat_id } = this.state;
-    sendChatMessage(chat_id, to_send)
+    const { chatId } = this.state;
+    sendChatMessage(chatId, toSend)
       .then(() => {
-        getSingleChatData(chat_id)
+        getSingleChatData(chatId)
           .then((responseJson) => {
             this.setState({
               isLoading: false,
@@ -81,41 +84,47 @@ export default class ChatDisplayScreen extends Component {
   };
 
   render() {
-    if (this.state.isLoading) {
+    const isLoading = this.state;
+    if (isLoading === true) {
       return (
         <View>
           <ActivityIndicator />
         </View>
       );
     }
-    console.log(this.state.chatData);
+    const navigation = this.props;
+    const { chatData, chatId, newMessage } = this.state;
     return (
       <View style={styles.backgroundContainer}>
 
         <ChatHeader
-          chatName={this.state.chatData.name}
+          chatName={chatData.name}
           onCancel={this.handleCancel}
         />
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('DraftMessages', { chat_id: this.state.chat_id, chat_name: this.state.chatData.name })} style={styles.detailsBtn}>
+          <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftMessages', { chat_id: chatId, chat_name: chatData.name })} style={styles.detailsBtn}>
             <View style={styles.chatDisplayBtn}>
               <Text style={styles.buttonText}>Draft a Message</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatDetails', { chat_id: this.state.chat_id, chatData: this.state.chatData })} style={styles.detailsBtn}>
+          <TouchableOpacity onPress={() => navigation.navigation.navigate('ChatDetails', { chat_id: chatId, chatData })} style={styles.detailsBtn}>
             <View style={styles.chatDisplayBtn}>
               <Text style={styles.buttonText}>Details</Text>
             </View>
           </TouchableOpacity>
         </View>
 
-        <MessageList messages={this.state.chatData.messages} chat_id={this.state.chat_id} navigation={this.props.navigation} />
+        <MessageList
+          messages={chatData.messages}
+          chat_id={chatId}
+          navigation={navigation.navigation}
+        />
         <View style={styles.sendMessage}>
           <TextInput
             style={styles.chatInput}
-            value={this.state.newMessage}
+            value={newMessage}
             onChangeText={(newMessage) => this.setState({ newMessage })}
           />
           <TouchableOpacity onPress={() => this.handleSendMessage()}>

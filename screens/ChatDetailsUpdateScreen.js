@@ -1,75 +1,89 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
+/* eslint-disable no-shadow */
 import React, { Component } from 'react';
-import { Text, View, TextInput } from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 
-//API
+// API
 import { updateChatDetails } from '../api/ChatManagement';
-//styles
+// styles
 import styles from '../styles/globalTheme';
+
 class ChatDetailsUpdateScreen extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            chat_id: props.route.params.chat_id,
-            newChatName: "",
-            error: ""
-        }
-        console.log("chat update screen" + this.state.chat_id)
+    this.state = {
+      chatId: props.route.params.chat_id,
+      newChatName: '',
+      error: '',
+    };
+  }
+
+  // eslint-disable-next-line consistent-return
+  validateInput = () => {
+    const { newChatName } = this.state;
+    if (newChatName === '') {
+      return "Chat name can't be empty!";
     }
+  };
 
-    validateInput() {
-
-        if (this.state.newChatName === "") {
-            return "Chat name can't be empty!";
-        }
+  updateChat = async () => {
+    const toSend = {};
+    const { newChatName, chatId } = this.state;
+    const error = this.validateInput();
+    if (error) {
+      this.setState({ error });
+      return;
     }
-
-    updateChat = async () => {
-        const to_send = {};
-
-        if (this.state.newChatName !== "") {
-            to_send.name = this.state.newChatName;
-        }
-        updateChatDetails(this.state.chat_id, to_send)
-            .then(() => {
-                this.setState({
-                    error: 'Name updated!',
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
+    if (newChatName !== '') {
+      toSend.name = newChatName;
     }
+    updateChatDetails(chatId, toSend)
+      .then(() => {
+        this.setState({
+          error: 'Name updated!',
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    render() {
-        return (
-            <View style={styles.backgroundContainer}>
-                <View style={styles.updateChatForm}>
-                    <Text style={styles.formHeader}>Enter a new chat name</Text>
+  render() {
+    const { newChatName, error } = this.state;
+    const navigation = this.props;
+    return (
+      <View style={styles.backgroundContainer}>
+        <View style={styles.updateChatForm}>
+          <Text style={styles.formHeader}>Enter a new chat name</Text>
 
-                    <TextInput
-                        style={styles.formInput}
-                        value={this.state.newChatName}
-                        onChangeText={(newChatName) => this.setState({ newChatName })}
-                    />
-                    <Text style={styles.errorMessage}>{this.state.error}</Text>
-                    <TouchableOpacity onPress={this.updateChat}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>Save</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>Back</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+          <TextInput
+            style={styles.formInput}
+            value={newChatName}
+            onChangeText={(newChatName) => this.setState({ newChatName })}
+          />
+          <Text style={styles.errorMessage}>{error}</Text>
+          <TouchableOpacity onPress={this.updateChat}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Save</Text>
             </View>
-        );
-    }
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Back</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
 }
-
 
 export default ChatDetailsUpdateScreen;

@@ -1,86 +1,78 @@
-import React, { Component } from "react";
-import { ActivityIndicator, View, StyleSheet} from "react-native";
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
+import React, { Component } from 'react';
+import {
+  ActivityIndicator,
+  View,
+} from 'react-native';
 
-//My components
-import ChatDetails from "../components/ChatDetails";
+// My components
+import ChatDetails from '../components/ChatDetails';
 
-//API
-import {getSingleChatData} from '../api/ChatManagement';
+// API
+import { getSingleChatData } from '../api/ChatManagement';
 
 export default class ChatDetailsScreen extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            isLoading: true,
-            chatDetails: this.props.route.params.chatData,
-            chat_id: this.props.route.params.chat_id,
-            creator: "",
-            members:this.props.route.params.members,
-        };
-        console.log("Chat_id: " + this.state.chat_id)
-        console.log("ChatData: " + this.state.chatDetails)
-        console.log("Chat Name: " + this.state.chatDetails.name)
-        console.log("Members:"+ 
-        this.state.chatDetails.members.map((member) => {
-            console.log(member.first_name, member.last_name, member.email);
-        }));
+    this.state = {
+      isLoading: true,
+      chatDetails: props.route.params.chatData,
+      chatId: props.route.params.chat_id,
+      members: props.route.params.members,
+    };
+  }
+
+  componentDidMount() {
+    const { chatId } = this.state;
+    // eslint-disable-next-line react/destructuring-assignment
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      getSingleChatData(chatId)
+        .then((responseJson) => {
+          this.setState({
+            chatDetails: responseJson,
+            members: responseJson.members,
+            isLoading: false,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  handleCancel = () => {
+    const navigation = this.props;
+    navigation.navigation.goBack();
+  };
+
+  render() {
+    const { isLoading } = this.state;
+    if (isLoading) {
+      return (
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
     }
-
-    componentDidMount() {
-        this.unsubscribe = this.props.navigation.addListener('focus', () => {
-            getSingleChatData(this.state.chat_id)
-            .then((responseJson) => {
-                this.setState({
-                    chatDetails: responseJson,
-                    members: responseJson.members,
-                    creator: responseJson.creator,
-                    isLoading: false
-                })
-                console.log("Members mount func" + this.state.chatData.members);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        })      
-    }
-
-    componentWillUnmount(){
-        this.unsubscribe();
-    }
-
-    handleCancel = () => {
-        this.props.navigation.goBack();
-    }
-
-    render() {
-        if (this.state.isLoading) {
-            return (
-                <View>
-                    <ActivityIndicator />
-                </View>
-            );
-        } else {
-            return (
-                <View>
-                    <ChatDetails 
-                      chatData={this.state.chatDetails} 
-                      navigation={this.props.navigation} 
-                      members={this.state.members} 
-                      chat_id={this.state.chat_id}
-                      onCancel={this.handleCancel}
-                       />
-                </View>
-            )
-        }
-
-    }
+    const { chatDetails, members, chatId } = this.state;
+    const navigation = this.props;
+    return (
+      <View>
+        <ChatDetails
+          chatData={chatDetails}
+          navigation={navigation.navigation}
+          members={members}
+          chat_id={chatId}
+          onCancel={this.handleCancel}
+        />
+      </View>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-
-});
