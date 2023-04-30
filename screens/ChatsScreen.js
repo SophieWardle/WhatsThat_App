@@ -29,7 +29,8 @@ export default class ChatsScreen extends Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+    const { navigation } = this.props;
+    this.unsubscribe = navigation.addListener('focus', () => {
       getChatListData()
         .then((responseJson) => {
           console.log('Response:', responseJson);
