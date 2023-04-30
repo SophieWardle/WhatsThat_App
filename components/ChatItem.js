@@ -1,23 +1,10 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import moment from "moment/moment";
-
-const ChatItem = ({ chat, navigation }) => {
-  return (
-    <View style={styles.chatContainer}>
-      <TouchableOpacity onPress={() => navigation.navigate('Chat', { chat_id: chat.chat_id })}>
-        <View style={styles.chatContent}>
-          <Text style={styles.chatName}>{chat.name}</Text>
-          <Text style={styles.name}>{chat.last_message.author.first_name} {chat.last_message.author.last_name}:</Text>
-          <View style={styles.messageTimeContainer}>
-            <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.message}>{chat.last_message.message}</Text>
-            <Text style={styles.time}>{moment(chat.last_message.timestamp).format('DD/MM/YYYY, h:mm a')}</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
-}
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import {
+  View, Text, StyleSheet, TouchableOpacity,
+} from 'react-native';
+import moment from 'moment/moment';
 
 const styles = StyleSheet.create({
   chatContainer: {
@@ -72,5 +59,36 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+function ChatItem({ chat, navigation }) {
+  return (
+    <View style={styles.chatContainer}>
+      <TouchableOpacity onPress={() => navigation.navigate('Chat', { chat_id: chat.chat_id })}>
+        <View style={styles.chatContent}>
+          <Text style={styles.chatName}>{chat.name}</Text>
+          {chat.last_message.message ? (
+            <>
+              <Text style={styles.name}>
+                {chat.last_message.author.first_name}
+                {chat.last_message.author.last_name}
+                :
+              </Text>
+              <View style={styles.messageTimeContainer}>
+                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.message}>
+                  {chat.last_message.message}
+                </Text>
+                <Text style={styles.time}>
+                  {moment(chat.last_message.timestamp).format('DD/MM/YYYY, h:mm a')}
+                </Text>
+              </View>
+            </>
+          ) : (
+            <Text style={styles.message}>No messages yet</Text>
+          )}
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
 export default ChatItem;
