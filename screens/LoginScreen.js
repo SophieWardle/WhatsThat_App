@@ -1,11 +1,19 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
-//My Styles
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+// My Styles
 import styles from '../styles/globalTheme';
-//My Components
+// My Components
 import Logo from '../components/Logo';
-//API
+// API
 import { loginUser } from '../api/UserManagement';
 
 class LoginScreen extends Component {
@@ -15,15 +23,15 @@ class LoginScreen extends Component {
     this.state = {
       email: '',
       password: '',
-      error: "",
-      submitted: false
-    }
+      error: '',
+    };
   }
 
   componentDidMount() {
-    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+    const { navigation } = this.props;
+    this.unsubscribe = navigation.addListener('focus', () => {
       this.checkLoggedIn();
-    })
+    });
   }
 
   componentWillUnmount() {
@@ -31,91 +39,95 @@ class LoginScreen extends Component {
   }
 
   checkLoggedIn = async () => {
+    const navigation = this.props;
     const value = await AsyncStorage.getItem('whatsthat_session_token');
     if (value != null) {
-      this.props.navigation.navigate('MainNav');
+      navigation.navigation.navigate('MainNav');
     }
   };
 
-  _validateInputs = () => {
-    var validator = require("email-validator");
-    const REGEX_PASS = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
+  validateInputs = () => {
+    // eslint-disable-next-line global-require
+    const validator = require('email-validator');
+    const { email, password } = this.state;
+    const REGEX_PASS = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
-    if (!(this.state.email && this.state.password)) {
-      return "Email and password required";
+    if (!(email && password)) {
+      return 'Email and password required';
     }
 
-    if (!validator.validate(this.state.email)) {
-      return "Must enter valid email";
+    if (!validator.validate(email)) {
+      return 'Must enter valid email';
     }
 
-    if (!REGEX_PASS.test(this.state.password)) {
+    if (!REGEX_PASS.test(password)) {
       return "Password incorrect: isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long";
     }
 
-  }
+    return null;
+  };
 
-  _onPressButton = () => {
-    const error = this._validateInputs();
+  onPressButton = () => {
+    const { email, password } = this.state;
+    const navigation = this.props;
+    const error = this.validateInputs();
     if (error) {
       this.setState({ error });
       return;
     }
-    this.setState({ submitted: true })
 
-    //SEND TO SERVER
-    let to_send = {
-      email: this.state.email,
-      password: this.state.password
+    // SEND TO SERVER
+    const toSend = {
+      email,
+      password,
     };
 
-
-    loginUser(to_send)
+    loginUser(toSend)
       .then(() => {
-        this.props.navigation.reset({
+        navigation.navigation.reset({
           index: 0,
-          routes: [{ name: 'MainNav' }]
-        })
-        this.setState({ "error": "" })
-        this.setState({ "submitted": false })
-        this.props.navigation.navigate("MainNav")
+          routes: [{ name: 'MainNav' }],
+        });
+        this.setState({ error: '' });
+        navigation.navigation.navigate('MainNav');
       })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ "error": error })
-        this.setState({ "submitted": false });
+      .catch((err) => {
+        console.log(err);
+        this.setState({ error: err });
       });
-  }
+  };
 
   render() {
+    const { email, password, error } = this.state;
+    const navigation = this.props;
     return (
       <View style={styles.backgroundContainer}>
 
         <View style={styles.loginContainer}>
-          <Logo></Logo>
+          <Logo />
           <Text style={styles.formHeader}>Email:</Text>
           <TextInput
             style={styles.formInput}
-            value={this.state.email}
-            onChangeText={(email) => this.setState({ email })}
+            value={email}
+            onChangeText={(newEmail) => this.setState({ email: newEmail })}
           />
           <Text style={styles.formHeader}>Password:</Text>
           <TextInput
             style={styles.formInput}
-            secureTextEntry={true}
-            value={this.state.password}
-            onChangeText={(password) => this.setState({ password })}
+            secureTextEntry
+            value={password}
+            onChangeText={(newPassword) => this.setState({ password: newPassword })}
           />
-          <Text style={styles.errorMessage}>{this.state.error}</Text>
+          <Text style={styles.errorMessage}>{error}</Text>
           <View style={styles.loginBtn}>
-            <TouchableOpacity onPress={this._onPressButton}>
+            <TouchableOpacity onPress={this.onPressButton}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Login</Text>
               </View>
             </TouchableOpacity>
           </View>
           <View style={styles.signupBtn}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')}>
+            <TouchableOpacity onPress={() => navigation.navigation.navigate('SignUp')}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Need an account? Click here</Text>
               </View>
@@ -125,8 +137,7 @@ class LoginScreen extends Component {
 
       </View>
     );
-  };
+  }
 }
 
 export default LoginScreen;
-
