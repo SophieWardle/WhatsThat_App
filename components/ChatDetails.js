@@ -36,13 +36,13 @@ function ChatDetails({
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('EditChat', { chat_id: chatId })} style={styles.editBtn}>
+          <TouchableOpacity onPress={() => navigation.navigate('EditChat', { chatId })} style={styles.editBtn}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Edit Chat Name</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('AddMember', { chat_id: chatId, members: [...members] })}
+            onPress={() => navigation.navigate('AddMember', { chatId, members: [...members] })}
             style={styles.addBtn}
           >
             <View style={styles.button}>
@@ -54,14 +54,8 @@ function ChatDetails({
 
         <View style={styles.chatMembers}>
           <Text style={styles.chatMembersHeader}>Members:</Text>
-          <MemberList members={members} navigation={navigation} chat_id={chatId} />
+          <MemberList members={members} navigation={navigation} chatId={chatId} />
         </View>
-
-        <TouchableOpacity style={styles.deleteBtn}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Delete Chat</Text>
-          </View>
-        </TouchableOpacity>
 
       </View>
     </View>

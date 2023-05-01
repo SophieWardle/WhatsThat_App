@@ -21,7 +21,7 @@ function MemberList({ members, navigation, chatId }) {
           <MemberItem
             member={item}
             navigation={navigation}
-            chat_id={chatId}
+            chatId={chatId}
           />
         )}
         // eslint-disable-next-line camelcase

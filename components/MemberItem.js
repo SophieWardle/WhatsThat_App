@@ -45,7 +45,7 @@ function MemberItem({ member, navigation, chatId }) {
         </TouchableOpacity>
       </View>
       <View style={styles.profileBtn}>
-        <TouchableOpacity onPress={() => navigation.navigate('DeleteMember', { user_id: member.user_id, chat_id: chatId })}>
+        <TouchableOpacity onPress={() => navigation.navigate('DeleteMember', { user_id: member.user_id, chatId })}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>X</Text>
           </View>

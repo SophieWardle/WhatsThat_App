@@ -20,7 +20,7 @@ export default class ChatDetailsScreen extends Component {
     this.state = {
       isLoading: true,
       chatDetails: props.route.params.chatData,
-      chatId: props.route.params.chat_id,
+      chatId: props.route.params.chatId,
       members: props.route.params.members,
     };
   }
