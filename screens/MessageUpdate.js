@@ -30,7 +30,7 @@ export default class MessageUpdate extends Component {
     this.state = {
       message: props.route.params.message,
       messageId: props.route.params.message_id,
-      chatId: props.route.params.chat_id,
+      chatId: props.route.params.chatId,
     };
   }
 

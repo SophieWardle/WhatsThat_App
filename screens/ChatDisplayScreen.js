@@ -25,7 +25,7 @@ export default class ChatDisplayScreen extends Component {
     super(props);
 
     this.state = {
-      chatId: props.route.params.chat_id,
+      chatId: props.route.params.chatId,
       isLoading: true,
       chatData: [],
       newMessage: '',
@@ -42,6 +42,7 @@ export default class ChatDisplayScreen extends Component {
             isLoading: false,
             chatData: responseJson,
           });
+          console.log("chat id" + chatId);
         })
         .catch((error) => {
           console.log(error);
@@ -103,13 +104,13 @@ export default class ChatDisplayScreen extends Component {
         />
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftMessages', { chat_id: chatId, chat_name: chatData.name })} style={styles.detailsBtn}>
+          <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftMessages', { chatId, chatName: chatData.name })} style={styles.detailsBtn}>
             <View style={styles.chatDisplayBtn}>
               <Text style={styles.buttonText}>Draft a Message</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('ChatDetails', { chat_id: chatId, chatData })} style={styles.detailsBtn}>
+          <TouchableOpacity onPress={() => navigation.navigation.navigate('ChatDetails', { chatId, chatData })} style={styles.detailsBtn}>
             <View style={styles.chatDisplayBtn}>
               <Text style={styles.buttonText}>Details</Text>
             </View>
@@ -118,7 +119,7 @@ export default class ChatDisplayScreen extends Component {
 
         <MessageList
           messages={chatData.messages}
-          chat_id={chatId}
+          chatId={chatId}
           navigation={navigation.navigation}
         />
         <View style={styles.sendMessage}>

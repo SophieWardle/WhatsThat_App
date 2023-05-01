@@ -20,7 +20,7 @@ class ChatDetailsUpdateScreen extends Component {
     super(props);
 
     this.state = {
-      chatId: props.route.params.chat_id,
+      chatId: props.route.params.chatId,
       newChatName: '',
       error: '',
     };

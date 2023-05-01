@@ -69,7 +69,7 @@ export default class ChatDetailsScreen extends Component {
           chatData={chatDetails}
           navigation={navigation.navigation}
           members={members}
-          chat_id={chatId}
+          chatId={chatId}
           onCancel={this.handleCancel}
         />
       </View>

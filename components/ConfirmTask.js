@@ -1,7 +1,10 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../styles/globalTheme';
-const ConfirmTask = ({ message, onCancel, onConfirm }) => {
+
+function ConfirmTask({ message, onCancel, onConfirm }) {
   return (
     <View style={styles.confirmContainer}>
       <Text style={styles.confirmText}>{`Are you sure you want to ${message}?`}</Text>
@@ -24,6 +27,6 @@ const ConfirmTask = ({ message, onCancel, onConfirm }) => {
       </View>
     </View>
   );
-};
+}
 
 export default ConfirmTask;

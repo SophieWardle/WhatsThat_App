@@ -1,23 +1,9 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-
-const ChatAddMemberItem = ({ contact, chat_id, onSelectUser}) => {
-  console.log("item contact:" + contact);
-  console.log("item chat id:" + chat_id);
-  return (
-    <View style={styles.contactsRow}>
-      <Text>{contact.first_name} {contact.last_name}</Text>
-      <View style={styles.deleteBtn}>
-        <TouchableOpacity onPress={() => onSelectUser(contact.user_id)}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Add</Text>
-          </View>
-        </TouchableOpacity>
-        
-      </View>
-    </View>
-  );
-}
+import {
+  View, Text, TouchableOpacity, StyleSheet,
+} from 'react-native';
 
 const styles = StyleSheet.create({
   contactsRow: {
@@ -26,21 +12,41 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc'
+    borderBottomColor: '#ccc',
   },
   deleteBtn: {
-    marginLeft: 10
+    marginLeft: 10,
   },
   button: {
     backgroundColor: '#f00',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderRadius: 5
+    borderRadius: 5,
   },
   buttonText: {
     color: '#fff',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });
+
+function ChatAddMemberItem({ contact, chatId, onSelectUser }) {
+  return (
+    <View style={styles.contactsRow}>
+      <Text>
+        {contact.first_name}
+        {' '}
+        {contact.last_name}
+      </Text>
+      <View style={styles.deleteBtn}>
+        <TouchableOpacity onPress={() => onSelectUser(contact.user_id)}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Add</Text>
+          </View>
+        </TouchableOpacity>
+
+      </View>
+    </View>
+  );
+}
 
 export default ChatAddMemberItem;

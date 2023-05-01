@@ -18,7 +18,7 @@ export default class ChatAddMember extends Component {
 
     this.state = {
       addContactData: [],
-      chatId: props.route.params.chat_id,
+      chatId: props.route.params.chatId,
       userId: props.route.params.user_id,
       members: props.route.params.members,
     };

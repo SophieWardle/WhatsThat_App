@@ -63,13 +63,14 @@ const styles = StyleSheet.create({
 function ChatItem({ chat, navigation }) {
   return (
     <View style={styles.chatContainer}>
-      <TouchableOpacity onPress={() => navigation.navigate('Chat', { chat_id: chat.chat_id })}>
+      <TouchableOpacity onPress={() => navigation.navigate('Chat', { chatId: chat.chat_id })}>
         <View style={styles.chatContent}>
           <Text style={styles.chatName}>{chat.name}</Text>
           {chat.last_message.message ? (
             <>
               <Text style={styles.name}>
                 {chat.last_message.author.first_name}
+                {' '}
                 {chat.last_message.author.last_name}
                 :
               </Text>

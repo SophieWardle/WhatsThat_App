@@ -1,32 +1,33 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { Component } from "react";
-import { View, FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { View, FlatList, StyleSheet } from 'react-native';
 
-import MessageItem from "./MessageItem";
+import MessageItem from './MessageItem';
 
+const styles = StyleSheet.create({
 
-const MessageList = ({ messages, chat_id, navigation }) => {
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={messages}
-          renderItem={({ item }) => (
-            <MessageItem 
-                message={item}
-                chat_id={chat_id}
-                navigation={navigation}
-            />
-            
-            )}
-          keyExtractor={({ message_id }, index) => message_id.toString()}
-          inverted
+});
+
+function MessageList({ messages, chatId, navigation }) {
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={messages}
+        renderItem={({ item }) => (
+          <MessageItem
+            message={item}
+            chatId={chatId}
+            navigation={navigation}
           />
-      </View>
-    );
-  };
 
-  const styles = StyleSheet.create({
+        )}
+        // eslint-disable-next-line camelcase
+        keyExtractor={({ message_id }) => message_id.toString()}
+        inverted
+      />
+    </View>
+  );
+}
 
-  })
-
-  export default MessageList;
+export default MessageList;

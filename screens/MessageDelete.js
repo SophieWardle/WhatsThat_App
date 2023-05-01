@@ -16,7 +16,7 @@ export default class MessageDelete extends Component {
 
     this.state = {
       messageId: props.route.params.message_id,
-      chatId: props.route.params.chat_id,
+      chatId: props.route.params.chatId,
     };
   }
 

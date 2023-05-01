@@ -36,7 +36,7 @@ export default class ChatDeleteMember extends Component {
 
     this.state = {
       userId: props.route.params.user_id,
-      chatId: props.route.params.chat_id,
+      chatId: props.route.params.chatId,
     };
   }
 
