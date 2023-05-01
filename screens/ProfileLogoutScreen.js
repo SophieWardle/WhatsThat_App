@@ -1,43 +1,46 @@
-import React, { Component } from "react";
-import { View} from "react-native";
-import ConfirmTask from "../components/ConfirmTask";
-//API
-import { logoutUser } from "../api/UserManagement";
-//My styles
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import ConfirmTask from '../components/ConfirmTask';
+// API
+import { logoutUser } from '../api/UserManagement';
+// My styles
 import styles from '../styles/globalTheme';
 
 export default class ProfileScreen extends Component {
+  handleCancel = () => {
+    const navigation = this.props;
+    navigation.navigation.goBack();
+  };
 
-    async logout() {
-        logoutUser()
-            .then((response) => {
-                this.props.navigation.navigate("Login")
-            })
-            .catch((error) => {
-                this.props.navigation.navigate("Login")
-                console.log(error);
-            })
-    }
+  handleConfirm = () => {
+    this.logout();
+  };
 
-    handleCancel = () => {
-        this.props.navigation.goBack();
-    };
+  async logout() {
+    const navigation = this.props;
+    logoutUser()
+      .then(() => {
+        navigation.navigation.navigate('Login');
+      })
+      .catch((error) => {
+        navigation.navigation.navigate('Login');
+        console.log(error);
+      });
+  }
 
-    handleConfirm = () => {
-        this.logout();
-    };
+  render() {
+    return (
+      <View style={styles.backgroundContainer}>
+        <ConfirmTask
+          message="log out"
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirm}
+        />
 
-    render() {
-        return (
-            <View style={styles.backgroundContainer}>
-                <ConfirmTask
-                    message="log out"
-                    onCancel={this.handleCancel}
-                    onConfirm={this.handleConfirm}
-                />
-
-            </View>
-        );
-
-    }
+      </View>
+    );
+  }
 }
