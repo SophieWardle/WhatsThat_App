@@ -16,29 +16,24 @@ import TimePicker from 'react-time-picker';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  centered: {
+  pickerContainer: {
     flex: 1,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
-  modal: {
-    margin: 20,
-    borderRadius: 20,
-    width: '90%',
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+  datePicker: {
+    width: '100%',
+    marginBottom: 10,
+  },
+  timePicker: {
+    width: '100%',
+    fontSize: 20,
+    height: 200,
   },
 });
 
@@ -52,8 +47,8 @@ export default class DraftSchedulingScreen extends Component {
 
     this.state = {
       draftMessage: props.route.params.draftMessage,
-      chatId: props.route.params.chat_id,
-      chatName: props.route.params.chat_name,
+      chatId: props.route.params.chatId,
+      chatName: props.route.params.chatName,
       isScheduled: props.route.params.isScheduled,
       error: '',
       date: false,
@@ -114,7 +109,7 @@ export default class DraftSchedulingScreen extends Component {
       let lastDraftId = 0;
       if (draftMessages.length > 0) {
         const lastDraft = draftMessages[draftMessages.length - 1];
-        lastDraftId = lastDraft.draft_id;
+        lastDraftId = lastDraft.draftId;
       }
 
       // Generate a new draft_id by adding 1 to the last used draft_id
@@ -122,7 +117,7 @@ export default class DraftSchedulingScreen extends Component {
 
       // Add new draft message with the generated draft_id to the draft messages array
       draftMessages.push({
-        draft_id: newDraftId, message: draftMessage, chatId, chatName, isScheduled, time, date,
+        draftId: newDraftId, message: draftMessage, chatId, chatName, isScheduled, time, date,
       });
 
       // Save updated draft messages array in AsyncStorage
@@ -148,35 +143,27 @@ export default class DraftSchedulingScreen extends Component {
     } = this.state;
     return (
       <View style={styles.container}>
+        <View style={styles.pickerContainer}>
+          <DatePicker
+            mode="calendar"
+            minimumDate={startDate}
+            selected={date}
+            onDateChange={this.handleDateChange}
+          />
 
-        <View style={styles.centered}>
-          <View style={styles.modal}>
-
-            <DatePicker
-              mode="calendar"
-              minimumDate={startDate}
-              selected={date}
-              onDateChange={this.handleDateChange}
-            />
-
-            <TimePicker
-              onChange={this.handleTimeChange}
-              value={time}
-              disableClock
-              clearIcon={null}
-            />
-          </View>
-
-          <Text style={styles.errorMessage}>{error}</Text>
-
-          <TouchableOpacity onPress={() => this.handleSaveScheduledDraft()}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Draft</Text>
-            </View>
-          </TouchableOpacity>
-
+          <TimePicker
+            onChange={this.handleTimeChange}
+            value={time}
+            disableClock
+            clearIcon={null}
+          />
         </View>
-
+        <Text style={styles.errorMessage}>{error}</Text>
+        <TouchableOpacity onPress={() => this.handleSaveScheduledDraft()}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Draft</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }

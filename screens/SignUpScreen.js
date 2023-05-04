@@ -84,7 +84,8 @@ class SignUpScreen extends Component {
       last_name: lastname,
       email,
       password,
-      show: false,
+      showPass: false,
+      showConfirmPass: false,
     };
 
     signupUser(toSend)
@@ -107,88 +108,89 @@ class SignUpScreen extends Component {
       password,
       confirmPassword,
       error,
+      showPass,
+      showConfirmPass,
     } = this.state;
     const navigation = this.props;
     return (
       <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
-        <View style={styles.signupContainer}>
-          <Logo />
-          <Text style={styles.formHeader}>First name:</Text>
-           <Input
-              placeholder='Enter first name'
-              style={{ width: '100%'}}
+          <View style={styles.signupContainer}>
+            <Logo />
+            <Text style={styles.formHeader}>First name:</Text>
+            <Input
+              placeholder="Enter first name"
+              style={{ width: '100%' }}
               value={firstname}
               onChangeText={(newFirstname) => this.setState({ firstname: newFirstname })}
               InputLeftElement={
-                <Icon as={<MaterialIcons name='person' />} size='lg' ml={2} color="muted.400" />
+                <Icon as={<MaterialIcons name="person" />} size="lg" ml={2} color="muted.400" />
               }
             />
-          <Text style={styles.formHeader}>Last name:</Text>
-          <Input
-              placeholder='Enter last name'
-              style={{ width: '100%'}}
+            <Text style={styles.formHeader}>Last name:</Text>
+            <Input
+              placeholder="Enter last name"
+              style={{ width: '100%' }}
               value={lastname}
               onChangeText={(newLastname) => this.setState({ lastname: newLastname })}
               InputLeftElement={
-                <Icon as={<MaterialIcons name='person' />} size='lg' ml={2} color="muted.400" />
+                <Icon as={<MaterialIcons name="person" />} size="lg" ml={2} color="muted.400" />
               }
             />
-          <Text style={styles.formHeader}>Email:</Text>
-          <Input
-              placeholder='Enter Email'
-              style={{ width: '100%'}}
+            <Text style={styles.formHeader}>Email:</Text>
+            <Input
+              placeholder="Enter Email"
+              style={{ width: '100%' }}
               value={email}
               onChangeText={(newEmail) => this.setState({ email: newEmail })}
               InputLeftElement={
-                <Icon as={<MaterialIcons name='email' />} size='lg' ml={2} color="muted.400" />
+                <Icon as={<MaterialIcons name="email" />} size="lg" ml={2} color="muted.400" />
               }
             />
-          <Text style={styles.formHeader}>Password:</Text>
-          <Input
-              placeholder='Enter Password'
-              style={{ width: '100%'}}
+            <Text style={styles.formHeader}>Password:</Text>
+            <Input
+              placeholder="Enter Password"
+              style={{ width: '100%' }}
               value={password}
               onChangeText={(newPassword) => this.setState({ password: newPassword })}
-              type={this.state.show ? 'text' : 'password'}
-              InputRightElement={
-                <TouchableOpacity onPress={() => this.setState({ show: !this.state.show })}>
-                  <Icon as={<MaterialIcons name={this.state.show ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
+              type={showPass ? 'text' : 'password'}
+              InputRightElement={(
+                <TouchableOpacity onPress={() => this.setState({ showPass: !showPass })}>
+                  <Icon as={<MaterialIcons name={showPass ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
                 </TouchableOpacity>
-              }
+              )}
             />
-          <Text style={styles.formHeader}>Confirm Password:</Text>
-          <Input
-              placeholder='Confirm Password'
-              style={{ width: '100%'}}
+            <Text style={styles.formHeader}>Confirm Password:</Text>
+            <Input
+              placeholder="Confirm Password"
+              style={{ width: '100%' }}
               value={confirmPassword}
               onChangeText={(newConfirmPassword) => this.setState({ confirmPassword: newConfirmPassword })}
-              type={this.state.show ? 'text' : 'confirmPassword'}
-              InputRightElement={
-                <TouchableOpacity onPress={() => this.setState({ show: !this.state.show })}>
-                  <Icon as={<MaterialIcons name={this.state.show ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
+              type={showConfirmPass ? 'text' : 'confirmPassword'}
+              InputRightElement={(
+                <TouchableOpacity onPress={() => this.setState({ showConfirmPass: !showConfirmPass })}>
+                  <Icon as={<MaterialIcons name={showConfirmPass ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
                 </TouchableOpacity>
-              }
+              )}
             />
-          <Text style={styles.errorMessage}>{error}</Text>
-          <View style={styles.signupBtn}>
-            <TouchableOpacity onPress={this.onPressSignup}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Signup</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.backBtn}>
-            <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Back</Text>
-              </View>
-            </TouchableOpacity>
+            <Text style={styles.errorMessage}>{error}</Text>
+            <View style={styles.signupBtn}>
+              <TouchableOpacity onPress={this.onPressSignup}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Signup</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.backBtn}>
+              <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Back</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
       </NativeBaseProvider>
-      
 
     );
   }

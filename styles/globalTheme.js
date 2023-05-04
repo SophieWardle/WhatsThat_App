@@ -1,7 +1,8 @@
+/* eslint-disable linebreak-style */
 import { StyleSheet } from 'react-native';
 
 const globalStyle = StyleSheet.create({
-  //Login
+  // Login
   backgroundContainer: {
     backgroundColor: '#f0ece3',
     flex: 1,
@@ -18,12 +19,12 @@ const globalStyle = StyleSheet.create({
     borderColor: 'black',
   },
   errorMessage: {
-    color: 'red'
+    color: 'red',
   },
   formHeader: {
     color: 'black',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   loginBtn: {
     marginTop: 10,
@@ -32,7 +33,7 @@ const globalStyle = StyleSheet.create({
     marginTop: 10,
     color: 'black',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   button: {
     borderRadius: 20,
@@ -50,7 +51,7 @@ const globalStyle = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  //SIGNUP
+  // SIGNUP
   signupContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -60,14 +61,14 @@ const globalStyle = StyleSheet.create({
     marginTop: 10,
     color: 'black',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
-  //Chats screen
+  // Chats screen
   chatsButton: {
     margin: 5,
     backgroundColor: '#bbb5a7',
     borderRadius: 5,
-    padding: 8,
+    padding: 10,
   },
   chatsBtnText: {
     color: 'black',
@@ -76,25 +77,25 @@ const globalStyle = StyleSheet.create({
     textAlign: 'center',
   },
   rowContainer: {
-    flexDirection: 'row', // make the child components align horizontally
-    justifyContent: 'center', // align child components with space in between
-    paddingTop: 5, // add horizontal margin for spacing
-    // add bottom margin for spacing
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 5,
+
   },
-  //profile update screen
+  // profile update screen
   profileEditContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  //confirm component
+  // confirm component
   confirmContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
   },
-  //logo
+  // logo
 
   logo: {
     width: 100,
@@ -121,17 +122,17 @@ const globalStyle = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
-  //PROFILE
+  // PROFILE
   profileContainer: {
     margin: 5,
     flex: 1,
     backgroundColor: '#f0ece3',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   profileInformation: {
     paddingVertical: 20,
     paddingHorizontal: 10,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   name: {
     fontSize: 20,
@@ -149,7 +150,7 @@ const globalStyle = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 20,
   },
-  //chat display screen
+  // chat display screen
   chatName: {
     flexDirection: 'row',
     backgroundColor: '#bbb5a7',
@@ -205,7 +206,7 @@ const globalStyle = StyleSheet.create({
   sendButtonText: {
 
   },
-  //chat details
+  // chat details
   chatCreatorContainer: {
 
   },
@@ -233,7 +234,7 @@ const globalStyle = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     borderWidth: 2,
-    borderColor: '#bbb5a7'
+    borderColor: '#bbb5a7',
   },
   chatMembersHeader: {
     fontWeight: 'bold',
@@ -252,7 +253,7 @@ const globalStyle = StyleSheet.create({
   updateChatForm: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1
+    flex: 1,
   },
   draftMsgContainer: {
     flex: 1,
@@ -269,7 +270,7 @@ const globalStyle = StyleSheet.create({
     marginBottom: 16,
     padding: 8,
   },
-  //New chat screen
+  // New chat screen
   chatNewContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -280,16 +281,16 @@ const globalStyle = StyleSheet.create({
     marginTop: 10,
     color: 'black',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   createBtn: {
     backgroundColor: '#bbb5a7',
     marginTop: 10,
     color: 'black',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
-  //DRAFTS
+  // DRAFTS
   draftContainer: {
     flex: 1,
     marginBottom: 16,
@@ -304,15 +305,20 @@ const globalStyle = StyleSheet.create({
     color: 'gray',
   },
   emptyText: {
-    fontSize: 16,
+    fontSize: 18,
+    marginHorizontal: 20,
+    marginTop: 20,
     textAlign: 'center',
-    marginTop: 16,
   },
   openBtn: {
     marginLeft: 0,
   },
   pageHeader: {
     textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  sectionHeader: {
     fontWeight: 'bold',
     fontSize: 20,
   },
@@ -345,11 +351,11 @@ const globalStyle = StyleSheet.create({
   },
   deleteConfirmContainer: {
     padding: 10,
-    marginTop: 10
+    marginTop: 10,
   },
   deleteContainer: {
     padding: 10,
-    marginTop: 10
+    marginTop: 10,
   },
   confirmButtonContainer: {
     flexDirection: 'row',
@@ -357,15 +363,14 @@ const globalStyle = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-  blockContainer:{
+  blockContainer: {
     padding: 10,
-    marginTop: 10
+    marginTop: 10,
   },
   blockConfirmContainer: {
     padding: 10,
-    marginTop: 10
-  }
-
+    marginTop: 10,
+  },
 
 });
 

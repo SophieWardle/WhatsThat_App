@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  TextInput,
   TouchableOpacity,
 } from 'react-native';
 import { Input, Icon, NativeBaseProvider } from 'native-base';
@@ -101,7 +100,12 @@ class LoginScreen extends Component {
   };
 
   render() {
-    const { email, password, error } = this.state;
+    const {
+      email,
+      password,
+      error,
+      show,
+    } = this.state;
     const navigation = this.props;
     return (
       <NativeBaseProvider>
@@ -111,26 +115,26 @@ class LoginScreen extends Component {
             <Logo />
             <Text style={styles.formHeader}>Email:</Text>
             <Input
-              placeholder='Enter Email'
-              style={{ width: '100%'}}
+              placeholder="Enter Email"
+              style={{ width: '100%' }}
               value={email}
               onChangeText={(newEmail) => this.setState({ email: newEmail })}
               InputLeftElement={
-                <Icon as={<MaterialIcons name='email' />} size='lg' ml={2} color="muted.400" />
+                <Icon as={<MaterialIcons name="email" />} size="lg" ml={2} color="muted.400" />
               }
             />
             <Text style={styles.formHeader}>Password:</Text>
             <Input
-              placeholder='Enter Password'
-              style={{ width: '100%'}}
+              placeholder="Enter Password"
+              style={{ width: '100%' }}
               value={password}
               onChangeText={(newPassword) => this.setState({ password: newPassword })}
-              type={this.state.show ? 'text' : 'password'}
-              InputRightElement={
-                <TouchableOpacity onPress={() => this.setState({ show: !this.state.show })}>
-                  <Icon as={<MaterialIcons name={this.state.show ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
+              type={show ? 'text' : 'password'}
+              InputRightElement={(
+                <TouchableOpacity onPress={() => this.setState({ show: !show })}>
+                  <Icon as={<MaterialIcons name={show ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
                 </TouchableOpacity>
-              }
+              )}
             />
             <Text style={styles.errorMessage}>{error}</Text>
             <View style={styles.loginBtn}>

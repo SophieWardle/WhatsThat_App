@@ -6,6 +6,7 @@ import ChatItem from './ChatItem';
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: '#f0ece3',
     borderRadius: 10,
     paddingHorizontal: 20,

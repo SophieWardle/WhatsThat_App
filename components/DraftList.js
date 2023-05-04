@@ -3,6 +3,7 @@
 import React from 'react';
 import { View, FlatList, Text } from 'react-native';
 import DraftItem from './DraftItem';
+import ScheduledDraftItem from './ScheduledDraftItem';
 import styles from '../styles/globalTheme';
 
 function DraftList({ drafts, navigation }) {
@@ -25,12 +26,12 @@ function DraftList({ drafts, navigation }) {
         <FlatList
           data={scheduledDrafts}
           renderItem={({ item }) => (
-            <DraftItem
+            <ScheduledDraftItem
               item={item}
               navigation={navigation}
             />
           )}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.draftId.toString()}
         />
       </View>
       )}
@@ -46,7 +47,7 @@ function DraftList({ drafts, navigation }) {
               navigation={navigation}
             />
           )}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.draftId.toString()}
         />
       </View>
       )}

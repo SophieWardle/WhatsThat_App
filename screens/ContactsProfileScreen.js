@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
 	  marginBottom: 20,
   },
   button: {
-	  backgroundColor: '#428bca',
+	  backgroundColor: '#bbb5a7',
 	  borderRadius: 5,
 	  padding: 10,
   },
   buttonText: {
-	  color: '#fff',
+	  color: 'black',
 	  textAlign: 'center',
 	  fontSize: 16,
 	  fontWeight: 'bold',

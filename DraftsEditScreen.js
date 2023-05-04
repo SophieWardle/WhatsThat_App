@@ -53,7 +53,7 @@ class DraftsEditScreen extends Component {
     super(props);
 
     this.state = {
-      draftId: props.route.params.draft_id,
+      draftId: props.route.params.draftId,
       message: props.route.params.message,
       error: '',
     };
@@ -70,7 +70,7 @@ class DraftsEditScreen extends Component {
       console.log(`draftsArray: ${JSON.stringify(updatedDrafts)}`);
 
       // Find the index of the draft to be updated
-      const draftIndex = updatedDrafts.findIndex((draft) => draft.draft_id === draftId);
+      const draftIndex = updatedDrafts.findIndex((draft) => draft.draftId === draftId);
       console.log(`draft index: ${draftIndex}`);
       // Update the message of the draft in the updatedDrafts array
       if (draftIndex > -1) {

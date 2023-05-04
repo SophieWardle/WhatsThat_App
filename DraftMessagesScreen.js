@@ -17,8 +17,8 @@ export default class DraftMessagesScreen extends Component {
     super(props);
 
     this.state = {
-      chatId: props.route.params.chat_id,
-      chatName: props.route.params.chat_name,
+      chatId: props.route.params.chatId,
+      chatName: props.route.params.chatName,
       draftMessage: '',
       isScheduled: false,
       error: '',
@@ -63,16 +63,17 @@ export default class DraftMessagesScreen extends Component {
       let lastDraftId = 0;
       if (draftMessages.length > 0) {
         const lastDraft = draftMessages[draftMessages.length - 1];
-        lastDraftId = lastDraft.draft_id;
+        lastDraftId = lastDraft.draftId;
       }
+      console.log(chatId);
       // Generate a new draft_id by adding 1 to the last used draft_id
       const newDraftId = lastDraftId + 1;
       // Add new draft message with the generated draft_id to the draft messages array
       draftMessages.push({
-        draft_id: newDraftId,
+        draftId: newDraftId,
         message: draftMessage,
-        chat_id: chatId,
-        chat_name: chatName,
+        chatId,
+        chatName,
         isScheduled,
       });
       // Save updated draft messages array in AsyncStorage
@@ -110,6 +111,9 @@ export default class DraftMessagesScreen extends Component {
           multiline
         />
 
+        <Text style={styles.formHeader}>
+          Schedule:
+        </Text>
         <Switch
           trackColor={{ false: '#767577', true: '#81b0ff' }}
           thumbColor={isScheduled ? '#f5dd4b' : '#f4f3f4'}

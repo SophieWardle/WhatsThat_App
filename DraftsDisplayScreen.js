@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   draftTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 8,
   },
@@ -42,9 +42,9 @@ class DraftsDisplayScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chatId: props.route.params.chat_id,
-      draftId: props.route.params.draft_id,
-      chatName: props.route.params.chat_name,
+      chatId: props.route.params.chatId,
+      draftId: props.route.params.draftId,
+      chatName: props.route.params.chatName,
       message: props.route.params.message,
       isScheduled: props.route.params.isScheduled,
       date: props.route.params.date,
@@ -58,6 +58,7 @@ class DraftsDisplayScreen extends Component {
     const toSend = {
       message,
     };
+    console.log(chatId);
 
     sendChatMessage(chatId, toSend)
       .then(async () => {
@@ -76,7 +77,7 @@ class DraftsDisplayScreen extends Component {
     const draftArray = JSON.parse(currentDrafts) || [];
 
     // find index of draft w/matching id
-    const itemIndexToRemove = draftArray.findIndex((item) => item.draft_id === draftId);
+    const itemIndexToRemove = draftArray.findIndex((item) => item.draftId === draftId);
     if (itemIndexToRemove !== -1) {
       // remove draft
       draftArray.splice(itemIndexToRemove, 1);
@@ -120,7 +121,7 @@ class DraftsDisplayScreen extends Component {
             <Text style={styles.draftContent}>{message}</Text>
             <Text style={styles.draftDate}>{date}</Text>
             <Text style={styles.draftTime}>{time}</Text>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftsEdit', { message, draft_id: draftId })}>
+            <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftsEdit', { message, draftId })}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Edit message</Text>
               </View>
@@ -133,6 +134,11 @@ class DraftsDisplayScreen extends Component {
             <TouchableOpacity onPress={() => this.handleRescheduleDraft()}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Reschedule</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.handleSendDraft()}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Send Now</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -150,7 +156,7 @@ class DraftsDisplayScreen extends Component {
         <View style={styles.draftContainer}>
           <Text style={styles.draftTitle}>{chatName}</Text>
           <Text style={styles.draftContent}>{message}</Text>
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftsEdit', { message, draft_id: draftId })}>
+          <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftsEdit', { message, draftId })}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Edit message</Text>
             </View>
@@ -167,7 +173,7 @@ class DraftsDisplayScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.handleSendDraft()}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Send</Text>
+              <Text style={styles.buttonText}>Send Now</Text>
             </View>
           </TouchableOpacity>
         </View>

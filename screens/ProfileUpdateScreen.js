@@ -23,7 +23,7 @@ export default class ProfileUpdateScreen extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      // password: '', can we do this?!
+      password: '',
       error: '',
     };
   }
@@ -62,6 +62,10 @@ export default class ProfileUpdateScreen extends Component {
     this.setState({ email });
   };
 
+  passwordHandler = (password) => {
+    this.setState({ password });
+  };
+
   async updateProfile() {
     const toSend = {};
     const {
@@ -69,8 +73,10 @@ export default class ProfileUpdateScreen extends Component {
       firstName,
       lastName,
       email,
+      password,
     } = this.state;
 
+    console.log(userData);
     if (firstName !== userData.first_name) {
       toSend.first_name = firstName;
     }
@@ -81,6 +87,10 @@ export default class ProfileUpdateScreen extends Component {
 
     if (email !== userData.email) {
       toSend.email = email;
+    }
+
+    if (password) {
+      toSend.password = password;
     }
 
     console.log(`Update Profile Function${toSend.first_name}${toSend.last_name}${toSend.email}`);
@@ -112,6 +122,7 @@ export default class ProfileUpdateScreen extends Component {
       lastName,
       email,
       error,
+      password,
     } = this.state;
     const navigation = this.props;
     return (
@@ -133,6 +144,12 @@ export default class ProfileUpdateScreen extends Component {
           <TextInput
             onChangeText={this.emailHandler}
             value={email}
+            style={styles.formInput}
+          />
+          <Text style={styles.formHeader}>Password:</Text>
+          <TextInput
+            onChangeText={this.passwordHandler}
+            value={password}
             style={styles.formInput}
           />
           <Text style={styles.errorMessage}>{error}</Text>

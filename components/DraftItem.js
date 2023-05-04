@@ -2,22 +2,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import styles from '../styles/globalTheme';
+import styles from '../styles/globalTheme'; //
 
 function DraftItem({ item, navigation }) {
   return (
     <View style={styles.draftContainer}>
       <TouchableOpacity onPress={() => navigation.navigate('DraftsDisplay', {
-        draft_id: item.draft_id,
-        chat_id: item.chat_id,
-        chat_name: item.chat_name,
+        draftId: item.draftId,
+        chatId: item.chatId,
+        chatName: item.chatName,
         message: item.message,
-        isScheduled: item.isScheduled,
-        date: item.date,
-        time: item.time,
       })}
       >
-        <Text style={styles.draftTitle}>{item.chat_name}</Text>
+        <Text style={styles.draftTitle}>{item.chatName}</Text>
         <Text style={styles.draftContent}>{item.message}</Text>
       </TouchableOpacity>
     </View>
