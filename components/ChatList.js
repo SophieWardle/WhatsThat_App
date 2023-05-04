@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f0ece3',
     borderRadius: 10,
-    paddingVertical: 10,
     paddingHorizontal: 20,
     marginVertical: 10,
     shadowColor: '#000',

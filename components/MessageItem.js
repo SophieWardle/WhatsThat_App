@@ -62,6 +62,16 @@ function MessageItem({ message, chatId, navigation }) {
     setIsEditable(idCheck);
   }, [currentUserID, message.author.user_id]);
 
+  // Get todays date
+  // Check if the timestamp day is today
+  // Print 'Today,' if the timestamp is today
+  const timestamp = message.timestamp;
+  const isToday = moment(timestamp).isSame(moment(new Date()), 'day');
+
+
+  const formattedTimestamp = isToday
+    ? 'Today, ' + moment(timestamp).format('h:mm a')
+    :moment(timestamp).format('DD/MM/YYYY, h:mm a');
   return (
     <View style={styles.messageContainer}>
       <View style={styles.messageContent}>
@@ -70,7 +80,7 @@ function MessageItem({ message, chatId, navigation }) {
           <Text style={styles.message}>{message.message}</Text>
         )}
       </View>
-      <Text style={styles.time}>{moment(message.timestamp).format('DD/MM/YYYY, h:mm a')}</Text>
+      <Text style={styles.time}>{formattedTimestamp}</Text>
 
       {isEditable && (
         <TouchableOpacity onPress={() => navigation.navigate('EditMessage', {

@@ -9,6 +9,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import { Input, Icon, NativeBaseProvider } from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
 // My Styles
 import styles from '../styles/globalTheme';
 // My Components
@@ -24,6 +26,7 @@ class LoginScreen extends Component {
       email: '',
       password: '',
       error: '',
+      show: false,
     };
   }
 
@@ -101,41 +104,53 @@ class LoginScreen extends Component {
     const { email, password, error } = this.state;
     const navigation = this.props;
     return (
-      <View style={styles.backgroundContainer}>
+      <NativeBaseProvider>
+        <View style={styles.backgroundContainer}>
 
-        <View style={styles.loginContainer}>
-          <Logo />
-          <Text style={styles.formHeader}>Email:</Text>
-          <TextInput
-            style={styles.formInput}
-            value={email}
-            onChangeText={(newEmail) => this.setState({ email: newEmail })}
-          />
-          <Text style={styles.formHeader}>Password:</Text>
-          <TextInput
-            style={styles.formInput}
-            secureTextEntry
-            value={password}
-            onChangeText={(newPassword) => this.setState({ password: newPassword })}
-          />
-          <Text style={styles.errorMessage}>{error}</Text>
-          <View style={styles.loginBtn}>
-            <TouchableOpacity onPress={this.onPressButton}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Login</Text>
-              </View>
-            </TouchableOpacity>
+          <View style={styles.loginContainer}>
+            <Logo />
+            <Text style={styles.formHeader}>Email:</Text>
+            <Input
+              placeholder='Enter Email'
+              style={{ width: '100%'}}
+              value={email}
+              onChangeText={(newEmail) => this.setState({ email: newEmail })}
+              InputLeftElement={
+                <Icon as={<MaterialIcons name='email' />} size='lg' ml={2} color="muted.400" />
+              }
+            />
+            <Text style={styles.formHeader}>Password:</Text>
+            <Input
+              placeholder='Enter Password'
+              style={{ width: '100%'}}
+              value={password}
+              onChangeText={(newPassword) => this.setState({ password: newPassword })}
+              type={this.state.show ? 'text' : 'password'}
+              InputRightElement={
+                <TouchableOpacity onPress={() => this.setState({ show: !this.state.show })}>
+                  <Icon as={<MaterialIcons name={this.state.show ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
+                </TouchableOpacity>
+              }
+            />
+            <Text style={styles.errorMessage}>{error}</Text>
+            <View style={styles.loginBtn}>
+              <TouchableOpacity onPress={this.onPressButton}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Login</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.signupBtn}>
+              <TouchableOpacity onPress={() => navigation.navigation.navigate('SignUp')}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Need an account? Click here</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.signupBtn}>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('SignUp')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Need an account? Click here</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+
         </View>
-
-      </View>
+      </NativeBaseProvider>
     );
   }
 }
