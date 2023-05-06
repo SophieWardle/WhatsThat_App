@@ -13,24 +13,30 @@ const globalStyle = StyleSheet.create({
     alignItems: 'center',
   },
   formInput: {
-    height: 40,
-    width: '70%',
-    borderWidth: 2,
-    borderColor: 'black',
+    height: 50,
+    width: '100%',
+    paddingHorizontal: 10,
+    fontSize: 18,
+    backgroundColor: 'white',
   },
   errorMessage: {
     color: 'red',
+    marginVertical: 10,
   },
   formHeader: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
+    textAlign: 'center',
+    paddingBottom: 10,
+    paddingTop: 10,
   },
   loginBtn: {
     marginTop: 10,
+    alignItems: 'center',
   },
   signupBtn: {
-    marginTop: 10,
+    marginTop: 20,
     color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
@@ -39,7 +45,7 @@ const globalStyle = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     paddingHorizontal: 20,
-    backgroundColor: 'linear-gradient(to right, #C56CD6, #342E37)',
+    backgroundColor: '#bbb5a7',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -50,6 +56,27 @@ const globalStyle = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  logoContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  formContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  borderBackground: {
+    backgroundColor: '#bbb5a7',
+    borderRadius: 10,
+    padding: 20,
+  },
+  btnContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   // SIGNUP
   signupContainer: {
@@ -62,6 +89,11 @@ const globalStyle = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
+    backgroundColor: '#bbb5a7',
+    margin: 5,
+    borderRadius: 5,
+    padding: 10,
+    width: '25%',
   },
   // Chats screen
   chatsButton: {
@@ -69,10 +101,12 @@ const globalStyle = StyleSheet.create({
     backgroundColor: '#bbb5a7',
     borderRadius: 5,
     padding: 10,
+    marginLeft: 25,
+    marginRight: 25,
   },
   chatsBtnText: {
     color: 'black',
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -80,7 +114,6 @@ const globalStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: 5,
-
   },
   // profile update screen
   profileEditContainer: {
@@ -104,21 +137,22 @@ const globalStyle = StyleSheet.create({
   logoTextContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   logoTextPrimary: {
     color: '#332724',
-    fontSize: 24,
+    fontSize: 36,
     fontWeight: 'bold',
     paddingTop: 5,
     paddingBottom: 5,
-    textShadowColor: 'gray', // Set the text shadow color for the letters
-    textShadowOffset: { width: 1, height: 1 }, // Set the text shadow offset for the letters
-    textShadowRadius: 2, // Set the text shadow radius for the letters
+    textShadowColor: 'gray',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   logoTextSecondary: {
     color: '#8e7569',
-    fontSize: 24, // Set the font size for the letters
-    fontWeight: 'bold', // Set the font weight for the letters
+    fontSize: 36,
+    fontWeight: 'bold',
     paddingTop: 5,
     paddingBottom: 5,
   },
@@ -182,17 +216,16 @@ const globalStyle = StyleSheet.create({
     textAlign: 'center',
   },
   sendMessage: {
-    bottom: 0,
-    position: 'absolute',
-    width: '100%',
-    backgroundColor: '#bbb5a7',
-    borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  sendMessageContainer: {
+    backgroundColor: '#bbb5a7',
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
+    paddingHorizontal: 20,
+    paddingBottom: 10,
   },
   chatInput: {
     flex: 1,
@@ -202,9 +235,20 @@ const globalStyle = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: 16,
     marginRight: 10,
+    alignSelf: 'flex-start',
+  },
+  sendButton: {
+    backgroundColor: '#3b5998',
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'flex-end',
   },
   sendButtonText: {
-
+    color: '#fff',
+    fontSize: 16,
   },
   // chat details
   chatCreatorContainer: {
@@ -295,6 +339,11 @@ const globalStyle = StyleSheet.create({
     flex: 1,
     marginBottom: 16,
   },
+  draftItem: {
+    backgroundColor: 'white',
+    marginTop: 10,
+    padding: 5,
+  },
   draftTitle: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -303,6 +352,10 @@ const globalStyle = StyleSheet.create({
   draftContent: {
     fontSize: 16,
     color: 'gray',
+  },
+  draftSection: {
+    marginLeft: 10,
+    flex: 1,
   },
   emptyText: {
     fontSize: 18,

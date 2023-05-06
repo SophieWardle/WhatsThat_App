@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  TextInput,
   TouchableOpacity,
 } from 'react-native';
 import { Input, Icon, NativeBaseProvider } from 'native-base';
@@ -25,9 +24,8 @@ class SignUpScreen extends Component {
       lastname: '',
       email: '',
       password: '',
-      confirmPassword: '',
-      // submitted: false,
       error: '',
+      showPass: false,
     };
   }
 
@@ -55,10 +53,6 @@ class SignUpScreen extends Component {
       return "Password isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long";
     }
 
-    if (password !== confirmPassword) {
-      return 'Passwords must match!';
-    }
-
     return null;
   };
 
@@ -84,8 +78,6 @@ class SignUpScreen extends Component {
       last_name: lastname,
       email,
       password,
-      showPass: false,
-      showConfirmPass: false,
     };
 
     signupUser(toSend)
@@ -106,87 +98,83 @@ class SignUpScreen extends Component {
       lastname,
       email,
       password,
-      confirmPassword,
       error,
       showPass,
-      showConfirmPass,
     } = this.state;
     const navigation = this.props;
     return (
       <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
           <View style={styles.signupContainer}>
-            <Logo />
-            <Text style={styles.formHeader}>First name:</Text>
-            <Input
-              placeholder="Enter first name"
-              style={{ width: '100%' }}
-              value={firstname}
-              onChangeText={(newFirstname) => this.setState({ firstname: newFirstname })}
-              InputLeftElement={
-                <Icon as={<MaterialIcons name="person" />} size="lg" ml={2} color="muted.400" />
-              }
-            />
-            <Text style={styles.formHeader}>Last name:</Text>
-            <Input
-              placeholder="Enter last name"
-              style={{ width: '100%' }}
-              value={lastname}
-              onChangeText={(newLastname) => this.setState({ lastname: newLastname })}
-              InputLeftElement={
-                <Icon as={<MaterialIcons name="person" />} size="lg" ml={2} color="muted.400" />
-              }
-            />
-            <Text style={styles.formHeader}>Email:</Text>
-            <Input
-              placeholder="Enter Email"
-              style={{ width: '100%' }}
-              value={email}
-              onChangeText={(newEmail) => this.setState({ email: newEmail })}
-              InputLeftElement={
-                <Icon as={<MaterialIcons name="email" />} size="lg" ml={2} color="muted.400" />
-              }
-            />
-            <Text style={styles.formHeader}>Password:</Text>
-            <Input
-              placeholder="Enter Password"
-              style={{ width: '100%' }}
-              value={password}
-              onChangeText={(newPassword) => this.setState({ password: newPassword })}
-              type={showPass ? 'text' : 'password'}
-              InputRightElement={(
-                <TouchableOpacity onPress={() => this.setState({ showPass: !showPass })}>
-                  <Icon as={<MaterialIcons name={showPass ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
-                </TouchableOpacity>
-              )}
-            />
-            <Text style={styles.formHeader}>Confirm Password:</Text>
-            <Input
-              placeholder="Confirm Password"
-              style={{ width: '100%' }}
-              value={confirmPassword}
-              onChangeText={(newConfirmPassword) => this.setState({ confirmPassword: newConfirmPassword })}
-              type={showConfirmPass ? 'text' : 'confirmPassword'}
-              InputRightElement={(
-                <TouchableOpacity onPress={() => this.setState({ showConfirmPass: !showConfirmPass })}>
-                  <Icon as={<MaterialIcons name={showConfirmPass ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
-                </TouchableOpacity>
-              )}
-            />
-            <Text style={styles.errorMessage}>{error}</Text>
-            <View style={styles.signupBtn}>
-              <TouchableOpacity onPress={this.onPressSignup}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Signup</Text>
-                </View>
-              </TouchableOpacity>
+
+            <View style={[styles.logoContainer, { alignSelf: 'stretch', justifyContent: 'center', alignItems: 'center' }]}>
+              <Logo />
             </View>
-            <View style={styles.backBtn}>
-              <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Back</Text>
-                </View>
-              </TouchableOpacity>
+
+            <View style={[styles.formContainer, { flex: 3, paddingHorizontal: 20 }]}>
+              <View style={styles.borderBackground}>
+                <Text style={styles.formHeader}>First name:</Text>
+                <Input
+                  placeholder="Enter first name"
+                  style={styles.formInput}
+                  value={firstname}
+                  onChangeText={(newFirstname) => this.setState({ firstname: newFirstname })}
+                  InputLeftElement={(
+                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
+                      <Icon as={<MaterialIcons name="person" />} size="lg" ml={2} color="muted.400" />
+                    </View>
+                  )}
+                />
+                <Text style={styles.formHeader}>Last name:</Text>
+                <Input
+                  placeholder="Enter last name"
+                  style={styles.formInput}
+                  value={lastname}
+                  onChangeText={(newLastname) => this.setState({ lastname: newLastname })}
+                  InputLeftElement={(
+                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
+                      <Icon as={<MaterialIcons name="person" />} size="lg" ml={2} color="muted.400" />
+                    </View>
+                  )}
+                />
+                <Text style={styles.formHeader}>Email:</Text>
+                <Input
+                  placeholder="Enter Email"
+                  style={styles.formInput}
+                  value={email}
+                  onChangeText={(newEmail) => this.setState({ email: newEmail })}
+                  InputLeftElement={(
+                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
+                      <Icon as={<MaterialIcons name="email" />} size="lg" ml={2} color="muted.400" />
+                    </View>
+                  )}
+                />
+                <Text style={styles.formHeader}>Password:</Text>
+                <Input
+                  placeholder="Enter Password"
+                  style={styles.formInput}
+                  value={password}
+                  onChangeText={(newPassword) => this.setState({ password: newPassword })}
+                  type={showPass ? 'text' : 'password'}
+                />
+                <Text style={styles.errorMessage}>{error}</Text>
+              </View>
+            </View>
+            <View style={[styles.btnContainer, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
+              <View style={styles.signupBtn}>
+                <TouchableOpacity onPress={this.onPressSignup}>
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Signup</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.backBtn}>
+                <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Back</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>

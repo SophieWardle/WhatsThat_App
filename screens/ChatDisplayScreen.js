@@ -42,7 +42,7 @@ export default class ChatDisplayScreen extends Component {
             isLoading: false,
             chatData: responseJson,
           });
-          console.log("chat id" + chatId);
+          console.log(`chat id${chatId}`);
         })
         .catch((error) => {
           console.log(error);
@@ -116,23 +116,27 @@ export default class ChatDisplayScreen extends Component {
             </View>
           </TouchableOpacity>
         </View>
-
-        <MessageList
-          messages={chatData.messages}
-          chatId={chatId}
-          navigation={navigation.navigation}
-        />
-        <View style={styles.sendMessage}>
-          <TextInput
-            style={styles.chatInput}
-            value={newMessage}
-            onChangeText={(newMessage) => this.setState({ newMessage })}
+        <View style={{ flex: 1 }}>
+          <MessageList
+            messages={chatData.messages}
+            chatId={chatId}
+            navigation={navigation.navigation}
+            style={{ flex: 1 }}
           />
-          <TouchableOpacity onPress={() => this.handleSendMessage()}>
-            <View style={styles.sendButton}>
-              <Text style={styles.sendButtonText}>Send</Text>
+          <View style={styles.sendMessageContainer}>
+            <View style={styles.sendMessage}>
+              <TextInput
+                style={styles.chatInput}
+                value={newMessage}
+                onChangeText={(newMessage) => this.setState({ newMessage })}
+              />
+              <TouchableOpacity onPress={() => this.handleSendMessage()}>
+                <View style={styles.sendButton}>
+                  <Text style={styles.sendButtonText}>Send</Text>
+                </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+          </View>
         </View>
       </View>
     );

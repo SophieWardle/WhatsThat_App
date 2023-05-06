@@ -7,6 +7,7 @@ import MessageItem from './MessageItem';
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: '#f0ece3',
     borderRadius: 10,
     paddingVertical: 10,

@@ -6,7 +6,7 @@ import styles from '../styles/globalTheme';
 
 function Logo() {
   return (
-    <View>
+    <View style={styles.logoContainer}>
       <Image
         source={require('../images/LogoPNG2.png')}
         style={styles.logo}

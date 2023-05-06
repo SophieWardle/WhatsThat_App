@@ -110,49 +110,61 @@ class LoginScreen extends Component {
     return (
       <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
-
           <View style={styles.loginContainer}>
-            <Logo />
-            <Text style={styles.formHeader}>Email:</Text>
-            <Input
-              placeholder="Enter Email"
-              style={{ width: '100%' }}
-              value={email}
-              onChangeText={(newEmail) => this.setState({ email: newEmail })}
-              InputLeftElement={
-                <Icon as={<MaterialIcons name="email" />} size="lg" ml={2} color="muted.400" />
-              }
-            />
-            <Text style={styles.formHeader}>Password:</Text>
-            <Input
-              placeholder="Enter Password"
-              style={{ width: '100%' }}
-              value={password}
-              onChangeText={(newPassword) => this.setState({ password: newPassword })}
-              type={show ? 'text' : 'password'}
-              InputRightElement={(
-                <TouchableOpacity onPress={() => this.setState({ show: !show })}>
-                  <Icon as={<MaterialIcons name={show ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" />
-                </TouchableOpacity>
-              )}
-            />
-            <Text style={styles.errorMessage}>{error}</Text>
-            <View style={styles.loginBtn}>
-              <TouchableOpacity onPress={this.onPressButton}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Login</Text>
-                </View>
-              </TouchableOpacity>
+
+            <View style={styles.logoContainer}>
+              <Logo />
             </View>
-            <View style={styles.signupBtn}>
-              <TouchableOpacity onPress={() => navigation.navigation.navigate('SignUp')}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Need an account? Click here</Text>
-                </View>
-              </TouchableOpacity>
+
+            <View style={styles.formContainer}>
+              <View style={styles.borderBackground}>
+                <Text style={styles.formHeader}>Email:</Text>
+                <Input
+                  placeholder="Enter Email"
+                  style={styles.formInput}
+                  value={email}
+                  onChangeText={(newEmail) => this.setState({ email: newEmail })}
+                  InputLeftElement={(
+                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
+                      <Icon as={<MaterialIcons name="email" />} size="lg" ml={2} color="muted.400" bg="gray.100" />
+                    </View>
+                  )}
+                />
+                <Text style={styles.formHeader}>Password:</Text>
+                <Input
+                  placeholder="Enter Password"
+                  style={styles.formInput}
+                  value={password}
+                  onChangeText={(newPassword) => this.setState({ password: newPassword })}
+                  type={show ? 'text' : 'password'}
+                  InputRightElement={(
+                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
+                      <TouchableOpacity onPress={() => this.setState({ show: !show })}>
+                        <Icon as={<MaterialIcons name={show ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" bg="gray.100" />
+                      </TouchableOpacity>
+                    </View>
+              )}
+                />
+              </View>
+              <Text style={styles.errorMessage}>{error}</Text>
+            </View>
+            <View style={styles.btnContainer}>
+              <View style={styles.loginBtn}>
+                <TouchableOpacity onPress={this.onPressButton}>
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Login</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.signupBtn}>
+                <TouchableOpacity onPress={() => navigation.navigation.navigate('SignUp')}>
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Need an account? Click here</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-
         </View>
       </NativeBaseProvider>
     );

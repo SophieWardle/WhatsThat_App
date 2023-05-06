@@ -2,6 +2,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NativeBaseProvider, Heading } from 'native-base';
 import React, { Component } from 'react';
 import {
   Text,
@@ -13,38 +14,55 @@ import {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#f0ece3',
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'space-between',
+    flexDirection: 'column',
+    padding: 20,
   },
   input: {
-    height: 40,
-    width: 200,
-    borderWidth: 2,
-    borderColor: 'black',
+    textAlign: 'left',
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'grey',
+    fontSize: 20,
   },
   header: {
     color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
+    marginBottom: 10,
   },
   errorMessage: {
     color: 'red',
   },
-  signupbtn: {
-    marginTop: 10,
-    backgroundColor: 'green',
-    color: 'black',
-    fontSize: 16,
-    fontWeight: 'bold',
-
+  button: {
+    backgroundColor: '#bbb5a7',
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    marginVertical: 5,
+    margin: 5,
+    marginLeft: 10,
+    marginBottom: 20,
   },
-  backBtn: {
-    marginTop: 10,
-    backgroundColor: 'red',
+  buttonText: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  messageHolder: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 10,
+    width: '100%',
+    height: '50%',
+    paddingHorizontal: 20,
+    paddingTop: 10,
+    marginTop: 30,
+    marginLeft: 10,
+    marginRight: 10,
   },
 });
 
@@ -100,25 +118,33 @@ class DraftsEditScreen extends Component {
     const { message, error } = this.state;
     const navigation = this.props;
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Your message:</Text>
-        <TextInput
-          style={styles.input}
-          value={message}
-          onChangeText={this.messageHandler}
-        />
-        <Text style={styles.errorMessage}>{error}</Text>
-        <TouchableOpacity onPress={this.handleEditDraft}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Save</Text>
+      <NativeBaseProvider>
+        <View style={styles.container}>
+
+          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Back</Text>
+            </View>
+          </TouchableOpacity>
+
+          <Heading size="lg" textAlign="center">Editing Draft Message</Heading>
+          <View style={styles.messageHolder}>
+            <Heading size="md" textAlign="center">Your Message:</Heading>
+            <TextInput
+              multiline
+              style={styles.input}
+              value={message}
+              onChangeText={this.messageHandler}
+            />
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Back</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.errorMessage}>{error}</Text>
+          <TouchableOpacity onPress={this.handleEditDraft}>
+            <View style={[styles.button, { marginTop: 30 }]}>
+              <Text style={styles.buttonText}>Save</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </NativeBaseProvider>
     );
   }
 }

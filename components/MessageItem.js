@@ -39,6 +39,16 @@ const styles = StyleSheet.create({
     numberOfLines: 1,
     ellipsizeMode: 'tail',
   },
+  currentUserMessageContent: {
+    backgroundColor: '#DCF8C6',
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  otherUserMessageContent: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    marginLeft: 10,
+  },
   time: {
     fontSize: 12,
     color: 'gray',
@@ -65,16 +75,20 @@ function MessageItem({ message, chatId, navigation }) {
   // Get todays date
   // Check if the timestamp day is today
   // Print 'Today,' if the timestamp is today
-  const timestamp = message.timestamp;
+  const { timestamp } = message;
   const isToday = moment(timestamp).isSame(moment(new Date()), 'day');
 
-
   const formattedTimestamp = isToday
-    ? 'Today, ' + moment(timestamp).format('h:mm a')
-    :moment(timestamp).format('DD/MM/YYYY, h:mm a');
+    ? `Today, ${moment(timestamp).format('h:mm a')}`
+    : moment(timestamp).format('DD/MM/YYYY, h:mm a');
+
+  const messageContentStyle = isEditable
+    ? styles.currentUserMessageContent
+    : styles.otherUserMessageContent;
+
   return (
     <View style={styles.messageContainer}>
-      <View style={styles.messageContent}>
+      <View style={[styles.messageContent, messageContentStyle]}>
         <Text style={styles.name}>{message.author.first_name}</Text>
         {message.message && (
           <Text style={styles.message}>{message.message}</Text>
@@ -83,20 +97,22 @@ function MessageItem({ message, chatId, navigation }) {
       <Text style={styles.time}>{formattedTimestamp}</Text>
 
       {isEditable && (
-        <TouchableOpacity onPress={() => navigation.navigate('EditMessage', {
-          chatId, message_id: message.message_id, message: message.message, navigation,
-        })}
-        >
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Edit</Text>
-          </View>
-        </TouchableOpacity>
-      )}
-      <TouchableOpacity onPress={() => navigation.navigate('DeleteMessage', { chatId, message_id: message.message_id, navigation })}>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>X</Text>
+        <View>
+          <TouchableOpacity onPress={() => navigation.navigate('EditMessage', {
+            chatId, message_id: message.message_id, message: message.message, navigation,
+          })}
+          >
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Edit</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('DeleteMessage', { chatId, message_id: message.message_id, navigation })}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>X</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      )}
     </View>
   );
 }

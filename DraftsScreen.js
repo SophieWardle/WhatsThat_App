@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // My components
+import { NativeBaseProvider, Heading } from 'native-base';
 import DraftList from './components/DraftList';
 // My styles
 import styles from './styles/globalTheme';
@@ -59,18 +60,21 @@ class DraftsScreen extends Component {
     }
     const navigation = this.props;
     return (
-      <View style={styles.backgroundContainer}>
-        <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-          <View style={styles.backBtn}>
-            <Text style={styles.buttonText}>Back</Text>
-          </View>
-        </TouchableOpacity>
-        {drafts.length > 0 ? (
-          <DraftList drafts={drafts} navigation={navigation.navigation} />
-        ) : (
-          <Text style={styles.emptyText}>No drafts found</Text>
-        )}
-      </View>
+      <NativeBaseProvider>
+        <View style={styles.backgroundContainer}>
+          <Heading size="xl" textAlign="center">My Drafts</Heading>
+          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
+            <View style={styles.backBtn}>
+              <Text style={styles.buttonText}>Back</Text>
+            </View>
+          </TouchableOpacity>
+          {drafts.length > 0 ? (
+            <DraftList drafts={drafts} navigation={navigation.navigation} />
+          ) : (
+            <Text style={styles.emptyText}>No drafts found</Text>
+          )}
+        </View>
+      </NativeBaseProvider>
     );
   }
 }

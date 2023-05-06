@@ -12,6 +12,7 @@ import {
   ScrollView,
 }
   from 'react-native';
+import { NativeBaseProvider, Heading } from 'native-base';
 import styles from '../styles/globalTheme';
 import ChatList from '../components/ChatList';
 
@@ -29,6 +30,7 @@ export default class ChatsScreen extends Component {
   }
 
   componentDidMount() {
+    console.log('chat screen reached');
     const { navigation } = this.props;
     this.unsubscribe = navigation.addListener('focus', () => {
       getChatListData()
@@ -50,38 +52,42 @@ export default class ChatsScreen extends Component {
   }
 
   render() {
-    const { isLoading, chats } = this.state;
-    if (isLoading === true) {
+    console.log('chats: ', this.state.chats);
+    const { isLoading } = this.state;
+    if (isLoading) {
       return (
         <View>
           <ActivityIndicator />
         </View>
       );
     } else {
+      const { chats } = this.state;
       const navigation = this.props;
       return (
-        <ScrollView style={styles.backgroundContainer}>
-          <Text style={styles.pageHeader}>
-            My Chats
-          </Text>
-          <View style={styles.rowContainer}>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('NewChat')}>
-              <View style={styles.chatsButton}>
-                <Text style={styles.chatsBtnText}>Create a New Chat</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('Drafts')}>
-              <View style={styles.chatsButton}>
-                <Text style={styles.chatsBtnText}>My Drafts</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          {chats.length > 0 ? (
-            <ChatList chats={chats} navigation={navigation.navigation} />
-          ) : (
-            <Text style={styles.emptyText}>You Currently Have No Chats. Try Creating One.</Text>
-          )}
-        </ScrollView>
+        <NativeBaseProvider>
+          <ScrollView style={styles.backgroundContainer}>
+            <Heading size="xl" textAlign="center">
+              My Chats
+            </Heading>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity onPress={() => navigation.navigation.navigate('NewChat')}>
+                <View style={styles.chatsButton}>
+                  <Text style={styles.chatsBtnText}>Create a New Chat</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigation.navigate('Drafts')}>
+                <View style={styles.chatsButton}>
+                  <Text style={styles.chatsBtnText}>My Drafts</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            {chats.length > 0 ? (
+              <ChatList chats={chats} navigation={navigation.navigation} />
+            ) : (
+              <Text style={styles.emptyText}>You Currently Have No Chats. Try Creating One.</Text>
+            )}
+          </ScrollView>
+        </NativeBaseProvider>
       );
     }
   }
