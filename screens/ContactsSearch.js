@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    height: 40,
+    height: 50,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
@@ -217,6 +217,7 @@ export default class ContactsSearch extends Component {
           />
           <Text style={styles.header}>Search in:</Text>
           <Picker
+            style={styles.input}
             selectedValue={this.search_in}
             onValueChange={(itemValue) => this.setState({ searchIn: itemValue })}
           >

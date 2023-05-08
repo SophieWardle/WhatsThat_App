@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { AntDesign } from '@expo/vector-icons';
 
 // Main Nav
 import ContactsScreen from './ContactsScreen';
@@ -44,6 +45,26 @@ const Tab = createMaterialTopTabNavigator();
 const ContactStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 const ChatStack = createNativeStackNavigator();
+
+const screenOptions = (route, color) => {
+  let iconName;
+
+  switch (route.name) {
+    case 'Contacts':
+      iconName = 'contacts';
+      break;
+    case 'Chats':
+      iconName = 'message1';
+      break;
+    case 'Profile':
+      iconName = 'profile';
+      break;
+    default:
+      break;
+  }
+
+  return <AntDesign name={iconName} color={color} size={24} />;
+};
 
 function ContactStackNavigator() {
   return (
@@ -128,11 +149,25 @@ export default class MainNav extends Component {
     return (
       <Tab.Navigator
         initialRouteName="Chats"
-        screenOptions={{
-          tabBarOptions: {
-            style: { backgroundColor: 'red' },
-            activeTintColor: 'white', // Set the text color of the active tab
-            inactiveTintColor: 'gray',
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color }) => screenOptions(route, color),
+          tabBarLabel: () => null,
+        })}
+        tabBarOptions={{
+          activeTintColor: '#000',
+          inactiveTintColor: '#666',
+          style: {
+            backgroundColor: '#fff',
+          },
+          labelStyle: {
+            fontSize: 12,
+          },
+          tabStyle: {
+            borderTopWidth: 1,
+            borderTopColor: '#ccc',
+          },
+          indicatorStyle: {
+            backgroundColor: '#000',
           },
         }}
       >

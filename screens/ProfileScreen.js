@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 // my components
+import { NativeBaseProvider, Heading } from 'native-base';
 import DisplayProfilePicture from '../components/DisplayProfilePicture';
 // API
 import { getUserProfileData } from '../api/UserManagement';
@@ -74,32 +75,41 @@ export default class ProfileScreen extends Component {
     const { photo } = this.state;
     const navigation = this.props;
     return (
-      <View style={styles.profileContainer}>
-        <View style={styles.profileInformation}>
-          <DisplayProfilePicture photo={photo} />
-          <Text style={styles.name}>
-            {first_name}
-            {' '}
-            {last_name}
-          </Text>
-          <Text style={styles.email}>{email}</Text>
+      <NativeBaseProvider>
+        <View style={styles.backgroundContainer}>
+          <View style={styles.headingContainer}>
+            <Heading size="xl" textAlign="center">
+              My Profile
+            </Heading>
+          </View>
+          <View style={styles.profileContainer}>
+            <View style={styles.profileInformation}>
+              <DisplayProfilePicture photo={photo} />
+              <Text style={styles.name}>
+                {first_name}
+                {' '}
+                {last_name}
+              </Text>
+              <Text style={styles.email}>{email}</Text>
+            </View>
+            <TouchableOpacity onPress={() => navigation.navigation.navigate('Camera', { navigation: navigation.navigation })}>
+              <View style={styles.profileButton}>
+                <Text style={styles.buttonText}>Edit My Profile Picture</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileUpdateScreen')}>
+              <View style={styles.profileButton}>
+                <Text style={styles.buttonText}>Edit My Profile Info</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileLogoutScreen')}>
+              <View style={styles.profileButton}>
+                <Text style={styles.buttonText}>Logout</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigation.navigate('Camera', { navigation: navigation.navigation })}>
-          <View style={styles.profileButton}>
-            <Text style={styles.buttonText}>Edit Profile Picture</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileUpdateScreen')}>
-          <View style={styles.profileButton}>
-            <Text style={styles.buttonText}>Edit My Profile</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileLogoutScreen')}>
-          <View style={styles.profileButton}>
-            <Text style={styles.buttonText}>Logout</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      </NativeBaseProvider>
     );
   }
 }

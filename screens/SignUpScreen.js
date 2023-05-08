@@ -38,10 +38,9 @@ class SignUpScreen extends Component {
       password,
       firstname,
       lastname,
-      confirmPassword,
     } = this.state;
 
-    if (!(email && password && firstname && lastname && confirmPassword)) {
+    if (!(email && password && firstname && lastname)) {
       return 'Must fill in all fields';
     }
 

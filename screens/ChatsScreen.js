@@ -6,7 +6,6 @@
 import React, { Component } from 'react';
 import {
   View,
-  ActivityIndicator,
   Text,
   TouchableOpacity,
   ScrollView,
@@ -35,7 +34,6 @@ export default class ChatsScreen extends Component {
     this.unsubscribe = navigation.addListener('focus', () => {
       getChatListData()
         .then((responseJson) => {
-          console.log('Response:', responseJson);
           this.setState({
             isLoading: false,
             chats: responseJson,
@@ -52,17 +50,35 @@ export default class ChatsScreen extends Component {
   }
 
   render() {
-    console.log('chats: ', this.state.chats);
-    const { isLoading } = this.state;
-    if (isLoading) {
+    const { isLoading, chats } = this.state;
+    const navigation = this.props;
+    console.log('chats: ', chats);
+    console.log('isLoading: ', isLoading);
+    if (chats.length === 0) {
       return (
-        <View>
-          <ActivityIndicator />
-        </View>
+        <NativeBaseProvider>
+          <ScrollView style={[styles.backgroundContainer, { paddingTop: '8px' }]}>
+            <Heading size="xl" textAlign="center">
+              My Chats
+            </Heading>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity onPress={() => navigation.navigation.navigate('NewChat')}>
+                <View style={styles.chatsButton}>
+                  <Text style={styles.chatsBtnText}>Create a New Chat</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigation.navigate('Drafts')}>
+                <View style={styles.chatsButton}>
+                  <Text style={styles.chatsBtnText}>My Drafts</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.emptyText}>You Currently Have No Chats. Try Creating One.</Text>
+          </ScrollView>
+        </NativeBaseProvider>
       );
     } else {
-      const { chats } = this.state;
-      const navigation = this.props;
+      console.log('isLoading 2: ', isLoading);
       return (
         <NativeBaseProvider>
           <ScrollView style={styles.backgroundContainer}>

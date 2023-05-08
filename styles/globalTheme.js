@@ -162,8 +162,13 @@ const globalStyle = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f0ece3',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headingContainer: {
+    marginTop: 20,
   },
   profileInformation: {
+    justifyContent: 'center',
     paddingVertical: 20,
     paddingHorizontal: 10,
     textAlign: 'center',

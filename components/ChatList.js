@@ -7,9 +7,8 @@ import ChatItem from './ChatItem';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0ece3',
+    backgroundColor: 'grey',
     borderRadius: 10,
-    paddingHorizontal: 20,
     marginVertical: 10,
     shadowColor: '#000',
     shadowOffset: {
