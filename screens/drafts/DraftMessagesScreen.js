@@ -10,7 +10,8 @@ import {
   Switch,
 } from 'react-native';
 // styles
-import styles from './styles/globalTheme';
+import styles from '../../styles/globalTheme';
+import buttonStyles from '../../styles/buttons';
 
 export default class DraftMessagesScreen extends Component {
   constructor(props) {
@@ -123,18 +124,18 @@ export default class DraftMessagesScreen extends Component {
         />
 
         <Text style={styles.errorMessage}>{error}</Text>
-
-        <TouchableOpacity onPress={() => this.handlePress()}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Draft</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Back</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={buttonStyles.buttonContainer}>
+          <TouchableOpacity onPress={() => navigation.navigation.goBack()} style={buttonStyles.backBtn}>
+            <View style={styles.button}>
+              <Text style={buttonStyles.buttonText}>Back</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.handlePress()}>
+            <View style={styles.button}>
+              <Text style={buttonStyles.buttonText}>Draft</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

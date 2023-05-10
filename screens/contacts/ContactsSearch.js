@@ -14,8 +14,9 @@ import {
 import { Picker } from '@react-native-picker/picker';
 
 // API
-import { searchForUser } from '../api/UserManagement';
-import { addContact } from '../api/ContactManagement';
+import { searchForUser } from './../../api/UserManagement';
+import { addContact } from './../../api/ContactManagement';
+import contactStyles from './../../styles/contactStyles';
 
 const styles = StyleSheet.create({
   searchContainer: {
@@ -49,14 +50,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
 
-  },
-  contactsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
   },
   addBtn: {
     borderRadius: 5,
@@ -185,7 +178,7 @@ export default class ContactsSearch extends Component {
           <FlatList
             data={resultsData}
             renderItem={({ item }) => (
-              <View style={styles.contactsRow}>
+              <View style={contactStyles.contactsRow}>
                 <Text>
                   {item.given_name}
                   {' '}

@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 
 // API
-import { updateChatDetails } from '../api/ChatManagement';
+import { updateChatDetails } from './../../api/ChatManagement';
 // styles
-import styles from '../styles/globalTheme';
+import styles from './../../styles/globalTheme';
 
 class ChatDetailsUpdateScreen extends Component {
   constructor(props) {

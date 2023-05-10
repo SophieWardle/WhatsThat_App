@@ -9,12 +9,15 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import { NativeBaseProvider, Heading } from 'native-base';
 
 // My Components
-import { NativeBaseProvider, Heading } from 'native-base';
-import ContactList from '../components/ContactList';
+import ContactList from './../../components/ContactList';
 // API
-import { getContactList } from '../api/ContactManagement';
+import { getContactList } from './../../api/ContactManagement';
+import { getContactProfilePic } from './../../api/api';
+// My Styles
+import buttonStyles from './../../styles/buttons';
 
 const styles = StyleSheet.create({
   contactsContainer: {
@@ -22,42 +25,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0ece3',
     paddingHorizontal: 16,
     paddingVertical: 8,
-  },
-  contactsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 8,
-  },
-  searchFormBtn: {
-    textAlign: 'center',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  searchBtn: {
-    marginLeft: 10,
-    width: '40%',
-  },
-  blockedBtn: {
-    marginRight: 10,
-    width: '40%',
-  },
-  button: {
-    backgroundColor: '#bbb5a7',
-    borderRadius: 5,
-    padding: 10,
-  },
-  buttonText: {
-    color: 'black',
-    fontSize: 18,
-    textAlign: 'center',
-    // eslint-disable-next-line no-dupe-keys
-    fontWeight: 'bold',
   },
   emptyText: {
     fontSize: 18,
@@ -96,6 +63,17 @@ export default class ContactsScreen extends Component {
     this.unsubscribe();
   }
 
+  handleFetchPicture = async (id) => {
+    try {
+      const photo = await getContactProfilePic(id);
+      console.log(`logging the photo in handleFetch: ${photo}`);
+      return photo;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };  
+
   render() {
     const { isLoading } = this.state;
     if (isLoading) {
@@ -113,21 +91,21 @@ export default class ContactsScreen extends Component {
           <Heading size="xl" textAlign="center">
             My Contacts
           </Heading>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('Search', { getContactData: this.getContactData })} style={styles.searchBtn}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Search</Text>
+          <View style={buttonStyles.buttonContainer}>
+            <TouchableOpacity onPress={() => navigation.navigation.navigate('Search', { getContactData: this.getContactData })} style={buttonStyles.searchBtn}>
+              <View style={buttonStyles.button}>
+                <Text style={buttonStyles.buttonText}>Search</Text>
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('BlockedContacts', { getContactData: this.getContactData })} style={styles.blockedBtn}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Blocked Users</Text>
+            <TouchableOpacity onPress={() => navigation.navigation.navigate('BlockedContacts', { getContactData: this.getContactData })} style={buttonStyles.blockedBtn}>
+              <View style={buttonStyles.button}>
+                <Text style={buttonStyles.buttonText}>Blocked Users</Text>
               </View>
             </TouchableOpacity>
           </View>
           {contactData.length > 0 ? (
-            <ContactList contacts={contactData} navigation={navigation.navigation} />
+            <ContactList contacts={contactData} navigation={navigation.navigation} onFetchPicture={this.handleFetchPicture}/>
           ) : (
             <Text style={styles.emptyText}>
               You Currently Have No Contacts. Try searching for someone.

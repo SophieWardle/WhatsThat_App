@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 
 // API
-import { updateChatMessage } from '../api/ChatManagement';
+import { updateChatMessage } from './../../api/ChatManagement';
+import buttonStyles from './../../styles/buttons';
 
 const styles = StyleSheet.create({
   contactsContainer: {
@@ -75,12 +76,12 @@ export default class MessageUpdate extends Component {
         <Text style={styles.errorMessage}>{error}</Text>
         <TouchableOpacity onPress={() => this.handleUpdate(chatId, messageId)}>
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Update Message</Text>
+            <Text style={buttonStyles.buttonText}>Update Message</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={buttonStyles.buttonText}>Back</Text>
           </View>
         </TouchableOpacity>
       </View>

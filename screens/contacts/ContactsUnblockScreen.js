@@ -4,13 +4,13 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 // API
-import { blockContact } from '../api/ContactManagement';
+import { unblockContact } from './../../api/ContactManagement';
 // MY COMPONENTS
-import ConfirmTask from '../components/ConfirmTask';
+import ConfirmTask from './../../components/ConfirmTask';
 // STYLES
-import styles from '../styles/globalTheme';
+import styles from './../../styles/globalTheme';
 
-export default class ContactsBlockScreen extends Component {
+export default class ContactsUnblockScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -19,6 +19,8 @@ export default class ContactsBlockScreen extends Component {
       firstName: props.route.params.item.first_name,
       lastName: props.route.params.item.last_name,
     };
+
+    this.handleUnblock = this.handleUnblock.bind(this);
   }
 
   handleCancel = () => {
@@ -27,13 +29,13 @@ export default class ContactsBlockScreen extends Component {
   };
 
   handleConfirm = () => {
-    this.handleBlock();
+    this.handleUnblock();
   };
 
-  async handleBlock() {
+  handleUnblock = async () => {
     const { userId } = this.state;
     const navigation = this.props;
-    blockContact(userId)
+    unblockContact(userId)
       .then(async (response) => {
         navigation.navigation.navigate('ContactsScreen');
         return response;
@@ -41,29 +43,25 @@ export default class ContactsBlockScreen extends Component {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   render() {
     const { firstName, lastName } = this.state;
     return (
       <View style={styles.backgroundContainer}>
-        <View style={styles.blockContainer}>
-          <Text style={styles.confirmText}> You are trying to block: </Text>
-          <Text style={styles.confirmTextName}>
-            {' '}
-            {firstName}
-            {' '}
-            {lastName}
-            {' '}
-          </Text>
-        </View>
-        <View style={styles.blockConfirmContainer}>
-          <ConfirmTask
-            message="block this user"
-            onCancel={this.handleCancel}
-            onConfirm={this.handleConfirm}
-          />
-        </View>
+        <Text> You are trying to unblock: </Text>
+        <Text>
+          {' '}
+          {firstName}
+          {' '}
+          {lastName}
+          {' '}
+        </Text>
+        <ConfirmTask
+          message="unblock this user"
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirm}
+        />
       </View>
     );
   }

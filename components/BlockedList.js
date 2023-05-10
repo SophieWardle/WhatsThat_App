@@ -3,16 +3,11 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import BlockedItem from './BlockedItem';
-
-const styles = StyleSheet.create({
-  contactsContainer: {
-    flex: 1,
-  },
-});
+import contactStyles from '../styles/contactStyles';
 
 function BlockedList({ blockedContact, navigation }) {
   return (
-    <View style={styles.contactsContainer}>
+    <View style={contactStyles.contactsContainer}>
       <FlatList
         data={blockedContact}
         renderItem={({ item }) => <BlockedItem blockedContact={item} navigation={navigation} />}

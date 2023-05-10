@@ -208,11 +208,6 @@ const globalStyle = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
-  chatDisplayBtn: {
-    backgroundColor: '#bbb5a7',
-    borderRadius: 5,
-    padding: 10,
-  },
   chatNameText: {
     flex: 1,
     color: 'black',

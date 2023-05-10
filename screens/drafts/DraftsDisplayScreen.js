@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // API
 import { NativeBaseProvider, Heading } from 'native-base';
-import { sendChatMessage } from './api/ChatManagement';
+import { sendChatMessage } from '../../api/ChatManagement';
 
 const styles = StyleSheet.create({
   container: {

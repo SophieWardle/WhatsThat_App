@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function ContactList({ contacts, navigation }) {
+function ContactList({ contacts, navigation, onFetchPicture }) {
   return (
     <View style={styles.contactsContainer}>
 
@@ -20,6 +20,7 @@ function ContactList({ contacts, navigation }) {
           <ContactItem
             contact={item}
             navigation={navigation}
+            onFetchPicture={onFetchPicture}
           />
         )}
         keyExtractor={({ id }, index) => (id ? id.toString() : index.toString())}

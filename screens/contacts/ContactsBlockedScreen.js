@@ -13,10 +13,11 @@ import {
 } from 'react-native';
 
 // API
-import { getBlockedUsers } from '../api/ContactManagement';
+import { getBlockedUsers } from './../../api/ContactManagement';
 // My Components
-import BlockedList from '../components/BlockedList';
-
+import BlockedList from './../../components/BlockedList';
+import { NativeBaseProvider, Heading } from 'native-base';
+import buttonStyles from './../../styles/buttons';
 const styles = StyleSheet.create({
   contactsContainer: {
 	  flex: 1,
@@ -24,39 +25,11 @@ const styles = StyleSheet.create({
 	  paddingHorizontal: 16,
 	  paddingVertical: 8,
   },
-  contactsRow: {
-	  flexDirection: 'row',
-	  alignItems: 'center',
-	  justifyContent: 'space-between',
-	  marginVertical: 8,
-  },
-  buttonContainer: {
-	  flexDirection: 'row',
-	  alignItems: 'center',
-	  justifyContent: 'space-between',
-	  marginBottom: 10,
-  },
-  button: {
-	  backgroundColor: '#bbb5a7',
-	  borderRadius: 5,
-	  padding: 10,
-  },
-  backBtn: {
-	  marginLeft: 10,
-	  width: '40%',
-  },
-  buttonText: {
-	  color: 'black',
-	  fontSize: 18,
-	  textAlign: 'center',
-	  fontWeight: 'bold',
-  },
   emptyText: {
 	  fontSize: 18,
 	  textAlign: 'center',
 	  marginTop: 16,
   },
-
 });
 
 export default class ContactsBlockedScreen extends Component {
@@ -94,11 +67,15 @@ export default class ContactsBlockedScreen extends Component {
     const navigation = this.props;
     const { blockedData } = this.state;
     return (
+      <NativeBaseProvider>
       <View style={styles.contactsContainer}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('ContactsScreen')} style={styles.backBtn}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Back</Text>
+        <Heading size="xl" textAlign="center">
+            My Blocked Contacts
+          </Heading>
+        <View style={buttonStyles.buttonContainer}>
+          <TouchableOpacity onPress={() => navigation.navigation.navigate('ContactsScreen')} style={buttonStyles.backBtn}>
+            <View style={buttonStyles.button}>
+              <Text style={buttonStyles.buttonText}>Back</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -108,6 +85,7 @@ export default class ContactsBlockedScreen extends Component {
           <Text style={styles.emptyText}>You Haven&apos;t Blocked Anyone.</Text>
         )}
       </View>
+      </NativeBaseProvider>
     );
   }
 }

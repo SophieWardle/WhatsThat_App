@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 
 // My components
-import ChatDetails from '../components/ChatDetails';
+import ChatDetails from './../../components/ChatDetails';
 
 // API
-import { getSingleChatData } from '../api/ChatManagement';
+import { getSingleChatData } from './../../api/ChatManagement';
 
 export default class ChatDetailsScreen extends Component {
   constructor(props) {

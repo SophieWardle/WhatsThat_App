@@ -4,11 +4,11 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 // API
-import { deleteChatMessage } from '../api/ChatManagement';
+import { deleteChatMessage } from './../../api/ChatManagement';
 // MY COMPONENTS
-import ConfirmTask from '../components/ConfirmTask';
+import ConfirmTask from './../../components/ConfirmTask';
 // STYLES
-import styles from '../styles/globalTheme';
+import styles from './../../styles/globalTheme';
 
 export default class MessageDelete extends Component {
   constructor(props) {

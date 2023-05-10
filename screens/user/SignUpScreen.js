@@ -9,11 +9,11 @@ import {
 import { Input, Icon, NativeBaseProvider } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import styles from '../styles/globalTheme';
+import styles from './../../styles/globalTheme';
 // API
-import { signupUser } from '../api/UserManagement';
+import { signupUser } from './../../api/UserManagement';
 // My components
-import Logo from '../components/Logo';
+import Logo from './../../components/Logo';
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -163,14 +163,14 @@ class SignUpScreen extends Component {
               <View style={styles.signupBtn}>
                 <TouchableOpacity onPress={this.onPressSignup}>
                   <View style={styles.button}>
-                    <Text style={styles.buttonText}>Signup</Text>
+                    <Text style={buttonStyles.buttonText}>Signup</Text>
                   </View>
                 </TouchableOpacity>
               </View>
               <View style={styles.backBtn}>
                 <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
                   <View style={styles.button}>
-                    <Text style={styles.buttonText}>Back</Text>
+                    <Text style={buttonStyles.buttonText}>Back</Text>
                   </View>
                 </TouchableOpacity>
               </View>

@@ -6,11 +6,14 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
 // My Components
-import ChatAddMemberList from '../components/ChatAddMemberList';
+import ChatAddMemberList from './../../components/ChatAddMemberList';
 
 // API
-import { getContactList } from '../api/ContactManagement';
-import { addUserToChat } from '../api/ChatManagement';
+import { getContactList } from './../../api/ContactManagement';
+import { addUserToChat } from './../../api/ChatManagement';
+import contactStyles from '../../styles/contactStyles';
+import styles from '../../styles/globalTheme';
+import { NativeBaseProvider, Heading } from 'native-base';
 
 export default class ChatAddMember extends Component {
   constructor(props) {
@@ -67,18 +70,25 @@ export default class ChatAddMember extends Component {
     const { addContactData, chatId, members } = this.state;
     console.log(addContactData);
     return (
-      <View>
-        {addContactData.length > 0 ? (
-          <ChatAddMemberList
-            contacts={addContactData}
-            chat_id={chatId}
-            members={members}
-            onSelectUser={this.handleSelectUser}
-          />
-        ) : (
-          <Text>You currently have no contacts</Text>
-        )}
-      </View>
+      <NativeBaseProvider>
+        <View style={styles.backgroundContainer}>
+          <Heading size="lg" textAlign="center">
+            Add a contact to the chat
+          </Heading>
+          <View style={contactStyles.contactsContainer}>
+            {addContactData.length > 0 ? (
+              <ChatAddMemberList
+                contacts={addContactData}
+                chat_id={chatId}
+                members={members}
+                onSelectUser={this.handleSelectUser}
+              />
+            ) : (
+              <Text style={styles.emptyText}>You currently have no contacts</Text>
+            )}
+          </View>
+        </View>
+      </NativeBaseProvider>
     );
   }
 }

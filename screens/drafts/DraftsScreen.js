@@ -11,9 +11,10 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // My components
 import { NativeBaseProvider, Heading } from 'native-base';
-import DraftList from './components/DraftList';
+import DraftList from '../../components/DraftList';
 // My styles
-import styles from './styles/globalTheme';
+import styles from '../../styles/globalTheme';
+import buttonStyles from '../../styles/buttons';
 
 class DraftsScreen extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class DraftsScreen extends Component {
           <Heading size="xl" textAlign="center">My Drafts</Heading>
           <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
             <View style={styles.backBtn}>
-              <Text style={styles.buttonText}>Back</Text>
+              <Text style={buttonStyles.buttonText}>Back</Text>
             </View>
           </TouchableOpacity>
           {drafts.length > 0 ? (

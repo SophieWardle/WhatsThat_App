@@ -11,11 +11,12 @@ import {
 import { Input, Icon, NativeBaseProvider } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 // My Styles
-import styles from '../styles/globalTheme';
+import styles from './../../styles/globalTheme';
 // My Components
-import Logo from '../components/Logo';
+import Logo from './../../components/Logo';
 // API
-import { loginUser } from '../api/UserManagement';
+import { loginUser } from './../../api/UserManagement';
+import buttonStyles from './../../styles/buttons';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -152,14 +153,14 @@ class LoginScreen extends Component {
               <View style={styles.loginBtn}>
                 <TouchableOpacity onPress={this.onPressButton}>
                   <View style={styles.button}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={buttonStyles.buttonText}>Login</Text>
                   </View>
                 </TouchableOpacity>
               </View>
               <View style={styles.signupBtn}>
                 <TouchableOpacity onPress={() => navigation.navigation.navigate('SignUp')}>
                   <View style={styles.button}>
-                    <Text style={styles.buttonText}>Need an account? Click here</Text>
+                    <Text style={buttonStyles.buttonText}>Need an account? Click here</Text>
                   </View>
                 </TouchableOpacity>
               </View>

@@ -12,6 +12,7 @@ import {
 import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
 // getToday
 import TimePicker from 'react-time-picker';
+import buttonStyles from '../../styles/buttons';
 
 const styles = StyleSheet.create({
   container: {
@@ -161,7 +162,7 @@ export default class DraftSchedulingScreen extends Component {
         <Text style={styles.errorMessage}>{error}</Text>
         <TouchableOpacity onPress={() => this.handleSaveScheduledDraft()}>
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Draft</Text>
+            <Text style={buttonStyles.buttonText}>Draft</Text>
           </View>
         </TouchableOpacity>
       </View>
