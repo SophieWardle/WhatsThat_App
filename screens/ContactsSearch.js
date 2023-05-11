@@ -221,7 +221,7 @@ export default class ContactsSearch extends Component {
             selectedValue={this.search_in}
             onValueChange={(itemValue) => this.setState({ searchIn: itemValue })}
           >
-            <Picker.Item label="All Users" value="all" />
+            <Picker.Item label="All Users" value="all" style={ width: '50%' } />
             <Picker.Item label="Contacts" value="contacts" />
           </Picker>
           <Text style={styles.errorMessage}>{error}</Text>
