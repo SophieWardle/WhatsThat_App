@@ -6,6 +6,7 @@ import {
   View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import moment from 'moment';
+import buttonStyles from '../styles/buttons';
 
 const styles = StyleSheet.create({
   messageContainer: {
@@ -103,12 +104,12 @@ function MessageItem({ message, chatId, navigation }) {
           })}
           >
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Edit</Text>
+              <Text style={buttonStyles.buttonText}>Edit</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('DeleteMessage', { chatId, message_id: message.message_id, navigation })}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>X</Text>
+              <Text style={buttonStyles.buttonText}>X</Text>
             </View>
           </TouchableOpacity>
         </View>

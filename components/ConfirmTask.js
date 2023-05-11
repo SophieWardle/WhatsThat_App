@@ -2,7 +2,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import styles from '../styles/globalTheme';
+import styles from './../styles/globalTheme';
+import buttonStyles from './../styles/buttons';
 
 function ConfirmTask({ message, onCancel, onConfirm }) {
   return (
@@ -12,7 +13,7 @@ function ConfirmTask({ message, onCancel, onConfirm }) {
         <View style={styles.noBtn}>
           <TouchableOpacity onPress={onCancel}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>NO</Text>
+              <Text style={buttonStyles.buttonText}>NO</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -20,7 +21,7 @@ function ConfirmTask({ message, onCancel, onConfirm }) {
         <View style={styles.yesBtn}>
           <TouchableOpacity onPress={onConfirm}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>YES</Text>
+              <Text style={buttonStyles.buttonText}>YES</Text>
             </View>
           </TouchableOpacity>
         </View>

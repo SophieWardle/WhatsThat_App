@@ -9,6 +9,7 @@ import MemberList from './MemberList';
 import ChatHeader from './ChatHeader';
 // Styles
 import styles from '../styles/globalTheme';
+import buttonStyles from '../styles/buttons';
 
 function ChatDetails({
   chatData, navigation, members, chatId, onCancel,
@@ -38,7 +39,7 @@ function ChatDetails({
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('EditChat', { chatId })} style={styles.editBtn}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Edit Chat Name</Text>
+              <Text style={buttonStyles.buttonText}>Edit Chat Name</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -46,7 +47,7 @@ function ChatDetails({
             style={styles.addBtn}
           >
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Add a Member</Text>
+              <Text style={buttonStyles.buttonText}>Add a Member</Text>
             </View>
           </TouchableOpacity>
 

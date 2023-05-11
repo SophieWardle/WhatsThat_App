@@ -11,12 +11,13 @@ import {
 } from 'react-native';
 // my components
 import { NativeBaseProvider, Heading } from 'native-base';
-import DisplayProfilePicture from '../components/DisplayProfilePicture';
+import DisplayProfilePicture from './../../components/DisplayProfilePicture';
 // API
-import { getUserProfileData } from '../api/UserManagement';
-import { getUserProfilePic } from '../api/api';
+import { getUserProfileData } from './../../api/UserManagement';
+import { getUserProfilePic } from './../../api/api';
 // STYLES
-import styles from '../styles/globalTheme';
+import styles from './../../styles/globalTheme';
+import buttonStyles from './../../styles/buttons';
 
 export default class ProfileScreen extends Component {
   constructor(props) {
@@ -94,17 +95,17 @@ export default class ProfileScreen extends Component {
             </View>
             <TouchableOpacity onPress={() => navigation.navigation.navigate('Camera', { navigation: navigation.navigation })}>
               <View style={styles.profileButton}>
-                <Text style={styles.buttonText}>Edit My Profile Picture</Text>
+                <Text style={buttonStyles.buttonText}>Edit My Profile Picture</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileUpdateScreen')}>
               <View style={styles.profileButton}>
-                <Text style={styles.buttonText}>Edit My Profile Info</Text>
+                <Text style={buttonStyles.buttonText}>Edit My Profile Info</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileLogoutScreen')}>
               <View style={styles.profileButton}>
-                <Text style={styles.buttonText}>Logout</Text>
+                <Text style={buttonStyles.buttonText}>Logout</Text>
               </View>
             </TouchableOpacity>
           </View>

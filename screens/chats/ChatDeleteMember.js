@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 
 // API
-import { removeUserFromChat } from '../api/ChatManagement';
+import { removeUserFromChat } from './../../api/ChatManagement';
+import buttonStyles from './../../styles/buttons';
 
 const styles = StyleSheet.create({
   contactsContainer: {
@@ -18,12 +19,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 16,
     paddingVertical: 8,
-  },
-  contactsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 8,
   },
   searchFormBtn: {
     textAlign: 'center',
@@ -60,7 +55,7 @@ export default class ChatDeleteMember extends Component {
         <View style={styles.noBtn}>
           <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>NO</Text>
+              <Text style={buttonStyles.buttonText}>NO</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -68,7 +63,7 @@ export default class ChatDeleteMember extends Component {
         <View style={styles.yesBtn}>
           <TouchableOpacity onPress={() => this.handleRemoveUser(chatId, userId)}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>YES</Text>
+              <Text style={buttonStyles.buttonText}>YES</Text>
             </View>
           </TouchableOpacity>
         </View>

@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 
 // API
-import { updateUserProfile, getUserProfileData } from '../api/UserManagement';
+import { updateUserProfile, getUserProfileData } from './../../api/UserManagement';
 // Styles
-import styles from '../styles/globalTheme';
+import styles from './../../styles/globalTheme';
+import buttonStyles from './../../styles/buttons';
 
 export default class ProfileUpdateScreen extends Component {
   constructor(props) {
@@ -155,12 +156,12 @@ export default class ProfileUpdateScreen extends Component {
           <Text style={styles.errorMessage}>{error}</Text>
           <TouchableOpacity onPress={() => this.updateProfile()}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Save</Text>
+              <Text style={buttonStyles.buttonText}>Save</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileScreen')}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Back</Text>
+              <Text style={buttonStyles.buttonText}>Back</Text>
             </View>
           </TouchableOpacity>
         </View>

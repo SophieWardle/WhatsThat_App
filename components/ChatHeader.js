@@ -3,13 +3,14 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import styles from '../styles/globalTheme';
+import buttonStyles from '../styles/buttons';
 
 function ChatHeader({ chatName, onCancel }) {
   return (
     <View style={styles.chatName}>
       <TouchableOpacity onPress={onCancel} style={styles.backBtn}>
-        <View style={styles.chatDisplayBtn}>
-          <Text style={styles.buttonText}>Back</Text>
+        <View style={buttonStyles.button}>
+          <Text style={buttonStyles.buttonText}>Back</Text>
         </View>
       </TouchableOpacity>
       <Text style={styles.chatNameText}>{chatName}</Text>

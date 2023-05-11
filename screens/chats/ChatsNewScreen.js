@@ -11,9 +11,10 @@ import {
 } from 'react-native';
 
 // API
-import { sendChatMessage, createNewChat } from '../api/ChatManagement';
+import { sendChatMessage, createNewChat } from './../../api/ChatManagement';
 // Styles
-import styles from '../styles/globalTheme';
+import styles from './../../styles/globalTheme';
+import buttonStyles from './../../styles/buttons';
 
 class ChatsNewScreen extends Component {
   constructor(props) {
@@ -92,7 +93,7 @@ class ChatsNewScreen extends Component {
             <View style={styles.sendBtn}>
               <TouchableOpacity onPress={() => this.onSendMessage()}>
                 <View style={styles.button}>
-                  <Text style={styles.buttonText}>SEND</Text>
+                  <Text style={buttonStyles.buttonText}>SEND</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -115,14 +116,14 @@ class ChatsNewScreen extends Component {
           <View style={styles.createBtn}>
             <TouchableOpacity onPress={() => this.onCreateNewChat()}>
               <View style={styles.button}>
-                <Text style={styles.buttonText}>Create New Chat</Text>
+                <Text style={buttonStyles.buttonText}>Create New Chat</Text>
               </View>
             </TouchableOpacity>
           </View>
           <View style={styles.createBtn}>
             <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
               <View style={styles.button}>
-                <Text style={styles.buttonText}>Back</Text>
+                <Text style={buttonStyles.buttonText}>Back</Text>
               </View>
             </TouchableOpacity>
           </View>

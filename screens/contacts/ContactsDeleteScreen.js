@@ -5,11 +5,11 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
 // API
-import { deleteContact } from '../api/ContactManagement';
+import { deleteContact } from './../../api/ContactManagement';
 // MY COMPONENTS
-import ConfirmTask from '../components/ConfirmTask';
+import ConfirmTask from './../../components/ConfirmTask';
 // STYLES
-import styles from '../styles/globalTheme';
+import styles from './../../styles/globalTheme';
 
 export default class ContactsDelete extends Component {
   constructor(props) {

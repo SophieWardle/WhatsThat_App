@@ -13,10 +13,10 @@ import {
 } from 'react-native';
 
 // My Components
-import DisplayProfilePicture from '../components/DisplayProfilePicture';
+import DisplayProfilePicture from './../../components/DisplayProfilePicture';
 // API
-import { getContactProfile } from '../api/ContactManagement';
-import { getContactProfilePic } from '../api/api';
+import { getContactProfile } from './../../api/ContactManagement';
+import { getContactProfilePic } from './../../api/api';
 
 const styles = StyleSheet.create({
   contactsProfileContainer: {
@@ -44,12 +44,12 @@ const styles = StyleSheet.create({
 	  fontSize: 16,
 	  fontWeight: 'bold',
   },
-  profilePicture: {
+  /*profilePicture: {
 	  width: 150,
 	  height: 150,
 	  borderRadius: 75,
 	  marginBottom: 20,
-  },
+  },*/
   name: {
 	  fontSize: 24,
 	  fontWeight: 'bold',

@@ -1,19 +1,13 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet,
+  View, Text, TouchableOpacity, StyleSheet, Image
 } from 'react-native';
+import DisplayProfilePicture from './DisplayProfilePicture';
+import contactStyles from '../styles/contactStyles';
 
 const styles = StyleSheet.create({
-  contactsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
   deleteBtn: {
     marginLeft: 10,
   },
@@ -27,12 +21,39 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
   },
+  contactStyling: {
+    fontSize: 16,
+  },
+ contactPhoto: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
 });
 
-function ContactItem({ contact, navigation }) {
+function ContactItem({ contact, navigation, onFetchPicture }) {
+  const [photo, setPhoto ] = useState(null);
+
+  console.log("contact id item: " + contact.user_id);
+  useEffect(() => {
+    if (contact.user_id) {
+      onFetchPicture(contact.user_id)
+      .then((photo) => setPhoto(photo));
+    }
+  }, [contact.user_id, onFetchPicture]);
+
+  console.log("photo on item: " + photo);
+  console.log("photo prop on item: " + photo);
+
   return (
-    <View style={styles.contactsRow}>
-      <Text>
+    <View style={contactStyles.contactsRow}> 
+      <Image
+        source={{
+          uri: photo,
+        }}
+        style={styles.contactPhoto}
+      />
+      <Text style={styles.contactStyling}>
         {contact.first_name}
         {' '}
         {contact.last_name}
@@ -40,7 +61,7 @@ function ContactItem({ contact, navigation }) {
       <View style={styles.deleteBtn}>
         <TouchableOpacity onPress={() => navigation.navigate('ContactProfile', { id: contact.user_id })}>
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Profile</Text>
+            <Text style={styles.buttonText}>View Profile</Text>
           </View>
         </TouchableOpacity>
 

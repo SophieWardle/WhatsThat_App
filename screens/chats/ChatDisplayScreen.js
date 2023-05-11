@@ -13,12 +13,13 @@ import {
 } from 'react-native';
 
 // Styles
-import styles from '../styles/globalTheme';
+import styles from '../../styles/globalTheme';
 // API
-import { sendChatMessage, getSingleChatData } from '../api/ChatManagement';
+import { sendChatMessage, getSingleChatData } from '../../api/ChatManagement';
 // My components
-import MessageList from '../components/MessageList';
-import ChatHeader from '../components/ChatHeader';
+import MessageList from '../../components/MessageList';
+import ChatHeader from '../../components/ChatHeader';
+import buttonStyles from '../../styles/buttons';
 
 export default class ChatDisplayScreen extends Component {
   constructor(props) {
@@ -105,14 +106,14 @@ export default class ChatDisplayScreen extends Component {
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftMessages', { chatId, chatName: chatData.name })} style={styles.detailsBtn}>
-            <View style={styles.chatDisplayBtn}>
-              <Text style={styles.buttonText}>Draft a Message</Text>
+            <View style={buttonStyles.button}>
+              <Text style={buttonStyles.buttonText}>Draft a Message</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigation.navigate('ChatDetails', { chatId, chatData })} style={styles.detailsBtn}>
-            <View style={styles.chatDisplayBtn}>
-              <Text style={styles.buttonText}>Details</Text>
+            <View style={buttonStyles.button}>
+              <Text style={buttonStyles.buttonText}>Details</Text>
             </View>
           </TouchableOpacity>
         </View>

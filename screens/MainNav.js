@@ -7,39 +7,39 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AntDesign } from '@expo/vector-icons';
 
 // Main Nav
-import ContactsScreen from './ContactsScreen';
-import ChatsScreen from './ChatsScreen';
-import ProfileScreen from './ProfileScreen';
+import ContactsScreen from './contacts/ContactsScreen';
+import ChatsScreen from './chats/ChatsScreen';
+import ProfileScreen from './user/ProfileScreen';
 
 // Contacts Nav
-import ContactsProfileScreen from './ContactsProfileScreen';
-import ContactsDeleteScreen from './ContactsDeleteScreen';
-import ContactsSearch from './ContactsSearch';
-import ContactsBlockScreen from './ContactsBlockScreen';
-import ContactsBlockedScreen from './ContactsBlockedScreen';
-import ContactsUnblockScreen from './ContactsUnblockScreen';
+import ContactsProfileScreen from './contacts/ContactsProfileScreen';
+import ContactsDeleteScreen from './contacts/ContactsDeleteScreen';
+import ContactsSearch from './contacts/ContactsSearch';
+import ContactsBlockScreen from './contacts/ContactsBlockScreen';
+import ContactsBlockedScreen from './contacts/ContactsBlockedScreen';
+import ContactsUnblockScreen from './contacts/ContactsUnblockScreen';
 
 // Profile Nav
-import ProfileUpdateScreen from './ProfileUpdateScreen';
-import ProfileLogoutScreen from './ProfileLogoutScreen';
+import ProfileUpdateScreen from './user/ProfileUpdateScreen';
+import ProfileLogoutScreen from './user/ProfileLogoutScreen';
 import CameraApp from '../Camera';
 
 // Chats nav
-import ChatsNewScreen from './ChatsNewScreen';
-import ChatDisplayScreen from './ChatDisplayScreen';
-import MessageDelete from './MessageDelete';
-import MessageUpdate from './MessageUpdate';
-import ChatDetailsScreen from './ChatDetailsScreen';
-import ChatDeleteMember from './ChatDeleteMember';
-import ChatAddMember from './ChatAddMember';
-import ChatDetailsUpdateScreen from './ChatDetailsUpdateScreen';
+import ChatsNewScreen from './chats/ChatsNewScreen';
+import ChatDisplayScreen from './chats/ChatDisplayScreen';
+import MessageDelete from './chats/MessageDelete';
+import MessageUpdate from './chats/MessageUpdate';
+import ChatDetailsScreen from './chats/ChatDetailsScreen';
+import ChatDeleteMember from './chats/ChatDeleteMember';
+import ChatAddMember from './chats/ChatAddMember';
+import ChatDetailsUpdateScreen from './chats/ChatDetailsUpdateScreen';
 
 // Drafts
-import DraftMessagesScreen from '../DraftMessagesScreen';
-import DraftsScreen from '../DraftsScreen';
-import DraftsDisplayScreen from '../DraftsDisplayScreen';
-import DraftsEditScreen from '../DraftsEditScreen';
-import DraftSchedulingScreen from '../DraftScheduling';
+import DraftMessagesScreen from './drafts/DraftMessagesScreen';
+import DraftsScreen from './drafts/DraftsScreen';
+import DraftsDisplayScreen from './drafts/DraftsDisplayScreen';
+import DraftsEditScreen from './drafts/DraftsEditScreen';
+import DraftSchedulingScreen from './drafts/DraftScheduling';
 
 const Tab = createMaterialTopTabNavigator();
 const ContactStack = createNativeStackNavigator();
