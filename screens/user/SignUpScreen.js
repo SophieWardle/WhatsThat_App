@@ -10,6 +10,7 @@ import { Input, Icon, NativeBaseProvider } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import styles from './../../styles/globalTheme';
+import buttonStyles from './../../styles/buttons';
 // API
 import { signupUser } from './../../api/UserManagement';
 // My components

@@ -14,9 +14,9 @@ import {
 import { Picker } from '@react-native-picker/picker';
 
 // API
-import { searchForUser } from './../../api/UserManagement';
-import { addContact } from './../../api/ContactManagement';
-import contactStyles from './../../styles/contactStyles';
+import { searchForUser } from '../../api/UserManagement';
+import { addContact } from '../../api/ContactManagement';
+import contactStyles from '../../styles/contactStyles';
 
 const styles = StyleSheet.create({
   searchContainer: {
@@ -214,7 +214,7 @@ export default class ContactsSearch extends Component {
             selectedValue={this.search_in}
             onValueChange={(itemValue) => this.setState({ searchIn: itemValue })}
           >
-            <Picker.Item label="All Users" value="all" style={ width: '50%' } />
+            <Picker.Item label="All Users" value="all" />
             <Picker.Item label="Contacts" value="contacts" />
           </Picker>
           <Text style={styles.errorMessage}>{error}</Text>
