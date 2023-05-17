@@ -78,11 +78,11 @@ export default class ProfileScreen extends Component {
     return (
       <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
-          <View style={styles.headingContainer}>
+          
             <Heading size="xl" textAlign="center">
               My Profile
             </Heading>
-          </View>
+          
           <View style={styles.profileContainer}>
             <View style={styles.profileInformation}>
               <DisplayProfilePicture photo={photo} />
