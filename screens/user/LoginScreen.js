@@ -11,12 +11,12 @@ import {
 import { Input, Icon, NativeBaseProvider } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 // My Styles
-import styles from './../../styles/globalTheme';
+import styles from '../../styles/globalTheme';
 // My Components
-import Logo from './../../components/Logo';
+import Logo from '../../components/Logo';
 // API
-import { loginUser } from './../../api/UserManagement';
-import buttonStyles from './../../styles/buttons';
+import { loginUser } from '../../api/UserManagement';
+import buttonStyles from '../../styles/buttons';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -137,7 +137,7 @@ class LoginScreen extends Component {
                   style={styles.formInput}
                   value={password}
                   onChangeText={(newPassword) => this.setState({ password: newPassword })}
-                  //type={show ? 'text' : 'password'}
+                  type={show ? 'text' : 'password'}
                   InputRightElement={(
                     <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
                       <TouchableOpacity onPress={() => this.setState({ show: !show })}>

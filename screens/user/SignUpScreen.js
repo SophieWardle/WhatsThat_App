@@ -9,12 +9,12 @@ import {
 import { Input, Icon, NativeBaseProvider } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import styles from './../../styles/globalTheme';
-import buttonStyles from './../../styles/buttons';
+import styles from '../../styles/globalTheme';
+import buttonStyles from '../../styles/buttons';
 // API
-import { signupUser } from './../../api/UserManagement';
+import { signupUser } from '../../api/UserManagement';
 // My components
-import Logo from './../../components/Logo';
+import Logo from '../../components/Logo';
 
 class SignUpScreen extends Component {
   constructor(props) {

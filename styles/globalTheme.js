@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+
 import { StyleSheet } from 'react-native';
 
 const globalStyle = StyleSheet.create({
@@ -22,6 +23,8 @@ const globalStyle = StyleSheet.create({
   errorMessage: {
     color: 'red',
     marginVertical: 10,
+    fontSize: 18,
+    textAlign: 'center',
   },
   formHeader: {
     color: 'black',

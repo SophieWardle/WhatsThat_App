@@ -24,13 +24,13 @@ function ChatItem({ chat, navigation }) {
     <NativeBaseProvider>
       <TouchableOpacity onPress={() => navigation.navigate('Chat', { chatId: chat.chat_id })}>
         <Box w="100%" p="4" borderBottomWidth="1px" borderBottomColor="gray.300">
-          <Heading size="md" mb="2">
+          <Heading size="lg" mb="2">
             {chat.name}
           </Heading>
           {chat.last_message.message ? (
             <Flex direction="row" alignItems="center">
               <Box mr="3">
-                <Text fontWeight="bold">
+                <Text fontWeight="bold" fontSize="lg">
                   {chat.last_message.author.first_name}
                   {' '}
                   {chat.last_message.author.last_name}
@@ -38,7 +38,7 @@ function ChatItem({ chat, navigation }) {
                 </Text>
               </Box>
               <Box mr="3" flex="1">
-                <Text isTruncated maxW="100%" numberOfLines={1}>
+                <Text isTruncated maxW="100%" numberOfLines={1} fontSize="lg">
                   {chat.last_message.message}
                 </Text>
               </Box>

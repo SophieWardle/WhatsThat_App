@@ -99,9 +99,6 @@ export default class ContactsSearch extends Component {
       addError: '',
       error: '',
       showResults: false,
-      currentPage: 1,
-      maxPages: 0,
-      resultsPerPage: 10,
     };
   }
 
@@ -112,14 +109,18 @@ export default class ContactsSearch extends Component {
   };
 
   async onPressSearch() {
-    const { q, searchIn, currentIndex, limit, } = this.state;
+    const {
+      q,
+      searchIn,
+      currentIndex,
+      limit,
+    } = this.state;
     const toSend = {
       q,
       search_in: searchIn,
       offset: currentIndex,
       limit,
     };
-
 
     const query = Object.keys(toSend)
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(toSend[key])}`)
@@ -139,6 +140,23 @@ export default class ContactsSearch extends Component {
       });
   }
 
+  handleNextPage = () => {
+    const { currentIndex } = this.state;
+    const nextIndex = currentIndex + 10;
+    // const maxPages = Math.ceil(resultsData.length / 10);
+    this.setState({ currentIndex: nextIndex }, () => this.onPressSearch());
+  };
+
+  handlePrevPage = () => {
+    const { currentIndex } = this.state;
+    const nextIndex = currentIndex - 10;
+    this.setState({ currentIndex: nextIndex }, () => this.onPressSearch());
+  };
+
+  hideResults() {
+    this.setState({ showResults: false });
+  }
+
   async addContact(userId) {
     const queryId = userId;
     const navigation = this.props;
@@ -156,24 +174,9 @@ export default class ContactsSearch extends Component {
       });
   }
 
-  hideResults() {
-    this.setState({ showResults: false });
-  }
-
-  handleNextPage = () => {
-    const nextIndex = this.state.currentIndex + 10;
-    // const maxPages = Math.ceil(resultsData.length / 10);
-    this.setState({ currentIndex: nextIndex }, () => this.onPressSearch());
-  };
-
-  handlePrevPage = () => {
-    const nextIndex = this.state.currentIndex - 10;
-    this.setState({ currentIndex: nextIndex }, () => this.onPressSearch())
-  };
-
   render() {
     const {
-      isLoading, showResults, addError, resultsData, limit, currentIndex,
+      isLoading, showResults, addError, resultsData, currentIndex,
     } = this.state;
     if (isLoading) {
       return (
@@ -183,7 +186,6 @@ export default class ContactsSearch extends Component {
       );
       // eslint-disable-next-line no-else-return
     } else if (showResults) {
-      console.log("current index: " + currentIndex);
       return (
         <View style={styles.resultsContainer}>
 
@@ -218,7 +220,6 @@ export default class ContactsSearch extends Component {
               keyExtractor={({ id }) => id}
             />
           )}
-
 
           <View style={buttonStyles.buttonContainer}>
             {currentIndex > 0 && (

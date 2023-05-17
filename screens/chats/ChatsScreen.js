@@ -12,11 +12,11 @@ import {
 }
   from 'react-native';
 import { NativeBaseProvider, Heading } from 'native-base';
-import styles from './../../styles/globalTheme';
-import ChatList from './../../components/ChatList';
+import styles from '../../styles/globalTheme';
+import ChatList from '../../components/ChatList';
 
 // API
-import { getChatListData } from './../../api/ChatManagement';
+import { getChatListData } from '../../api/ChatManagement';
 
 export default class ChatsScreen extends Component {
   constructor(props) {

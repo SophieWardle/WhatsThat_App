@@ -11,13 +11,13 @@ import {
 } from 'react-native';
 // my components
 import { NativeBaseProvider, Heading } from 'native-base';
-import DisplayProfilePicture from './../../components/DisplayProfilePicture';
+import DisplayProfilePicture from '../../components/DisplayProfilePicture';
 // API
-import { getUserProfileData } from './../../api/UserManagement';
-import { getUserProfilePic } from './../../api/api';
+import { getUserProfileData } from '../../api/UserManagement';
+import { getUserProfilePic } from '../../api/api';
 // STYLES
-import styles from './../../styles/globalTheme';
-import buttonStyles from './../../styles/buttons';
+import styles from '../../styles/globalTheme';
+import buttonStyles from '../../styles/buttons';
 
 export default class ProfileScreen extends Component {
   constructor(props) {
@@ -78,11 +78,11 @@ export default class ProfileScreen extends Component {
     return (
       <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
-          
-            <Heading size="xl" textAlign="center">
-              My Profile
-            </Heading>
-          
+
+          <Heading size="xl" textAlign="center">
+            My Profile
+          </Heading>
+
           <View style={styles.profileContainer}>
             <View style={styles.profileInformation}>
               <DisplayProfilePicture photo={photo} />
