@@ -9,12 +9,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-
+import { NativeBaseProvider, Heading } from 'native-base';
 // API
 import { sendChatMessage, createNewChat } from './../../api/ChatManagement';
 // Styles
 import styles from './../../styles/globalTheme';
 import buttonStyles from './../../styles/buttons';
+import formStyles from '../../styles/formStyles';
 
 class ChatsNewScreen extends Component {
   constructor(props) {
@@ -80,55 +81,67 @@ class ChatsNewScreen extends Component {
     const { initialMessageForm, error } = this.state;
     if (initialMessageForm) {
       return (
+        <NativeBaseProvider>
+          <View style={styles.backgroundContainer}>
+          <Heading size="xl" textAlign="center">
+            Start Your Chat With a Message
+          </Heading>
+            <View style={formStyles.formContainer}>
+              <Text style={formStyles.formHeader}>Enter your first message:</Text>
+              <TextInput
+                style={[formStyles.formInput, { width: 300, height: 150}]}
+                multiline
+                // eslint-disable-next-line react/destructuring-assignment
+                value={this.state.message}
+                onChangeText={(message) => this.setState({ message })}
+              />
+              <Text style={styles.errorMessage}>{error}</Text>
+              <View style={styles.sendBtn}>
+                <TouchableOpacity onPress={() => this.onSendMessage()}>
+                  <View style={buttonStyles.button}>
+                    <Text style={buttonStyles.buttonText}>SEND</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </NativeBaseProvider>
+      );
+    }
+    const navigation = this.props;
+    return (
+      <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
-          <View style={styles.chatNewContainer}>
-            <Text styles={styles.formHeader}>Enter your first message:</Text>
+          <Heading size="xl" textAlign="center">
+            Create a New Chat
+          </Heading>
+          <View style={formStyles.formContainer}>
+            <Text style={formStyles.formHeader}>Enter a chat name:</Text>
             <TextInput
-              style={styles.formInput}
+              style={formStyles.formInput}
               // eslint-disable-next-line react/destructuring-assignment
-              value={this.state.message}
-              onChangeText={(message) => this.setState({ message })}
+              value={this.state.chatName}
+              onChangeText={(chatName) => this.setState({ chatName })}
             />
             <Text style={styles.errorMessage}>{error}</Text>
-            <View style={styles.sendBtn}>
-              <TouchableOpacity onPress={() => this.onSendMessage()}>
-                <View style={styles.button}>
-                  <Text style={buttonStyles.buttonText}>SEND</Text>
+            <View style={styles.createBtn}>
+              <TouchableOpacity onPress={() => this.onCreateNewChat()}>
+                <View style={buttonStyles.button}>
+                  <Text style={buttonStyles.buttonText}>Create New Chat</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.createBtn}>
+              <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
+                <View style={buttonStyles.button}>
+                  <Text style={buttonStyles.buttonText}>Back</Text>
                 </View>
               </TouchableOpacity>
             </View>
           </View>
         </View>
-      );
-    }
-    const navigation = this.props;
-    return (
-      <View style={styles.backgroundContainer}>
-        <View style={styles.chatNewContainer}>
-          <Text styles={styles.formHeader}>Enter a chat name:</Text>
-          <TextInput
-            style={styles.formInput}
-            // eslint-disable-next-line react/destructuring-assignment
-            value={this.state.chatName}
-            onChangeText={(chatName) => this.setState({ chatName })}
-          />
-          <Text style={styles.errorMessage}>{error}</Text>
-          <View style={styles.createBtn}>
-            <TouchableOpacity onPress={() => this.onCreateNewChat()}>
-              <View style={styles.button}>
-                <Text style={buttonStyles.buttonText}>Create New Chat</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.createBtn}>
-            <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-              <View style={styles.button}>
-                <Text style={buttonStyles.buttonText}>Back</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      </NativeBaseProvider>
+
     );
   }
 }

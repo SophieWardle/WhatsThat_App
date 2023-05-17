@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import { NativeBaseProvider, Heading } from 'native-base';
 
 // API
 import { updateUserProfile, getUserProfileData } from './../../api/UserManagement';
 // Styles
 import styles from './../../styles/globalTheme';
 import buttonStyles from './../../styles/buttons';
+import formStyles from '../../styles/formStyles';
 
 export default class ProfileUpdateScreen extends Component {
   constructor(props) {
@@ -24,7 +26,6 @@ export default class ProfileUpdateScreen extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      password: '',
       error: '',
     };
   }
@@ -34,10 +35,7 @@ export default class ProfileUpdateScreen extends Component {
     this.unsubscribe = navigation.addListener('focus', () => {
       getUserProfileData()
         .then((responseJson) => {
-          this.setState({
-            userData: responseJson,
-          });
-          this.populateForm();
+          this.setState({ userData: responseJson }, this.populateForm);
         })
         .catch((error) => {
           console.log(error);
@@ -51,20 +49,14 @@ export default class ProfileUpdateScreen extends Component {
 
   firstNameHandler = (firstname) => {
     this.setState({ firstName: firstname });
-    console.log('1st name handler called');
   };
 
   lastNameHandler = (lastname) => {
     this.setState({ lastName: lastname });
-    console.log('last name handler called');
   };
 
   emailHandler = (email) => {
     this.setState({ email });
-  };
-
-  passwordHandler = (password) => {
-    this.setState({ password });
   };
 
   async updateProfile() {
@@ -74,9 +66,21 @@ export default class ProfileUpdateScreen extends Component {
       firstName,
       lastName,
       email,
-      password,
     } = this.state;
 
+    const validator = require('email-validator');
+    if (!validator.validate(email)) {
+      this.setState({
+        error: 'Must enter valid email',
+      })
+      return;
+    }
+    if (firstName.length === 0 || lastName.length === 0 || email.length === 0 ) {
+      this.setState({
+        error: 'Fields can not be empty',
+      })
+      return;
+    }
     console.log(userData);
     if (firstName !== userData.first_name) {
       toSend.first_name = firstName;
@@ -90,17 +94,9 @@ export default class ProfileUpdateScreen extends Component {
       toSend.email = email;
     }
 
-    if (password) {
-      toSend.password = password;
-    }
-
-    console.log(`Update Profile Function${toSend.first_name}${toSend.last_name}${toSend.email}`);
-
     updateUserProfile(toSend)
       .then(() => {
-        this.setState({
-          error: 'Profile updated!',
-        });
+        this.props.navigation.goBack();
       })
       .catch((error) => {
         console.log(error);
@@ -109,13 +105,14 @@ export default class ProfileUpdateScreen extends Component {
 
   populateForm() {
     const { userData } = this.state;
-    const newFirstname = userData.first_name;
-    const newLastname = userData.last_name;
-    const newEmail = userData.email;
-    this.setState({ firstName: newFirstname });
-    this.setState({ lastName: newLastname });
-    this.setState({ email: newEmail });
+    const { first_name, last_name, email } = userData;
+    this.setState({
+      firstName: first_name,
+      lastName: last_name,
+      email: email,
+    });
   }
+  
 
   render() {
     const {
@@ -123,12 +120,21 @@ export default class ProfileUpdateScreen extends Component {
       lastName,
       email,
       error,
-      password,
     } = this.state;
     const navigation = this.props;
     return (
-      <View style={styles.backgroundContainer}>
-        <View style={styles.profileEditContainer}>
+      <NativeBaseProvider>
+        <View style={styles.backgroundContainer}>
+          <Heading size="xl" textAlign="center">
+            Edit Your Profile Details:
+          </Heading>
+
+          <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileScreen')} style={buttonStyles.backBtn}>
+              <View style={buttonStyles.button}>
+                <Text style={buttonStyles.buttonText}>Back</Text>
+              </View>
+          </TouchableOpacity>
+        <View style={formStyles.formContainer}>
           <Text style={styles.formHeader}>First name:</Text>
           <TextInput
             onChangeText={this.firstNameHandler}
@@ -147,25 +153,17 @@ export default class ProfileUpdateScreen extends Component {
             value={email}
             style={styles.formInput}
           />
-          <Text style={styles.formHeader}>Password:</Text>
-          <TextInput
-            onChangeText={this.passwordHandler}
-            value={password}
-            style={styles.formInput}
-          />
           <Text style={styles.errorMessage}>{error}</Text>
-          <TouchableOpacity onPress={() => this.updateProfile()}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>Save</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileScreen')}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={buttonStyles.buttonContainer}>
+            <TouchableOpacity onPress={() => this.updateProfile()}>
+              <View style={buttonStyles.button}>
+                <Text style={buttonStyles.buttonText}>Save</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
+      </NativeBaseProvider>
     );
   }
 }

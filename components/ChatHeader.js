@@ -8,7 +8,7 @@ import buttonStyles from '../styles/buttons';
 function ChatHeader({ chatName, onCancel }) {
   return (
     <View style={styles.chatName}>
-      <TouchableOpacity onPress={onCancel} style={styles.backBtn}>
+      <TouchableOpacity onPress={onCancel} style={buttonStyles.backBtn}>
         <View style={buttonStyles.button}>
           <Text style={buttonStyles.buttonText}>Back</Text>
         </View>

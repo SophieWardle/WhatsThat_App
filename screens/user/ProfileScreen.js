@@ -103,6 +103,11 @@ export default class ProfileScreen extends Component {
                 <Text style={buttonStyles.buttonText}>Edit My Profile Info</Text>
               </View>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigation.navigate('PassUpdateScreen')}>
+              <View style={styles.profileButton}>
+                <Text style={buttonStyles.buttonText}>Change My Password</Text>
+              </View>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileLogoutScreen')}>
               <View style={styles.profileButton}>
                 <Text style={buttonStyles.buttonText}>Logout</Text>

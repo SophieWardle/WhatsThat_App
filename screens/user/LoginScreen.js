@@ -137,7 +137,7 @@ class LoginScreen extends Component {
                   style={styles.formInput}
                   value={password}
                   onChangeText={(newPassword) => this.setState({ password: newPassword })}
-                  type={show ? 'text' : 'password'}
+                  //type={show ? 'text' : 'password'}
                   InputRightElement={(
                     <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
                       <TouchableOpacity onPress={() => this.setState({ show: !show })}>

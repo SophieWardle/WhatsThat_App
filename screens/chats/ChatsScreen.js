@@ -78,7 +78,6 @@ export default class ChatsScreen extends Component {
         </NativeBaseProvider>
       );
     } else {
-      console.log('isLoading 2: ', isLoading);
       return (
         <NativeBaseProvider>
           <ScrollView style={styles.backgroundContainer}>

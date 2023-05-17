@@ -13,6 +13,9 @@ import {
 // API
 import { updateChatMessage } from './../../api/ChatManagement';
 import buttonStyles from './../../styles/buttons';
+import formStyles from '../../styles/formStyles';
+
+import { NativeBaseProvider, Heading } from 'native-base';
 
 const styles = StyleSheet.create({
   contactsContainer: {
@@ -68,23 +71,32 @@ export default class MessageUpdate extends Component {
     } = this.state;
     const navigation = this.props;
     return (
-      <View>
-        <TextInput
-          value={message}
-          onChangeText={this.messageHandler}
-        />
-        <Text style={styles.errorMessage}>{error}</Text>
-        <TouchableOpacity onPress={() => this.handleUpdate(chatId, messageId)}>
-          <View style={styles.button}>
-            <Text style={buttonStyles.buttonText}>Update Message</Text>
+      <NativeBaseProvider>
+        <View style={styles.backgroundContainer}>
+        <Heading size="xl" textAlign="center">
+            Edit Your Message:
+          </Heading>
+          <TouchableOpacity onPress={() => navigation.navigation.goBack()} style={buttonStyles.backBtn}>
+            <View style={buttonStyles.button}>
+              <Text style={buttonStyles.buttonText}>Back</Text>
+            </View>
+          </TouchableOpacity>
+          <View style={formStyles.formContainer}>
+          <TextInput
+            value={message}
+            style={[formStyles.formInput, { width: 300, height: 150}]}
+            multiline
+            onChangeText={this.messageHandler}
+          />
+          <Text style={styles.errorMessage}>{error}</Text>
+          <TouchableOpacity onPress={() => this.handleUpdate(chatId, messageId)}>
+            <View style={styles.button}>
+              <Text style={buttonStyles.buttonText}>Update Message</Text>
+            </View>
+          </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-          <View style={styles.button}>
-            <Text style={buttonStyles.buttonText}>Back</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </NativeBaseProvider>
     );
   }
 }

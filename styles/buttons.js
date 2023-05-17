@@ -42,6 +42,10 @@ const buttonStyles = StyleSheet.create({
   deleteBtn: {
     marginLeft: 10,
   },
+  nextBtn: {
+    marginRight: 10,
+    alignSelf: 'flex-end',
+  }
 });
 
 export default buttonStyles;

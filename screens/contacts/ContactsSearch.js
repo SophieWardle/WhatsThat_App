@@ -17,6 +17,7 @@ import { Picker } from '@react-native-picker/picker';
 import { searchForUser } from '../../api/UserManagement';
 import { addContact } from '../../api/ContactManagement';
 import contactStyles from '../../styles/contactStyles';
+import buttonStyles from '../../styles/buttons';
 
 const styles = StyleSheet.create({
   searchContainer: {
@@ -93,10 +94,14 @@ export default class ContactsSearch extends Component {
       isLoading: false,
       q: '',
       searchIn: 'all',
+      limit: 10,
+      currentIndex: 0,
       addError: '',
       error: '',
       showResults: false,
-
+      currentPage: 1,
+      maxPages: 0,
+      resultsPerPage: 10,
     };
   }
 
@@ -107,11 +112,14 @@ export default class ContactsSearch extends Component {
   };
 
   async onPressSearch() {
-    const { q, searchIn } = this.state;
+    const { q, searchIn, currentIndex, limit, } = this.state;
     const toSend = {
       q,
       search_in: searchIn,
+      offset: currentIndex,
+      limit,
     };
+
 
     const query = Object.keys(toSend)
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(toSend[key])}`)
@@ -152,9 +160,20 @@ export default class ContactsSearch extends Component {
     this.setState({ showResults: false });
   }
 
+  handleNextPage = () => {
+    const nextIndex = this.state.currentIndex + 10;
+    // const maxPages = Math.ceil(resultsData.length / 10);
+    this.setState({ currentIndex: nextIndex }, () => this.onPressSearch());
+  };
+
+  handlePrevPage = () => {
+    const nextIndex = this.state.currentIndex - 10;
+    this.setState({ currentIndex: nextIndex }, () => this.onPressSearch())
+  };
+
   render() {
     const {
-      isLoading, showResults, addError, resultsData,
+      isLoading, showResults, addError, resultsData, limit, currentIndex,
     } = this.state;
     if (isLoading) {
       return (
@@ -162,8 +181,9 @@ export default class ContactsSearch extends Component {
           <ActivityIndicator />
         </View>
       );
-    // eslint-disable-next-line no-else-return
+      // eslint-disable-next-line no-else-return
     } else if (showResults) {
+      console.log("current index: " + currentIndex);
       return (
         <View style={styles.resultsContainer}>
 
@@ -174,27 +194,46 @@ export default class ContactsSearch extends Component {
               <Text style={styles.buttonText}>Close</Text>
             </TouchableOpacity>
           </View>
-
-          <FlatList
-            data={resultsData}
-            renderItem={({ item }) => (
-              <View style={contactStyles.contactsRow}>
-                <Text>
-                  {item.given_name}
-                  {' '}
-                  {item.family_name}
-                </Text>
-                <View style={styles.addBtn}>
-                  <TouchableOpacity onPress={() => this.addContact(item.user_id)}>
-                    <View style={styles.button}>
-                      <Text style={styles.buttonText}>Add</Text>
-                    </View>
-                  </TouchableOpacity>
+          {resultsData.length === 0 ? (
+            <Text>No more results</Text>
+          ) : (
+            <FlatList
+              data={resultsData}
+              renderItem={({ item }) => (
+                <View style={contactStyles.contactsRow}>
+                  <Text>
+                    {item.given_name}
+                    {' '}
+                    {item.family_name}
+                  </Text>
+                  <View style={styles.addBtn}>
+                    <TouchableOpacity onPress={() => this.addContact(item.user_id)}>
+                      <View style={styles.button}>
+                        <Text style={styles.buttonText}>Add</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
+              )}
+              keyExtractor={({ id }) => id}
+            />
+          )}
+
+
+          <View style={buttonStyles.buttonContainer}>
+            {currentIndex > 0 && (
+              <TouchableOpacity onPress={this.handlePrevPage}>
+                <View style={[buttonStyles.button, buttonStyles.prevBtn]}>
+                  <Text style={styles.buttonText}>Previous</Text>
+                </View>
+              </TouchableOpacity>
             )}
-            keyExtractor={({ id }) => id}
-          />
+            <TouchableOpacity onPress={this.handleNextPage}>
+              <View style={[buttonStyles.button, buttonStyles.nextBtn]}>
+                <Text style={styles.buttonText}>Next</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       );
     } else {

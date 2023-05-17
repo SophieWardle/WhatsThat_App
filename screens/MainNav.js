@@ -21,6 +21,7 @@ import ContactsUnblockScreen from './contacts/ContactsUnblockScreen';
 
 // Profile Nav
 import ProfileUpdateScreen from './user/ProfileUpdateScreen';
+import PassUpdateScreen from './user/PassUpdateScreen';
 import ProfileLogoutScreen from './user/ProfileLogoutScreen';
 import CameraApp from '../Camera';
 
@@ -118,6 +119,7 @@ function ProfileStackNavigator() {
     >
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <ProfileStack.Screen name="ProfileLogoutScreen" component={ProfileLogoutScreen} />
+      <ProfileStack.Screen name="PassUpdateScreen" component={PassUpdateScreen} />
       <ProfileStack.Screen name="ProfileUpdateScreen" component={ProfileUpdateScreen} />
       <ProfileStack.Screen name="Camera" component={CameraApp} />
 
