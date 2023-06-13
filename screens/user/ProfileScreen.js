@@ -7,11 +7,11 @@ import {
   ActivityIndicator,
   View,
   Text,
-  TouchableOpacity,
 } from 'react-native';
 // my components
 import { NativeBaseProvider, Heading } from 'native-base';
 import DisplayProfilePicture from '../../components/DisplayProfilePicture';
+import Button from '../../components/Button';
 // API
 import { getUserProfileData } from '../../api/UserManagement';
 import { getUserProfilePic } from '../../api/api';
@@ -93,26 +93,30 @@ export default class ProfileScreen extends Component {
               </Text>
               <Text style={styles.email}>{email}</Text>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('Camera', { navigation: navigation.navigation })}>
-              <View style={styles.profileButton}>
-                <Text style={buttonStyles.buttonText}>Edit My Profile Picture</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileUpdateScreen')}>
-              <View style={styles.profileButton}>
-                <Text style={buttonStyles.buttonText}>Edit My Profile Info</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('PassUpdateScreen')}>
-              <View style={styles.profileButton}>
-                <Text style={buttonStyles.buttonText}>Change My Password</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileLogoutScreen')}>
-              <View style={styles.profileButton}>
-                <Text style={buttonStyles.buttonText}>Logout</Text>
-              </View>
-            </TouchableOpacity>
+            <Button
+              onPress={() => navigation.navigation.navigate('Camera', { navigation: navigation.navigation })}
+              title="Edit My Profile Picture"
+              buttonStyle={styles.profileButton}
+              textStyle={buttonStyles.buttonText}
+            />
+            <Button
+              onPress={() => navigation.navigation.navigate('ProfileUpdateScreen')}
+              title="Edit My Profile Info"
+              buttonStyle={styles.profileButton}
+              textStyle={buttonStyles.buttonText}
+            />
+            <Button
+              onPress={() => navigation.navigation.navigate('PassUpdateScreen')}
+              title="Change My Password"
+              buttonStyle={styles.profileButton}
+              textStyle={buttonStyles.buttonText}
+            />
+            <Button
+              onPress={() => navigation.navigation.navigate('ProfileLogoutScreen')}
+              title="Logout"
+              buttonStyle={styles.profileButton}
+              textStyle={buttonStyles.buttonText}
+            />
           </View>
         </View>
       </NativeBaseProvider>

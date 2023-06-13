@@ -4,8 +4,10 @@ import React from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
 } from 'react-native';
+
+// My Components
+import Button from './Button';
 
 // Styles
 import contactStyles from '../styles/contactStyles';
@@ -20,13 +22,13 @@ function BlockedItem({ blockedContact, navigation }) {
         {' '}
         {blockedContact.last_name}
       </Text>
-      
       <View style={buttonStyles.deleteBtn}>
-        <TouchableOpacity onPress={() => navigation.navigate('Unblock', { item: blockedContact, navigation })}>
-          <View style={buttonStyles.button}>
-            <Text style={buttonStyles.buttonTextSmall}>Unblock</Text>
-          </View>
-        </TouchableOpacity>
+        <Button
+          onPress={() => navigation.navigate('Unblock', { item: blockedContact, navigation })}
+          title="Unblock"
+          buttonStyle={buttonStyles.button}
+          textStyle={buttonStyles.buttonTextSmall}
+        />
       </View>
 
     </View>

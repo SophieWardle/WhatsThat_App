@@ -4,11 +4,13 @@ import React, { Component } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Text,
-  TouchableOpacity,
   TextInput,
   View,
   Switch,
 } from 'react-native';
+
+// My Components
+import Button from '../../components/Button';
 // styles
 import styles from '../../styles/globalTheme';
 import buttonStyles from '../../styles/buttons';
@@ -125,16 +127,20 @@ export default class DraftMessagesScreen extends Component {
 
         <Text style={styles.errorMessage}>{error}</Text>
         <View style={buttonStyles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigation.goBack()} style={buttonStyles.backBtn}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.handlePress()}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>Draft</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={buttonStyles.backBtn}>
+            <Button
+              onPress={() => navigation.navigation.goBack()}
+              title="Back"
+              buttonStyle={styles.button}
+              textStyle={buttonStyles.buttonText}
+            />
+          </View>
+          <Button
+            onPress={() => this.handlePress()}
+            title="Draft"
+            buttonStyle={styles.button}
+            textStyle={buttonStyles.buttonText}
+          />
         </View>
       </View>
     );

@@ -2,8 +2,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet,
+  View, Text, StyleSheet,
 } from 'react-native';
+
+// My Components
+import Button from './Button';
 
 const styles = StyleSheet.create({
   membersRow: {
@@ -38,18 +41,20 @@ function MemberItem({ member, navigation, chatId }) {
         {member.last_name}
       </Text>
       <View style={styles.deleteBtn}>
-        <TouchableOpacity onPress={() => navigation.navigate('ContactProfile', { id: member.user_id })}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Profile</Text>
-          </View>
-        </TouchableOpacity>
+        <Button
+          onPress={() => navigation.navigate('ContactProfile', { id: member.user_id })}
+          title="Profile"
+          buttonStyle={styles.button}
+          textStyle={styles.buttonText}
+        />
       </View>
       <View style={styles.profileBtn}>
-        <TouchableOpacity onPress={() => navigation.navigate('DeleteMember', { user_id: member.user_id, chatId })}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>X</Text>
-          </View>
-        </TouchableOpacity>
+        <Button
+          onPress={() => navigation.navigate('DeleteMember', { user_id: member.user_id, chatId })}
+          title="X"
+          buttonStyle={styles.button}
+          textStyle={styles.buttonText}
+        />
       </View>
     </View>
   );

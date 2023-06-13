@@ -7,16 +7,16 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
 
 // My Components
-import DisplayProfilePicture from './../../components/DisplayProfilePicture';
+import DisplayProfilePicture from '../../components/DisplayProfilePicture';
+import Button from '../../components/Button';
 // API
-import { getContactProfile } from './../../api/ContactManagement';
-import { getContactProfilePic } from './../../api/api';
+import { getContactProfile } from '../../api/ContactManagement';
+import { getContactProfilePic } from '../../api/api';
 
 const styles = StyleSheet.create({
   contactsProfileContainer: {
@@ -44,12 +44,12 @@ const styles = StyleSheet.create({
 	  fontSize: 16,
 	  fontWeight: 'bold',
   },
-  /*profilePicture: {
+  /* profilePicture: {
 	  width: 150,
 	  height: 150,
 	  borderRadius: 75,
 	  marginBottom: 20,
-  },*/
+  }, */
   name: {
 	  fontSize: 24,
 	  fontWeight: 'bold',
@@ -118,11 +118,12 @@ export default class ContactProfileScreen extends Component {
     return (
       <View style={styles.contactsProfileContainer}>
         <View style={styles.backBtn}>
-          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={() => navigation.navigation.goBack()}
+            title="Back"
+            buttonStyle={styles.button}
+            textStyle={styles.buttonText}
+          />
         </View>
         <DisplayProfilePicture photo={photo} style={styles.profilePicture} />
         <Text style={styles.name}>
@@ -133,18 +134,20 @@ export default class ContactProfileScreen extends Component {
         <Text style={styles.email}>{contactProfile.email}</Text>
 
         <View style={styles.deleteBtn}>
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('Delete', { item: contactProfile, navigation })}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Delete</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={() => navigation.navigation.navigate('Delete', { item: contactProfile, navigation })}
+            title="Delete"
+            buttonStyle={styles.button}
+            textStyle={styles.buttonText}
+          />
         </View>
         <View style={styles.blockBtn}>
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('Block', { item: contactProfile, navigation })}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Block</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={() => navigation.navigation.navigate('Block', { item: contactProfile, navigation })}
+            title="Block"
+            buttonStyle={styles.button}
+            textStyle={styles.buttonText}
+          />
         </View>
       </View>
     );

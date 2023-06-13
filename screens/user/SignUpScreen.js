@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  TouchableOpacity,
 } from 'react-native';
 import { Input, Icon, NativeBaseProvider } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -15,6 +14,7 @@ import buttonStyles from '../../styles/buttons';
 import { signupUser } from '../../api/UserManagement';
 // My components
 import Logo from '../../components/Logo';
+import Button from '../../components/Button';
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -162,18 +162,20 @@ class SignUpScreen extends Component {
             </View>
             <View style={[styles.btnContainer, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
               <View style={styles.signupBtn}>
-                <TouchableOpacity onPress={this.onPressSignup}>
-                  <View style={styles.button}>
-                    <Text style={buttonStyles.buttonText}>Signup</Text>
-                  </View>
-                </TouchableOpacity>
+                <Button
+                  onPress={this.onPressSignup}
+                  title="Signup"
+                  buttonStyle={styles.button}
+                  textStyle={buttonStyles.buttonText}
+                />
               </View>
               <View style={styles.backBtn}>
-                <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-                  <View style={styles.button}>
-                    <Text style={buttonStyles.buttonText}>Back</Text>
-                  </View>
-                </TouchableOpacity>
+                <Button
+                  onPress={() => navigation.navigation.goBack()}
+                  title="Back"
+                  buttonStyle={styles.button}
+                  textStyle={buttonStyles.buttonText}
+                />
               </View>
             </View>
           </View>

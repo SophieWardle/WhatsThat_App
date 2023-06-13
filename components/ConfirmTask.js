@@ -1,9 +1,14 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import styles from './../styles/globalTheme';
-import buttonStyles from './../styles/buttons';
+import { View, Text } from 'react-native';
+
+// My Components
+import Button from './Button';
+
+// My Styles
+import styles from '../styles/globalTheme';
+import buttonStyles from '../styles/buttons';
 
 function ConfirmTask({ message, onCancel, onConfirm }) {
   return (
@@ -11,19 +16,20 @@ function ConfirmTask({ message, onCancel, onConfirm }) {
       <Text style={styles.confirmText}>{`Are you sure you want to ${message}?`}</Text>
       <View style={styles.confirmButtonContainer}>
         <View style={styles.noBtn}>
-          <TouchableOpacity onPress={onCancel}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>NO</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={onCancel}
+            title="NO"
+            buttonStyle={styles.button}
+            textStyle={buttonStyles.buttonText}
+          />
         </View>
-
         <View style={styles.yesBtn}>
-          <TouchableOpacity onPress={onConfirm}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>YES</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={onConfirm}
+            title="YES"
+            buttonStyle={styles.button}
+            textStyle={buttonStyles.buttonText}
+          />
         </View>
       </View>
     </View>

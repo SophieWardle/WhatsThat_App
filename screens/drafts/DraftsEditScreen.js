@@ -9,8 +9,10 @@ import {
   View,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
 } from 'react-native';
+
+// My Components
+import Button from '../../components/Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -120,12 +122,12 @@ class DraftsEditScreen extends Component {
     return (
       <NativeBaseProvider>
         <View style={styles.container}>
-
-          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={() => navigation.navigation.goBack()}
+            title="Back"
+            buttonStyle={styles.button}
+            textStyle={styles.buttonText}
+          />
 
           <Heading size="lg" textAlign="center">Editing Draft Message</Heading>
           <View style={styles.messageHolder}>
@@ -138,11 +140,12 @@ class DraftsEditScreen extends Component {
             />
           </View>
           <Text style={styles.errorMessage}>{error}</Text>
-          <TouchableOpacity onPress={this.handleEditDraft}>
-            <View style={[styles.button, { marginTop: 30 }]}>
-              <Text style={styles.buttonText}>Save</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={this.handleEditDraft}
+            title="Save"
+            buttonStyle={[styles.button, { marginTop: 30 }]}
+            textStyle={styles.buttonText}
+          />
         </View>
       </NativeBaseProvider>
     );

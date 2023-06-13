@@ -2,9 +2,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet, Image
+  View, Text, StyleSheet, Image,
 } from 'react-native';
-import DisplayProfilePicture from './DisplayProfilePicture';
+
+// My Components
+import Button from './Button';
+
+// My Styles
 import contactStyles from '../styles/contactStyles';
 
 const styles = StyleSheet.create({
@@ -24,7 +28,7 @@ const styles = StyleSheet.create({
   contactStyling: {
     fontSize: 16,
   },
- contactPhoto: {
+  contactPhoto: {
     width: 50,
     height: 50,
     borderRadius: 25,
@@ -32,21 +36,18 @@ const styles = StyleSheet.create({
 });
 
 function ContactItem({ contact, navigation, onFetchPicture }) {
-  const [photo, setPhoto ] = useState(null);
+  const [photo, setPhoto] = useState(null);
 
-  console.log("contact id item: " + contact.user_id);
   useEffect(() => {
     if (contact.user_id) {
       onFetchPicture(contact.user_id)
-      .then((photo) => setPhoto(photo));
+        // eslint-disable-next-line no-shadow
+        .then((photo) => setPhoto(photo));
     }
   }, [contact.user_id, onFetchPicture]);
 
-  console.log("photo on item: " + photo);
-  console.log("photo prop on item: " + photo);
-
   return (
-    <View style={contactStyles.contactsRow}> 
+    <View style={contactStyles.contactsRow}>
       <Image
         source={{
           uri: photo,
@@ -59,12 +60,12 @@ function ContactItem({ contact, navigation, onFetchPicture }) {
         {contact.last_name}
       </Text>
       <View style={styles.deleteBtn}>
-        <TouchableOpacity onPress={() => navigation.navigate('ContactProfile', { id: contact.user_id })}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>View Profile</Text>
-          </View>
-        </TouchableOpacity>
-
+        <Button
+          onPress={() => navigation.navigate('ContactProfile', { id: contact.user_id })}
+          title="View Profile"
+          buttonStyle={styles.button}
+          textStyle={styles.buttonText}
+        />
       </View>
     </View>
   );

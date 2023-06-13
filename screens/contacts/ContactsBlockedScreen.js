@@ -9,15 +9,16 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
 } from 'react-native';
 
 // API
-import { getBlockedUsers } from './../../api/ContactManagement';
-// My Components
-import BlockedList from './../../components/BlockedList';
 import { NativeBaseProvider, Heading } from 'native-base';
-import buttonStyles from './../../styles/buttons';
+import { getBlockedUsers } from '../../api/ContactManagement';
+// My Components
+import BlockedList from '../../components/BlockedList';
+import buttonStyles from '../../styles/buttons';
+import Button from '../../components/Button';
+
 const styles = StyleSheet.create({
   contactsContainer: {
 	  flex: 1,
@@ -68,23 +69,24 @@ export default class ContactsBlockedScreen extends Component {
     const { blockedData } = this.state;
     return (
       <NativeBaseProvider>
-      <View style={styles.contactsContainer}>
-        <Heading size="xl" textAlign="center">
+        <View style={styles.contactsContainer}>
+          <Heading size="xl" textAlign="center">
             My Blocked Contacts
           </Heading>
-        <View style={buttonStyles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('ContactsScreen')} style={buttonStyles.backBtn}>
-            <View style={buttonStyles.button}>
-              <Text style={buttonStyles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={buttonStyles.backBtn}>
+            <Button
+              onPress={() => navigation.navigation.navigate('ContactsScreen')}
+              title="Back"
+              buttonStyle={buttonStyles.button}
+              textStyle={buttonStyles.buttonText}
+            />
+          </View>
+          {blockedData.length > 0 ? (
+            <BlockedList blockedContact={blockedData} navigation={navigation.navigation} />
+          ) : (
+            <Text style={styles.emptyText}>You Haven&apos;t Blocked Anyone.</Text>
+          )}
         </View>
-        {blockedData.length > 0 ? (
-          <BlockedList blockedContact={blockedData} navigation={navigation.navigation} />
-        ) : (
-          <Text style={styles.emptyText}>You Haven&apos;t Blocked Anyone.</Text>
-        )}
-      </View>
       </NativeBaseProvider>
     );
   }

@@ -13,6 +13,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // API
 import { NativeBaseProvider, Heading } from 'native-base';
 import { sendChatMessage } from '../../api/ChatManagement';
+// MyComponents
+import Button from '../../components/Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -170,11 +172,12 @@ class DraftsDisplayScreen extends Component {
       return (
         <NativeBaseProvider>
           <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-              <View style={[styles.button, { width: '25%' }]}>
-                <Text style={styles.buttonText}>Back</Text>
-              </View>
-            </TouchableOpacity>
+            <Button
+              onPress={() => navigation.navigation.goBack()}
+              title="Back"
+              buttonStyle={[styles.button, { width: '25%' }]}
+              textStyle={styles.buttonText}
+            />
             <Heading size="xl" textAlign="center">My Draft For:</Heading>
             <Heading size="lg" textAlign="center">{chatName}</Heading>
 
@@ -187,26 +190,30 @@ class DraftsDisplayScreen extends Component {
               <Text style={styles.draftTime}>{time}</Text>
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftsEdit', { message, draftId })}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Edit message</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.handleDeleteDraft(draftId)}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Delete</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.handleRescheduleDraft()}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Reschedule</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.handleSendDraft()}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Send Now</Text>
-                </View>
-              </TouchableOpacity>
+              <Button
+                onPress={() => navigation.navigation.navigate('DraftsEdit', { message, draftId })}
+                title="Edit message"
+                buttonStyle={styles.button}
+                textStyle={styles.buttonText}
+              />
+              <Button
+                onPress={() => this.handleDeleteDraft(draftId)}
+                title="Delete"
+                buttonStyle={styles.button}
+                textStyle={styles.buttonText}
+              />
+              <Button
+                onPress={() => this.handleRescheduleDraft()}
+                title="Reschedule"
+                buttonStyle={styles.button}
+                textStyle={styles.buttonText}
+              />
+              <Button
+                onPress={() => this.handleSendDraft()}
+                title="Send Now"
+                buttonStyle={styles.button}
+                textStyle={styles.buttonText}
+              />
             </View>
           </View>
         </NativeBaseProvider>
@@ -215,12 +222,12 @@ class DraftsDisplayScreen extends Component {
     return (
       <NativeBaseProvider>
         <View style={styles.container}>
-
-          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-            <View style={[styles.button, { width: '25%' }]}>
-              <Text style={styles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={() => navigation.navigation.goBack()}
+            title="Back"
+            buttonStyle={[styles.button, { width: '25%' }]}
+            textStyle={styles.buttonText}
+          />
           <Heading size="xl" textAlign="center">My Draft For:</Heading>
           <Heading size="lg" textAlign="center">{chatName}</Heading>
 
@@ -228,26 +235,30 @@ class DraftsDisplayScreen extends Component {
             <Text style={styles.draftContent}>{message}</Text>
           </View>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('DraftsEdit', { message, draftId })}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Edit message</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.handleDeleteDraft(draftId)}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Delete</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.handleScheduleDraft()}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Schedule</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.handleSendDraft()}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Send Now</Text>
-              </View>
-            </TouchableOpacity>
+            <Button
+              onPress={() => navigation.navigation.navigate('DraftsEdit', { message, draftId })}
+              title="Edit message"
+              buttonStyle={styles.button}
+              textStyle={styles.buttonText}
+            />
+            <Button
+              onPress={() => this.handleDeleteDraft(draftId)}
+              title="Delete"
+              buttonStyle={styles.button}
+              textStyle={styles.buttonText}
+            />
+            <Button
+              onPress={() => this.handleScheduleDraft()}
+              title="Schedule"
+              buttonStyle={styles.button}
+              textStyle={styles.buttonText}
+            />
+            <Button
+              onPress={() => this.handleSendDraft()}
+              title="Send Now"
+              buttonStyle={styles.button}
+              textStyle={styles.buttonText}
+            />
           </View>
         </View>
       </NativeBaseProvider>

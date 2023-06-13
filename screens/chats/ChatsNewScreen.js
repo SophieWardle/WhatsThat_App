@@ -7,14 +7,15 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity,
 } from 'react-native';
 import { NativeBaseProvider, Heading } from 'native-base';
+// My Components
+import Button from '../../components/Button';
 // API
-import { sendChatMessage, createNewChat } from './../../api/ChatManagement';
+import { sendChatMessage, createNewChat } from '../../api/ChatManagement';
 // Styles
-import styles from './../../styles/globalTheme';
-import buttonStyles from './../../styles/buttons';
+import styles from '../../styles/globalTheme';
+import buttonStyles from '../../styles/buttons';
 import formStyles from '../../styles/formStyles';
 
 class ChatsNewScreen extends Component {
@@ -83,13 +84,13 @@ class ChatsNewScreen extends Component {
       return (
         <NativeBaseProvider>
           <View style={styles.backgroundContainer}>
-          <Heading size="xl" textAlign="center">
-            Start Your Chat With a Message
-          </Heading>
+            <Heading size="xl" textAlign="center">
+              Start Your Chat With a Message
+            </Heading>
             <View style={formStyles.formContainer}>
               <Text style={formStyles.formHeader}>Enter your first message:</Text>
               <TextInput
-                style={[formStyles.formInput, { width: 300, height: 150}]}
+                style={[formStyles.formInput, { width: 300, height: 150 }]}
                 multiline
                 // eslint-disable-next-line react/destructuring-assignment
                 value={this.state.message}
@@ -97,11 +98,12 @@ class ChatsNewScreen extends Component {
               />
               <Text style={styles.errorMessage}>{error}</Text>
               <View style={styles.sendBtn}>
-                <TouchableOpacity onPress={() => this.onSendMessage()}>
-                  <View style={buttonStyles.button}>
-                    <Text style={buttonStyles.buttonText}>SEND</Text>
-                  </View>
-                </TouchableOpacity>
+                <Button
+                  onPress={() => this.onSendMessage()}
+                  title="SEND"
+                  buttonStyle={buttonStyles.button}
+                  textStyle={buttonStyles.buttonText}
+                />
               </View>
             </View>
           </View>
@@ -125,18 +127,20 @@ class ChatsNewScreen extends Component {
             />
             <Text style={styles.errorMessage}>{error}</Text>
             <View style={styles.createBtn}>
-              <TouchableOpacity onPress={() => this.onCreateNewChat()}>
-                <View style={buttonStyles.button}>
-                  <Text style={buttonStyles.buttonText}>Create New Chat</Text>
-                </View>
-              </TouchableOpacity>
+              <Button
+                onPress={() => this.onCreateNewChat()}
+                title="Create New Chat"
+                buttonStyle={buttonStyles.button}
+                textStyle={buttonStyles.buttonText}
+              />
             </View>
             <View style={styles.createBtn}>
-              <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-                <View style={buttonStyles.button}>
-                  <Text style={buttonStyles.buttonText}>Back</Text>
-                </View>
-              </TouchableOpacity>
+              <Button
+                onPress={() => navigation.navigation.goBack()}
+                title="Back"
+                buttonStyle={buttonStyles.button}
+                textStyle={buttonStyles.buttonText}
+              />
             </View>
           </View>
         </View>

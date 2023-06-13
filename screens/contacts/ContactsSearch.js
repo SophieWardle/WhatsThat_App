@@ -9,13 +9,15 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
+// My Components
+import Button from '../../components/Button';
 // API
 import { searchForUser } from '../../api/UserManagement';
 import { addContact } from '../../api/ContactManagement';
+// My Styles
 import contactStyles from '../../styles/contactStyles';
 import buttonStyles from '../../styles/buttons';
 
@@ -192,9 +194,12 @@ export default class ContactsSearch extends Component {
           <Text style={styles.errorMessage}>{addError}</Text>
 
           <View style={styles.closeBtn}>
-            <TouchableOpacity onPress={() => this.hideResults()} style={styles.button}>
-              <Text style={styles.buttonText}>Close</Text>
-            </TouchableOpacity>
+            <Button
+              onPress={() => this.hideResults()}
+              title="Close"
+              buttonStyle={styles.button}
+              textStyle={styles.buttonText}
+            />
           </View>
           {resultsData.length === 0 ? (
             <Text>No more results</Text>
@@ -209,11 +214,12 @@ export default class ContactsSearch extends Component {
                     {item.family_name}
                   </Text>
                   <View style={styles.addBtn}>
-                    <TouchableOpacity onPress={() => this.addContact(item.user_id)}>
-                      <View style={styles.button}>
-                        <Text style={styles.buttonText}>Add</Text>
-                      </View>
-                    </TouchableOpacity>
+                    <Button
+                      onPress={() => this.addContact(item.user_id)}
+                      title="Add"
+                      buttonStyle={styles.button}
+                      textStyle={styles.buttonText}
+                    />
                   </View>
                 </View>
               )}
@@ -223,17 +229,19 @@ export default class ContactsSearch extends Component {
 
           <View style={buttonStyles.buttonContainer}>
             {currentIndex > 0 && (
-              <TouchableOpacity onPress={this.handlePrevPage}>
-                <View style={[buttonStyles.button, buttonStyles.prevBtn]}>
-                  <Text style={styles.buttonText}>Previous</Text>
-                </View>
-              </TouchableOpacity>
+              <Button
+                onPress={this.handlePrevPage}
+                title="Previous"
+                buttonStyle={[buttonStyles.button, buttonStyles.prevBtn]}
+                textStyle={styles.buttonText}
+              />
             )}
-            <TouchableOpacity onPress={this.handleNextPage}>
-              <View style={[buttonStyles.button, buttonStyles.nextBtn]}>
-                <Text style={styles.buttonText}>Next</Text>
-              </View>
-            </TouchableOpacity>
+            <Button
+              onPress={this.handleNextPage}
+              title="Next"
+              buttonStyle={[buttonStyles.button, buttonStyles.nextBtn]}
+              textStyle={styles.buttonText}
+            />
           </View>
         </View>
       );
@@ -259,18 +267,20 @@ export default class ContactsSearch extends Component {
           </Picker>
           <Text style={styles.errorMessage}>{error}</Text>
           <View style={styles.searchBtn}>
-            <TouchableOpacity onPress={() => this.onPressSearch()}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Search</Text>
-              </View>
-            </TouchableOpacity>
+            <Button
+              onPress={() => this.onPressSearch()}
+              title="Search"
+              buttonStyle={styles.button}
+              textStyle={styles.buttonText}
+            />
           </View>
           <View style={styles.backBtn}>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('ContactsScreen')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Back</Text>
-              </View>
-            </TouchableOpacity>
+            <Button
+              onPress={() => navigation.navigation.navigate('ContactsScreen')}
+              title="Back"
+              buttonStyle={styles.button}
+              textStyle={styles.buttonText}
+            />
           </View>
         </View>
       );

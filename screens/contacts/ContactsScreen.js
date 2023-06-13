@@ -7,17 +7,17 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
 } from 'react-native';
 import { NativeBaseProvider, Heading } from 'native-base';
 
 // My Components
-import ContactList from './../../components/ContactList';
+import ContactList from '../../components/ContactList';
+import Button from '../../components/Button';
 // API
-import { getContactList } from './../../api/ContactManagement';
-import { getContactProfilePic } from './../../api/api';
+import { getContactList } from '../../api/ContactManagement';
+import { getContactProfilePic } from '../../api/api';
 // My Styles
-import buttonStyles from './../../styles/buttons';
+import buttonStyles from '../../styles/buttons';
 
 const styles = StyleSheet.create({
   contactsContainer: {
@@ -71,7 +71,7 @@ export default class ContactsScreen extends Component {
       console.log(error);
       return null;
     }
-  };  
+  };
 
   render() {
     const { isLoading } = this.state;
@@ -91,20 +91,30 @@ export default class ContactsScreen extends Component {
             My Contacts
           </Heading>
           <View style={buttonStyles.buttonContainer}>
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('Search', { getContactData: this.getContactData })} style={buttonStyles.searchBtn}>
-              <View style={buttonStyles.button}>
-                <Text style={buttonStyles.buttonText}>Search</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={buttonStyles.searchBtn}>
+              <Button
+                onPress={() => navigation.navigation.navigate('Search', { getContactData: this.getContactData })}
+                title="Search"
+                buttonStyle={buttonStyles.button}
+                textStyle={buttonStyles.buttonText}
+              />
+            </View>
 
-            <TouchableOpacity onPress={() => navigation.navigation.navigate('BlockedContacts', { getContactData: this.getContactData })} style={buttonStyles.blockedBtn}>
-              <View style={buttonStyles.button}>
-                <Text style={buttonStyles.buttonText}>Blocked Users</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={buttonStyles.blockedBtn}>
+              <Button
+                onPress={() => navigation.navigation.navigate('BlockedContacts', { getContactData: this.getContactData })}
+                title="Blocked Users"
+                buttonStyle={buttonStyles.button}
+                textStyle={buttonStyles.buttonText}
+              />
+            </View>
           </View>
           {contactData.length > 0 ? (
-            <ContactList contacts={contactData} navigation={navigation.navigation} onFetchPicture={this.handleFetchPicture}/>
+            <ContactList
+              contacts={contactData}
+              navigation={navigation.navigation}
+              onFetchPicture={this.handleFetchPicture}
+            />
           ) : (
             <Text style={styles.emptyText}>
               You Currently Have No Contacts. Try searching for someone.

@@ -7,11 +7,12 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   TextInput,
 } from 'react-native';
 import { NativeBaseProvider, Heading } from 'native-base';
 
+// My Components
+import Button from '../../components/Button';
 // API
 import { updateUserProfile, getUserProfileData } from '../../api/UserManagement';
 // Styles
@@ -131,11 +132,14 @@ export default class ProfileUpdateScreen extends Component {
             Edit Your Profile Details:
           </Heading>
 
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileScreen')} style={buttonStyles.backBtn}>
-            <View style={buttonStyles.button}>
-              <Text style={buttonStyles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={buttonStyles.backBtn}>
+            <Button
+              onPress={() => navigation.navigation.navigate('ProfileScreen')}
+              title="Back"
+              buttonStyle={buttonStyles.button}
+              textStyle={buttonStyles.buttonText}
+            />
+          </View>
           <View style={formStyles.formContainer}>
             <Text style={styles.formHeader}>First name:</Text>
             <TextInput
@@ -157,11 +161,12 @@ export default class ProfileUpdateScreen extends Component {
             />
             <Text style={styles.errorMessage}>{error}</Text>
             <View style={buttonStyles.buttonContainer}>
-              <TouchableOpacity onPress={() => this.updateProfile()}>
-                <View style={buttonStyles.button}>
-                  <Text style={buttonStyles.buttonText}>Save</Text>
-                </View>
-              </TouchableOpacity>
+              <Button
+                onPress={() => this.updateProfile()}
+                title="Save"
+                buttonStyle={buttonStyles.button}
+                textStyle={buttonStyles.buttonText}
+              />
             </View>
           </View>
         </View>

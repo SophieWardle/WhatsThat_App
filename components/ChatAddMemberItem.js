@@ -2,14 +2,17 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  View, Text, TouchableOpacity,
+  View, Text,
 } from 'react-native';
+
+// My Components
+import Button from './Button';
 
 // Styles
 import contactStyles from '../styles/contactStyles';
 import buttonStyles from '../styles/buttons';
 
-function ChatAddMemberItem({ contact, chatId, onSelectUser }) {
+function ChatAddMemberItem({ contact, onSelectUser }) {
   return (
     <View style={contactStyles.contactsRow}>
 
@@ -18,13 +21,13 @@ function ChatAddMemberItem({ contact, chatId, onSelectUser }) {
         {' '}
         {contact.last_name}
       </Text>
-      
       <View style={buttonStyles.deleteBtn}>
-        <TouchableOpacity onPress={() => onSelectUser(contact.user_id)}>
-          <View style={buttonStyles.button}>
-            <Text style={buttonStyles.buttonTextSmall}>Add</Text>
-          </View>
-        </TouchableOpacity>
+        <Button
+          onPress={() => onSelectUser(contact.user_id)}
+          title="Add"
+          buttonStyle={buttonStyles.button}
+          textStyle={buttonStyles.buttonTextSmall}
+        />
       </View>
 
     </View>

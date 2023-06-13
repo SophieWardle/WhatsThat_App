@@ -6,12 +6,14 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
 } from 'react-native';
 
+// My Components
+import Button from '../../components/Button';
+
 // API
-import { removeUserFromChat } from './../../api/ChatManagement';
-import buttonStyles from './../../styles/buttons';
+import { removeUserFromChat } from '../../api/ChatManagement';
+import buttonStyles from '../../styles/buttons';
 
 const styles = StyleSheet.create({
   contactsContainer: {
@@ -53,19 +55,20 @@ export default class ChatDeleteMember extends Component {
       <View>
         <Text>Are you sure you want to remove this user?</Text>
         <View style={styles.noBtn}>
-          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>NO</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={() => navigation.navigation.goBack()}
+            title="NO"
+            buttonStyle={styles.button}
+            textStyle={buttonStyles.buttonText}
+          />
         </View>
-
         <View style={styles.yesBtn}>
-          <TouchableOpacity onPress={() => this.handleRemoveUser(chatId, userId)}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>YES</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={() => this.handleRemoveUser(chatId, userId)}
+            title="YES"
+            buttonStyle={styles.button}
+            textStyle={buttonStyles.buttonText}
+          />
         </View>
       </View>
     );

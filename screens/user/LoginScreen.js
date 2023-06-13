@@ -14,6 +14,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../../styles/globalTheme';
 // My Components
 import Logo from '../../components/Logo';
+import Button from '../../components/Button';
 // API
 import { loginUser } from '../../api/UserManagement';
 import buttonStyles from '../../styles/buttons';
@@ -107,7 +108,7 @@ class LoginScreen extends Component {
       error,
       show,
     } = this.state;
-    const navigation = this.props;
+    const { navigation } = this.props;
     return (
       <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
@@ -151,18 +152,20 @@ class LoginScreen extends Component {
             </View>
             <View style={styles.btnContainer}>
               <View style={styles.loginBtn}>
-                <TouchableOpacity onPress={this.onPressButton}>
-                  <View style={styles.button}>
-                    <Text style={buttonStyles.buttonText}>Login</Text>
-                  </View>
-                </TouchableOpacity>
+                <Button
+                  onPress={this.onPressButton}
+                  title="Login"
+                  buttonStyle={styles.button}
+                  textStyle={buttonStyles.buttonText}
+                />
               </View>
               <View style={styles.signupBtn}>
-                <TouchableOpacity onPress={() => navigation.navigation.navigate('SignUp')}>
-                  <View style={styles.button}>
-                    <Text style={buttonStyles.buttonText}>Need an account? Click here</Text>
-                  </View>
-                </TouchableOpacity>
+                <Button
+                  onPress={() => navigation.navigate('SignUp')}
+                  title="Need an account? Click here"
+                  buttonStyle={styles.button}
+                  textStyle={buttonStyles.buttonText}
+                />
               </View>
             </View>
           </View>

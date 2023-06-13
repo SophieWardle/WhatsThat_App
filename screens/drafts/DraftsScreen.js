@@ -6,12 +6,12 @@ import {
   View,
   Text,
   ActivityIndicator,
-  TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // My components
 import { NativeBaseProvider, Heading } from 'native-base';
 import DraftList from '../../components/DraftList';
+import Button from '../../components/Button';
 // My styles
 import styles from '../../styles/globalTheme';
 import buttonStyles from '../../styles/buttons';
@@ -64,11 +64,12 @@ class DraftsScreen extends Component {
       <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
           <Heading size="xl" textAlign="center">My Drafts</Heading>
-          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-            <View style={styles.backBtn}>
-              <Text style={buttonStyles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={() => navigation.navigation.goBack()}
+            title="Back"
+            buttonStyle={styles.backBtn}
+            textStyle={buttonStyles.buttonText}
+          />
           {drafts.length > 0 ? (
             <DraftList drafts={drafts} navigation={navigation.navigation} />
           ) : (

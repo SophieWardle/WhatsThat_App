@@ -2,11 +2,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  View, Text, TouchableOpacity,
+  View, Text,
 } from 'react-native';
 import MemberList from './MemberList';
 // My components
 import ChatHeader from './ChatHeader';
+import Button from './Button';
 // Styles
 import styles from '../styles/globalTheme';
 import buttonStyles from '../styles/buttons';
@@ -37,20 +38,20 @@ function ChatDetails({
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('EditChat', { chatId })} style={styles.editBtn}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>Edit Chat Name</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          <Button
+            onPress={() => navigation.navigate('EditChat', { chatId })}
+            style={styles.editBtn}
+            title="Edit Chat Name"
+            buttonStyle={styles.button}
+            textStyle={buttonStyles.buttonText}
+          />
+          <Button
             onPress={() => navigation.navigate('AddMember', { chatId, members: [...members] })}
-            style={styles.addBtn}
-          >
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>Add a Member</Text>
-            </View>
-          </TouchableOpacity>
-
+            style={styles.button}
+            title="Add a Member"
+            buttonStyle={styles.button}
+            textStyle={buttonStyles.buttonText}
+          />
         </View>
 
         <View style={styles.chatMembers}>

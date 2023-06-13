@@ -6,9 +6,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TextInput,
 } from 'react-native';
-import { Input, Icon, NativeBaseProvider, Heading } from 'native-base';
+import {
+  Input, Icon, NativeBaseProvider, Heading,
+} from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 // API
 import { updateUserProfile, getUserProfileData } from '../../api/UserManagement';
@@ -16,6 +17,8 @@ import { updateUserProfile, getUserProfileData } from '../../api/UserManagement'
 import styles from '../../styles/globalTheme';
 import buttonStyles from '../../styles/buttons';
 import formStyles from '../../styles/formStyles';
+// My Components
+import Button from '../../components/Button';
 
 export default class PassUpdateScreen extends Component {
   constructor(props) {
@@ -64,23 +67,23 @@ export default class PassUpdateScreen extends Component {
       confirmPassword,
     } = this.state;
     const REGEX_PASS = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       this.setState({
-        error: "Passwords must match"
-      })
+        error: 'Passwords must match',
+      });
       return;
     }
 
     if (!(password && confirmPassword)) {
       this.setState({
-        error: 'Must fill in all fields'
-      })
+        error: 'Must fill in all fields',
+      });
       return;
     }
     if (!REGEX_PASS.test(password)) {
       this.setState({
-        error: `Password isn't strong enough (One upper, one lower, one special, one number, at least 8 characters long`
-      })
+        error: 'Password isn\'t strong enough (One upper, one lower, one special, one number, at least 8 characters long',
+      });
       return;
     }
 
@@ -111,12 +114,14 @@ export default class PassUpdateScreen extends Component {
           <Heading size="xl" textAlign="center">
             Change Your Password:
           </Heading>
-
-          <TouchableOpacity onPress={() => navigation.navigation.navigate('ProfileScreen')} style={buttonStyles.backBtn}>
-            <View style={buttonStyles.button}>
-              <Text style={buttonStyles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={buttonStyles.backBtn}>
+            <Button
+              onPress={() => navigation.navigation.navigate('ProfileScreen')}
+              title="Back"
+              buttonStyle={buttonStyles.button}
+              textStyle={buttonStyles.buttonText}
+            />
+          </View>
           <View style={formStyles.formContainer}>
             <Text style={styles.formHeader}>Password:</Text>
             <Input
@@ -148,15 +153,16 @@ export default class PassUpdateScreen extends Component {
             />
             <Text style={styles.errorMessage}>{error}</Text>
             <View style={buttonStyles.buttonContainer}>
-              <TouchableOpacity onPress={() => this.updateProfile()}>
-                <View style={buttonStyles.button}>
-                  <Text style={buttonStyles.buttonText}>Save</Text>
-                </View>
-              </TouchableOpacity>
+              <Button
+                onPress={() => this.updateProfile()}
+                title="Save"
+                buttonStyle={buttonStyles.button}
+                textStyle={buttonStyles.buttonText}
+              />
             </View>
           </View>
         </View>
-      </NativeBaseProvider >
+      </NativeBaseProvider>
     );
   }
 }

@@ -3,9 +3,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity,
+  View, Text, StyleSheet,
 } from 'react-native';
 import moment from 'moment';
+
+// My Components
+import Button from './Button';
+// My Styles
 import buttonStyles from '../styles/buttons';
 
 const styles = StyleSheet.create({
@@ -99,19 +103,20 @@ function MessageItem({ message, chatId, navigation }) {
 
       {isEditable && (
         <View>
-          <TouchableOpacity onPress={() => navigation.navigate('EditMessage', {
-            chatId, message_id: message.message_id, message: message.message, navigation,
-          })}
-          >
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>Edit</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('DeleteMessage', { chatId, message_id: message.message_id, navigation })}>
-            <View style={styles.button}>
-              <Text style={buttonStyles.buttonText}>X</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={() => navigation.navigate('EditMessage', {
+              chatId, message_id: message.message_id, message: message.message, navigation,
+            })}
+            title="Edit"
+            buttonStyle={styles.button}
+            textStyle={buttonStyles.buttonText}
+          />
+          <Button
+            onPress={() => navigation.navigate('DeleteMessage', { chatId, message_id: message.message_id, navigation })}
+            title="X"
+            buttonStyle={styles.button}
+            textStyle={buttonStyles.buttonText}
+          />
         </View>
       )}
     </View>

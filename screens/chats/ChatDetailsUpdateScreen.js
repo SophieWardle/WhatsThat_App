@@ -7,13 +7,14 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity,
 } from 'react-native';
 
+// My Components
+import Button from '../../components/Button';
 // API
-import { updateChatDetails } from './../../api/ChatManagement';
+import { updateChatDetails } from '../../api/ChatManagement';
 // styles
-import styles from './../../styles/globalTheme';
+import styles from '../../styles/globalTheme';
 
 class ChatDetailsUpdateScreen extends Component {
   constructor(props) {
@@ -70,16 +71,18 @@ class ChatDetailsUpdateScreen extends Component {
             onChangeText={(newChatName) => this.setState({ newChatName })}
           />
           <Text style={styles.errorMessage}>{error}</Text>
-          <TouchableOpacity onPress={this.updateChat}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Save</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigation.goBack()}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Back</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            onPress={this.updateChat}
+            title="Save"
+            buttonStyle={styles.button}
+            textStyle={styles.buttonText}
+          />
+          <Button
+            onPress={() => navigation.navigation.goBack()}
+            title="Back"
+            buttonStyle={styles.button}
+            textStyle={styles.buttonText}
+          />
         </View>
       </View>
     );
