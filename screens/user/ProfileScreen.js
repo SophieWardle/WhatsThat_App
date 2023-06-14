@@ -13,8 +13,7 @@ import { NativeBaseProvider, Heading } from 'native-base';
 import DisplayProfilePicture from '../../components/DisplayProfilePicture';
 import Button from '../../components/Button';
 // API
-import { getUserProfileData } from '../../api/UserManagement';
-import { getUserProfilePic } from '../../api/api';
+import { fetchProfileData, fetchProfilePic } from '../../services/ProfileServices';
 // STYLES
 import styles from '../../styles/globalTheme';
 import buttonStyles from '../../styles/buttons';
@@ -32,36 +31,25 @@ export default class ProfileScreen extends Component {
 
   componentDidMount() {
     const { navigation } = this.props;
-    this.unsubscribe = navigation.addListener('focus', () => {
-      getUserProfileData()
-        .then((responseJson) => {
-          this.setState({
-            profileData: responseJson,
-          });
-          console.log(responseJson);
-          this.getProfilePic();
-        })
-        .catch((error) => {
-          console.log(error);
+    this.unsubscribe = navigation.addListener('focus', async () => {
+      try {
+        const profileData = await fetchProfileData();
+        const photo = await fetchProfilePic();
+        this.setState({
+          profileData,
+          photo,
+          isLoading: false,
         });
+      } catch (error) {
+        console.log(error);
+        // Handle error case appropriately (e.g., show error message to the user)
+      }
     });
   }
 
   componentWillUnmount() {
     this.unsubscribe();
   }
-
-  getProfilePic = async () => {
-    try {
-      const photoBlob = await getUserProfilePic();
-      this.setState({
-        photo: photoBlob,
-        isLoading: false,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   render() {
     const { isLoading } = this.state;

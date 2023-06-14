@@ -3,11 +3,11 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import ConfirmTask from './../../components/ConfirmTask';
+import ConfirmTask from '../../components/ConfirmTask';
 // API
-import { logoutUser } from './../../api/UserManagement';
+import { logoutUser } from '../../api/UserManagement';
 // My styles
-import styles from './../../styles/globalTheme';
+import styles from '../../styles/globalTheme';
 
 export default class ProfileScreen extends Component {
   handleCancel = () => {

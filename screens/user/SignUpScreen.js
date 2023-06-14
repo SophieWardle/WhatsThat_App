@@ -13,7 +13,7 @@ import { signupUser } from '../../api/UserManagement';
 // My components
 import Logo from '../../components/Logo';
 import Button from '../../components/Button';
-import SingupForm from '../../components/SignupForm';
+import SignupForm from '../../components/SignupForm';
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -63,15 +63,13 @@ class SignUpScreen extends Component {
       password,
     } = this.state;
     const navigation = this.props;
+
     const error = this.validateInputs();
     if (error) {
       this.setState({ error });
       return;
     }
 
-    // this.setState({ submitted: true });
-
-    // SEND TO SERVER
     const toSend = {
       first_name: firstname,
       last_name: lastname,
@@ -82,12 +80,10 @@ class SignUpScreen extends Component {
     signupUser(toSend)
       .then(() => {
         this.setState({ error: 'User added successfully' });
-        // this.setState({ submitted: false });
         navigation.navigation.navigate('Login');
       })
       .catch((err) => {
         this.setState({ error: err });
-        // this.setState({ submitted: false });
       });
   };
 
@@ -104,41 +100,39 @@ class SignUpScreen extends Component {
     return (
       <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
-          <View style={styles.signupContainer}>
 
-            <View style={[styles.logoContainer, { alignSelf: 'stretch', justifyContent: 'center', alignItems: 'center' }]}>
-              <Logo />
+          <View style={[styles.logoContainer, { alignSelf: 'stretch', justifyContent: 'center', alignItems: 'center' }]}>
+            <Logo />
+          </View>
+
+          <SignupForm
+            firstname={firstname}
+            lastname={lastname}
+            email={email}
+            password={password}
+            show={showPass}
+            onNameChange={(newFirstname) => this.setState({ firstname: newFirstname })}
+            onSurnameChange={(newLastname) => this.setState({ lastname: newLastname })}
+            onEmailChange={(newEmail) => this.setState({ email: newEmail })}
+            onPasswordChange={(newPassword) => this.setState({ password: newPassword })}
+            error={error}
+          />
+          <View style={[styles.btnContainer, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
+            <View style={styles.signupBtn}>
+              <Button
+                onPress={this.onPressSignup}
+                title="Signup"
+                buttonStyle={styles.button}
+                textStyle={buttonStyles.buttonText}
+              />
             </View>
-
-            <SingupForm
-              firstname={firstname}
-              lastname={lastname}
-              email={email}
-              password={password}
-              show={showPass}
-              onNameChange={(newFirstname) => this.setState({ firstname: newFirstname })}
-              onSurnameChange={(newLastname) => this.setState({ lastname: newLastname })}
-              onEmailChange={(newEmail) => this.setState({ email: newEmail })}
-              onPasswordChange={(newPassword) => this.setState({ password: newPassword })}
-              error={error}
-            />
-            <View style={[styles.btnContainer, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
-              <View style={styles.signupBtn}>
-                <Button
-                  onPress={this.onPressSignup}
-                  title="Signup"
-                  buttonStyle={styles.button}
-                  textStyle={buttonStyles.buttonText}
-                />
-              </View>
-              <View style={styles.backBtn}>
-                <Button
-                  onPress={() => navigation.navigation.goBack()}
-                  title="Back"
-                  buttonStyle={styles.button}
-                  textStyle={buttonStyles.buttonText}
-                />
-              </View>
+            <View style={styles.backBtn}>
+              <Button
+                onPress={() => navigation.navigation.goBack()}
+                title="Back"
+                buttonStyle={styles.button}
+                textStyle={buttonStyles.buttonText}
+              />
             </View>
           </View>
         </View>

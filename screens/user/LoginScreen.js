@@ -115,37 +115,35 @@ class LoginScreen extends Component {
     return (
       <NativeBaseProvider>
         <View style={styles.backgroundContainer}>
-          <View style={styles.loginContainer}>
 
-            <View style={styles.logoContainer}>
-              <Logo />
+          <View style={styles.logoContainer}>
+            <Logo />
+          </View>
+          <LoginForm
+            email={email}
+            password={password}
+            show={show}
+            onEmailChange={(newEmail) => this.setState({ email: newEmail })}
+            onPasswordChange={(newPassword) => this.setState({ password: newPassword })}
+            onTogglePasswordVisibility={() => this.setState({ show: !show })}
+            error={error}
+          />
+          <View style={styles.btnContainer}>
+            <View style={styles.loginBtn}>
+              <Button
+                onPress={this.onPressButton}
+                title="Login"
+                buttonStyle={styles.button}
+                textStyle={buttonStyles.buttonText}
+              />
             </View>
-            <LoginForm
-              email={email}
-              password={password}
-              show={show}
-              onEmailChange={(newEmail) => this.setState({ email: newEmail })}
-              onPasswordChange={(newPassword) => this.setState({ password: newPassword })}
-              onTogglePasswordVisibility={() => this.setState({ show: !show })}
-              error={error}
-            />
-            <View style={styles.btnContainer}>
-              <View style={styles.loginBtn}>
-                <Button
-                  onPress={this.onPressButton}
-                  title="Login"
-                  buttonStyle={styles.button}
-                  textStyle={buttonStyles.buttonText}
-                />
-              </View>
-              <View style={styles.signupBtn}>
-                <Button
-                  onPress={() => navigation.navigate('SignUp')}
-                  title="Need an account? Click here"
-                  buttonStyle={styles.button}
-                  textStyle={buttonStyles.buttonText}
-                />
-              </View>
+            <View style={styles.signupBtn}>
+              <Button
+                onPress={() => navigation.navigate('SignUp')}
+                title="Need an account? Click here"
+                buttonStyle={styles.button}
+                textStyle={buttonStyles.buttonText}
+              />
             </View>
           </View>
         </View>

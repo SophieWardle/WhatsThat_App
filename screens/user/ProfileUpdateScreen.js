@@ -14,7 +14,7 @@ import { NativeBaseProvider, Heading } from 'native-base';
 // My Components
 import Button from '../../components/Button';
 // API
-import { updateUserProfile, getUserProfileData } from '../../api/UserManagement';
+import { fetchProfileData, updateUserProfileData } from '../../services/ProfileServices';
 // Styles
 import styles from '../../styles/globalTheme';
 import buttonStyles from '../../styles/buttons';
@@ -35,14 +35,13 @@ export default class ProfileUpdateScreen extends Component {
 
   componentDidMount() {
     const { navigation } = this.props;
-    this.unsubscribe = navigation.addListener('focus', () => {
-      getUserProfileData()
-        .then((responseJson) => {
-          this.setState({ userData: responseJson }, this.populateForm);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    this.unsubscribe = navigation.addListener('focus', async () => {
+      try {
+        const userData = await fetchProfileData();
+        this.setState({ userData }, this.populateForm);
+      } catch (error) {
+        console.log(error);
+      }
     });
   }
 
@@ -71,21 +70,14 @@ export default class ProfileUpdateScreen extends Component {
       email,
     } = this.state;
     const navigation = this.props;
-    const validator = require('email-validator');
 
-    if (!validator.validate(email)) {
-      this.setState({
-        error: 'Must enter valid email',
-      });
+    const isValidEmail = this.validateEmail(email);
+    const areFieldsValid = this.validateFields(firstName, lastName, email);
+
+    if (!isValidEmail || !areFieldsValid) {
       return;
     }
-    if (firstName.length === 0 || lastName.length === 0 || email.length === 0) {
-      this.setState({
-        error: 'Fields can not be empty',
-      });
-      return;
-    }
-    console.log(userData);
+
     if (firstName !== userData.first_name) {
       toSend.first_name = firstName;
     }
@@ -98,13 +90,33 @@ export default class ProfileUpdateScreen extends Component {
       toSend.email = email;
     }
 
-    updateUserProfile(toSend)
-      .then(() => {
-        navigation.navigation.goBack();
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      await updateUserProfileData(toSend);
+      navigation.navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  validateEmail(email) {
+    const validator = require('email-validator');
+    if (!validator.validate(email)) {
+      this.setState({
+        error: 'Must enter valid email',
       });
+      return false;
+    }
+    return true;
+  }
+
+  validateFields(firstName, lastName, email) {
+    if (firstName.length === 0 || lastName.length === 0 || email.length === 0) {
+      this.setState({
+        error: 'Fields can not be empty',
+      });
+      return false;
+    }
+    return true;
   }
 
   populateForm() {

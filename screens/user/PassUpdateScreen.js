@@ -12,7 +12,7 @@ import {
 } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 // API
-import { updateUserProfile, getUserProfileData } from '../../api/UserManagement';
+import { updateUserPassword } from '../../services/ProfileServices';
 // Styles
 import styles from '../../styles/globalTheme';
 import buttonStyles from '../../styles/buttons';
@@ -25,31 +25,11 @@ export default class PassUpdateScreen extends Component {
     super(props);
 
     this.state = {
-      userData: [],
       password: '',
       confirmPassword: '',
       error: '',
       show: false,
     };
-  }
-
-  componentDidMount() {
-    const { navigation } = this.props;
-    this.unsubscribe = navigation.addListener('focus', () => {
-      getUserProfileData()
-        .then((responseJson) => {
-          this.setState({
-            userData: responseJson,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
   }
 
   passwordHandler = (password) => {
@@ -91,15 +71,14 @@ export default class PassUpdateScreen extends Component {
       toSend.password = password;
     }
 
-    updateUserProfile(toSend)
-      .then(() => {
-        this.setState({
-          error: 'Profile updated!',
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      const message = await updateUserPassword(toSend);
+      this.setState({
+        error: message,
       });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
