@@ -4,17 +4,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
 import {
-  Text,
   View,
-  TouchableOpacity,
 } from 'react-native';
-import { Input, Icon, NativeBaseProvider } from 'native-base';
-import { MaterialIcons } from '@expo/vector-icons';
+import { NativeBaseProvider } from 'native-base';
 // My Styles
 import styles from '../../styles/globalTheme';
 // My Components
 import Logo from '../../components/Logo';
 import Button from '../../components/Button';
+import LoginForm from '../../components/LoginForm';
 // API
 import { loginUser } from '../../api/UserManagement';
 import buttonStyles from '../../styles/buttons';
@@ -92,7 +90,12 @@ class LoginScreen extends Component {
           index: 0,
           routes: [{ name: 'MainNav' }],
         });
-        this.setState({ error: '' });
+        this.setState((prevState) => ({
+          email: '',
+          password: '',
+          error: '',
+          show: !prevState.show,
+        }));
         navigation.navigation.navigate('MainNav');
       })
       .catch((err) => {
@@ -117,39 +120,15 @@ class LoginScreen extends Component {
             <View style={styles.logoContainer}>
               <Logo />
             </View>
-
-            <View style={styles.formContainer}>
-              <View style={styles.borderBackground}>
-                <Text style={styles.formHeader}>Email:</Text>
-                <Input
-                  placeholder="Enter Email"
-                  style={styles.formInput}
-                  value={email}
-                  onChangeText={(newEmail) => this.setState({ email: newEmail })}
-                  InputLeftElement={(
-                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
-                      <Icon as={<MaterialIcons name="email" />} size="lg" ml={2} color="muted.400" bg="gray.100" />
-                    </View>
-                  )}
-                />
-                <Text style={styles.formHeader}>Password:</Text>
-                <Input
-                  placeholder="Enter Password"
-                  style={styles.formInput}
-                  value={password}
-                  onChangeText={(newPassword) => this.setState({ password: newPassword })}
-                  type={show ? 'text' : 'password'}
-                  InputRightElement={(
-                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
-                      <TouchableOpacity onPress={() => this.setState({ show: !show })}>
-                        <Icon as={<MaterialIcons name={show ? 'visibility' : 'visibility-off'} />} size="lg" mr={2} color="muted.400" bg="gray.100" />
-                      </TouchableOpacity>
-                    </View>
-              )}
-                />
-              </View>
-              <Text style={styles.errorMessage}>{error}</Text>
-            </View>
+            <LoginForm
+              email={email}
+              password={password}
+              show={show}
+              onEmailChange={(newEmail) => this.setState({ email: newEmail })}
+              onPasswordChange={(newPassword) => this.setState({ password: newPassword })}
+              onTogglePasswordVisibility={() => this.setState({ show: !show })}
+              error={error}
+            />
             <View style={styles.btnContainer}>
               <View style={styles.loginBtn}>
                 <Button

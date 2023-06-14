@@ -2,11 +2,9 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import {
-  Text,
   View,
 } from 'react-native';
-import { Input, Icon, NativeBaseProvider } from 'native-base';
-import { MaterialIcons } from '@expo/vector-icons';
+import { NativeBaseProvider } from 'native-base';
 
 import styles from '../../styles/globalTheme';
 import buttonStyles from '../../styles/buttons';
@@ -15,6 +13,7 @@ import { signupUser } from '../../api/UserManagement';
 // My components
 import Logo from '../../components/Logo';
 import Button from '../../components/Button';
+import SingupForm from '../../components/SignupForm';
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -111,55 +110,18 @@ class SignUpScreen extends Component {
               <Logo />
             </View>
 
-            <View style={[styles.formContainer, { flex: 3, paddingHorizontal: 20 }]}>
-              <View style={styles.borderBackground}>
-                <Text style={styles.formHeader}>First name:</Text>
-                <Input
-                  placeholder="Enter first name"
-                  style={styles.formInput}
-                  value={firstname}
-                  onChangeText={(newFirstname) => this.setState({ firstname: newFirstname })}
-                  InputLeftElement={(
-                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
-                      <Icon as={<MaterialIcons name="person" />} size="lg" ml={2} color="muted.400" />
-                    </View>
-                  )}
-                />
-                <Text style={styles.formHeader}>Last name:</Text>
-                <Input
-                  placeholder="Enter last name"
-                  style={styles.formInput}
-                  value={lastname}
-                  onChangeText={(newLastname) => this.setState({ lastname: newLastname })}
-                  InputLeftElement={(
-                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
-                      <Icon as={<MaterialIcons name="person" />} size="lg" ml={2} color="muted.400" />
-                    </View>
-                  )}
-                />
-                <Text style={styles.formHeader}>Email:</Text>
-                <Input
-                  placeholder="Enter Email"
-                  style={styles.formInput}
-                  value={email}
-                  onChangeText={(newEmail) => this.setState({ email: newEmail })}
-                  InputLeftElement={(
-                    <View style={{ backgroundColor: '#d8d8d8', borderRadius: 5, padding: 10 }}>
-                      <Icon as={<MaterialIcons name="email" />} size="lg" ml={2} color="muted.400" />
-                    </View>
-                  )}
-                />
-                <Text style={styles.formHeader}>Password:</Text>
-                <Input
-                  placeholder="Enter Password"
-                  style={styles.formInput}
-                  value={password}
-                  onChangeText={(newPassword) => this.setState({ password: newPassword })}
-                  type={showPass ? 'text' : 'password'}
-                />
-                <Text style={styles.errorMessage}>{error}</Text>
-              </View>
-            </View>
+            <SingupForm
+              firstname={firstname}
+              lastname={lastname}
+              email={email}
+              password={password}
+              show={showPass}
+              onNameChange={(newFirstname) => this.setState({ firstname: newFirstname })}
+              onSurnameChange={(newLastname) => this.setState({ lastname: newLastname })}
+              onEmailChange={(newEmail) => this.setState({ email: newEmail })}
+              onPasswordChange={(newPassword) => this.setState({ password: newPassword })}
+              error={error}
+            />
             <View style={[styles.btnContainer, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
               <View style={styles.signupBtn}>
                 <Button
